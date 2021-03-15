@@ -1,7 +1,7 @@
 package com.adventurealley.aafcro.service;
 
 import com.adventurealley.aafcro.model.UserModel;
-import com.adventurealley.aafcro.repository.ILoginRepository;
+import com.adventurealley.aafcro.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class LoginService
 {
     @Autowired
-    ILoginRepository loginRepository;
+    IUserRepository loginRepository;
 
     public boolean isUserAuthenticated(String email, String password)
     {

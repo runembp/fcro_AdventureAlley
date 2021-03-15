@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret ny bruger</title>
+</head>
+<body>
+
+<h1>Opret ny bruger</h1>
+
+<form method="post">
+    <input type="email" id="email" placeholder="email">
+    <br>
+    <input type="password" id="password" placeholder="password">
+    <br>
+    <input type="text" id="firstName" placeholder="Fornavn">
+    <br>
+    <input type="text" id="lastName" placeholder="Efternavn">
+    <br>
+    <input type="date" id="birthdate">
+    <br>
+    <input type="number" id="height" placeholder="Højde">;
+    <br>
+    <button type="submit" id="save">Gem bruger</button>
+</form>
+
+<script type="text/javascript" th:src="@{/js/createuser.js}" ></script>
+</body>
+</html>
