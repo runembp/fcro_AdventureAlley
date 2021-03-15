@@ -17,14 +17,15 @@ public class ImplementationOfActivitiesTesting {
     @Test
     public void CreateActivity()
     {
-        ActivityModel activityModel = new ActivityModel("UnittestActivity", "Des: unittest", 130, 16, "Hjelm");
 
-        iActivityRepository.save(activityModel);
+        ActivityModel activityModel2 = new ActivityModel("UnittestActivity", "Des: unittest", 150.00, null, null, null);
 
-        ActivityModel activityModel1 = iActivityRepository.findById(activityModel.getActivity_id()).get();
+        iActivityRepository.save(activityModel2);
+
+        ActivityModel activityModel1 = iActivityRepository.findById(activityModel2.getActivity_id()).get();
 
 
-        assertEquals(activityModel, activityModel1);
+        assertEquals(activityModel2, activityModel1);
 
     }
 

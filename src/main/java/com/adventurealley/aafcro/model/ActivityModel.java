@@ -17,6 +17,9 @@ public class ActivityModel
     @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
+    private Double price;
+
     private Integer min_height;
 
     private Integer min_age;
@@ -25,9 +28,10 @@ public class ActivityModel
 
     public ActivityModel(){}
 
-    public ActivityModel(String title, String description, Integer min_height, Integer min_age, String equipment){
+    public ActivityModel(String title, String description, Double price, Integer min_height, Integer min_age, String equipment){
         this.title = title;
         this.description = description;
+        this.price = price;
         this.min_height = min_height;
         this.min_age = min_age;
         this.equipment = equipment;
@@ -60,6 +64,14 @@ public class ActivityModel
         this.description = description;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     public int getMin_height() {
         return min_height;
     }
@@ -84,16 +96,17 @@ public class ActivityModel
         this.equipment = equipment;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ActivityModel that = (ActivityModel) o;
-        return title.equals(that.title) && description.equals(that.description) && min_height.equals(that.min_height) && min_age.equals(that.min_age) && equipment.equals(that.equipment);
+        return title.equals(that.title) && description.equals(that.description) && price.equals(that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description, min_height, min_age, equipment);
+        return Objects.hash(title, description, price);
     }
 }
