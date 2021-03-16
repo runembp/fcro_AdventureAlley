@@ -12,12 +12,49 @@ function validatePassword() {
     return false
 }
 
+function emailExists() {
+
+    const getEmailToValidation = document.getElementById("email").value
+
+    const getObject = {
+        headers: {
+            "Content-type": 'application/json'
+        },
+        method: "GET"
+    }
+
+    return new Promise(resolve =>
+    fetch("http://localhost:8080/getAllUsers", getObject)
+        .then(email => {
+            return email.json()
+        }).then(data => {
+            let list = data.map(x => x.email)
+            resolve(list)
+        }))
+
+
+}
+
+function validateEmail(data) {
+    let list = ""
+
+    emailExists().then(data => {
+        list = data;
+    })
+
+    console.log(list)
+}
+
 function createUser()
 {
     if(!validatePassword()) {
-        console.log("You fucked up")
+        console.log("You fucked up the password")
         return;
     }
+
+    if(emailExists()) {
+        console.log("You fucked up the email")
+        return;
 
     const url = "http://localhost:8080/postUser";
 
@@ -45,7 +82,7 @@ function createUser()
         .then(response => response.json())
         .then(response => {
             console.log("success")
-            window.location.href = "/"
+          //  window.location.href = "/"
         })
         .catch(response => {
             console.log("failure")
