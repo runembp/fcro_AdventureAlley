@@ -5,7 +5,8 @@
     <title>Create New Activity</title>
 </head>
 <style>
-    .center-screen {
+    .center-screen
+    {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -36,14 +37,13 @@
                 <input id="description" type="text" placeholder="Beskrivelse"/>
             </div>
         </div>
-        <input id="save" type="button" value="Gem"/>
-        <input id="addImage" type="image" value="Upload billede"/>
-    </div>
 
+            <input id="save" type="button" value="Gem"/>
+            <input id="addImage" type="image" value="Upload billede"/>
+    </div>
 </div>
 
-
-<script type="text/javascript" th:src="@{static/js/createActivity.js}"></script>
+<script type="text/javascript" th:src="@{/js/create_activity.js}"></script>
 
 </body>
 </html>
