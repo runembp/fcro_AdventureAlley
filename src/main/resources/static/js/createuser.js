@@ -68,7 +68,7 @@ function createUser() {
         .then(response => response.json())
         .then(() => {
             console.log("success")
-            //  window.location.href = "/"
+            window.location.href = "/"
         })
         .catch(() => {
             console.log("failure")
