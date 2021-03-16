@@ -3,11 +3,9 @@ package com.adventurealley.aafcro.restcontroller;
 import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.cert.CRLReason;
 import java.util.List;
 
 @RestController
