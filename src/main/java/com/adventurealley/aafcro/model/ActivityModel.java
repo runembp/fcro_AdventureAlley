@@ -11,29 +11,32 @@ public class ActivityModel
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long activity_id;
 
-    @Column(nullable = false)
+    @Column(name= "title", nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "price", nullable = false)
     private Double price;
 
-    private Integer min_height;
+    @Column(name = "min_height")
+    private Integer minHeight;
 
-    private Integer min_age;
+    @Column(name = "min_age")
+    private Integer minAge;
 
+    @Column(name = "equipment")
     private String equipment;
 
     public ActivityModel(){}
 
-    public ActivityModel(String title, String description, Double price, Integer min_height, Integer min_age, String equipment){
+    public ActivityModel(String title, String description, Double price, Integer minHeight, Integer minAge, String equipment){
         this.title = title;
         this.description = description;
         this.price = price;
-        this.min_height = min_height;
-        this.min_age = min_age;
+        this.minHeight = minHeight;
+        this.minAge = minAge;
         this.equipment = equipment;
     }
 
@@ -73,19 +76,19 @@ public class ActivityModel
     }
 
     public int getMin_height() {
-        return min_height;
+        return minHeight;
     }
 
-    public void setMin_height(int min_height) {
-        this.min_height = min_height;
+    public void setMin_height(int minHeight) {
+        this.minHeight= minHeight;
     }
 
     public int getMin_age() {
-        return min_age;
+        return minAge;
     }
 
     public void setMin_age(int min_age) {
-        this.min_age = min_age;
+        this.minAge = min_age;
     }
 
     public String getEquipment() {
