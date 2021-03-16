@@ -3,11 +3,11 @@ package com.adventurealley.aafcro.restcontroller;
 import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.cert.CRLReason;
 import java.util.List;
 
 @RestController
@@ -22,11 +22,10 @@ public class UserRestController
         return userRepository.findAll();
     }
 
-    @PostMapping("/postUser")
+    @PostMapping(value = "/postUser", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
     UserModel postUser(@RequestBody UserModel userModel)
     {
         return userRepository.save(userModel);
     }
-
-
 }

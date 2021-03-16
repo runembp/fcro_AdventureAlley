@@ -10,22 +10,29 @@ function createUser()
 {
     const url = "http://localhost:8080/postUser";
 
-    const requestObject =
-        {
-            headers
-        }
+    const newUser = {
+            "email":email.value,
+            "password":password.value,
+            "firstName":firstName.value,
+            "lastName":lastName.value,
+            "date":date.value,
+            "height":height.value
+    }
 
-    let newUser =
-        {
-            "email":email,
-            "password":password,
-            "firstName":firstName,
-            "lastName":lastName,
-            "date":date,
-            "height":height
-        }
+    const newUserStringify = JSON.stringify(newUser);
 
-
+    const postObject = {
+            method: "POST",
+            headers:
+                {
+                "content-type": "application/json"
+                 },
+            body:newUserStringify
+    }
+    fetch(url, postObject)
+        .then(response => response.json())
+        .then(x => {console.log("success")})
+        .catch(x => {console.log("failure")})
 }
 
 saveButton.addEventListener('click', createUser())
