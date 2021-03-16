@@ -1,6 +1,6 @@
 const saveButton = document.getElementById("save");
 
-saveButton.addEventListener("click", createUser)
+saveButton.addEventListener("click", validation)
 
 function validatePassword() {
     if(document.getElementById("password1").value === document.getElementById("password2").value) {
@@ -9,26 +9,9 @@ function validatePassword() {
     return false
 }
 
-async function emailExists() {
-
-    const url = "http://localhost:8080/getAllUsers";
-    const getObject = {
-        headers: {
-            "Content-type": 'application/json'
-        },
-        method: "GET"
-    }
-
-    return await new Promise(resolve =>
-        fetch(url, getObject)
-        .then(email => email.json())
-        .then(data => {
-            resolve(data.map(x => x.email))
-        }))
-}
-
-async function testing()
+async function emailValidation()
 {
+    const email = document.getElementById("email").value;
     const url = "http://localhost:8080/getAllUsers";
     const getObject = {
         headers: {
@@ -41,57 +24,54 @@ async function testing()
     let users = await response.json();
     users = users.map(x => x.email)
 
-    if(users.includes(document.getElementById("email")))
+    if(users.includes(email))
     {
-        console.log("Email found!")
-        return true;
+        return Promise.resolve(true);
+    } else {
+        return Promise.resolve(false)
     }
-    return false;
-
 }
 
-testing();
+async function validation()
+{
+    if(validatePassword() && !(await emailValidation()))
+    {
+        createUser();
+    }
+}
 
 function createUser() {
-    if (!validatePassword()) {
-        console.log("You fucked up the password")
-        return;
+
+    const url = "http://localhost:8080/postUser";
+
+    const newUser = {
+        "email": document.getElementById("email").value,
+        "password": document.getElementById("password1").value,
+        "firstName": document.getElementById("firstName").value,
+        "lastName": document.getElementById("lastName").value,
+        "dateOfBirth": document.getElementById("birthdate").value,
+        "height": document.getElementById("height").value
     }
 
-    if (emailExists()) {
-        console.log("You fucked up the email")
-        return;
+    const newUserStringified = JSON.stringify(newUser);
 
-        const url = "http://localhost:8080/postUser";
+    const postObject = {
+        headers:
+            {
+                "Content-type": 'application/json'
+            },
+        method: 'POST',
+        body: newUserStringified
+    };
 
-        const newUser = {
-            "email": document.getElementById("email").value,
-            "password": document.getElementById("password1").value,
-            "firstName": document.getElementById("firstName").value,
-            "lastName": document.getElementById("lastName").value,
-            "dateOfBirth": document.getElementById("birthdate").value,
-            "height": document.getElementById("height").value
-        }
+    fetch(url, postObject)
+        .then(response => response.json())
+        .then(() => {
+            console.log("success")
+            //  window.location.href = "/"
+        })
+        .catch(() => {
+            console.log("failure")
+        })
 
-        const newUserStringified = JSON.stringify(newUser);
-
-        const postObject = {
-            headers:
-                {
-                    "Content-type": 'application/json'
-                },
-            method: 'POST',
-            body: newUserStringified
-        };
-
-        fetch(url, postObject)
-            .then(response => response.json())
-            .then(response => {
-                console.log("success")
-                //  window.location.href = "/"
-            })
-            .catch(response => {
-                console.log("failure")
-            })
-    }
 }
