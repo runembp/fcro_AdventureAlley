@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AdminController {
 
-    @GetMapping("/adminCreateActivity")
+    @GetMapping("/adminCreate")
     public String createActivity(){
         return "admin/admin_create_activity";
     }

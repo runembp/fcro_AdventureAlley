@@ -39,9 +39,9 @@ public class ApplicationDefaultData implements ApplicationRunner
             TimeSlotModel t4 = new TimeSlotModel("14:00", "16:00");
             timeSlotRepository.save(t4);
 
-            ActivityModel a1 = new ActivityModel("Paintball", "Dette er sjovt", 150.00, null,  null, "Sikkerhedstøj");
+            ActivityModel a1 = new ActivityModel("Paintball", "Dette er sjovt", 150.00, 0,  18, "Sikkerhedstøj");
             activityRepository.save(a1);
-            ActivityModel a2 = new ActivityModel("Sumobrydning", "Rune vinder sikkert", 100.00, null, null, "Sumodragt");
+            ActivityModel a2 = new ActivityModel("Sumobrydning", "Rune vinder sikkert", 100.00, 0, 12, "Sumodragt");
             activityRepository.save(a2);
 
             t1.getActivityModelSet().add(a1);

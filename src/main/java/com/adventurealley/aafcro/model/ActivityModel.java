@@ -1,5 +1,7 @@
 package com.adventurealley.aafcro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -31,6 +33,7 @@ public class ActivityModel
     @Column(name = "equipment")
     private String equipment;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "activity_timeslots",
