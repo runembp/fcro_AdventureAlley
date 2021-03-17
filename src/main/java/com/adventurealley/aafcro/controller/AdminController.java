@@ -11,4 +11,7 @@ public class AdminController {
         return "admin/admin_create_activity";
     }
 
+    @GetMapping("/admin")
+    public String getOverview(){ return "admin/admin_overview"; }
+
 }
