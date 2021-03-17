@@ -1,5 +1,7 @@
 package com.adventurealley.aafcro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,6 +25,7 @@ public class TimeSlotModel {
     private String end;
 
     @ManyToMany(mappedBy = "timeSlotModelSet")
+    @JsonIgnore
     Set<ActivityModel> activityModelSet = new HashSet<>();
 
     public TimeSlotModel(){}

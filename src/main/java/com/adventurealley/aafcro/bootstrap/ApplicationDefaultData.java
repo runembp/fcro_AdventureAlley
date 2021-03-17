@@ -83,8 +83,6 @@ public class ApplicationDefaultData implements ApplicationRunner
             userRepository.save(u1);
 
             BookingModel b1 = new BookingModel(LocalDate.now(),1L,1L);
-            b1.getActivityBookingSet().add(a1);
-            a1.getActivityBookingSet().add(b1);
             bookingRepository.save(b1);
         }
         catch (Exception e)

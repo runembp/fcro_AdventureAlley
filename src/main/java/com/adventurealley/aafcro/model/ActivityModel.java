@@ -1,5 +1,7 @@
 package com.adventurealley.aafcro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -37,6 +39,7 @@ public class ActivityModel
             joinColumns = @JoinColumn(name = "activity_id"),
             inverseJoinColumns = @JoinColumn(name = "time_slot_id")
     )
+    @JsonIgnore
     Set<TimeSlotModel> timeSlotModelSet = new HashSet<>();
 
     public ActivityModel(){}
