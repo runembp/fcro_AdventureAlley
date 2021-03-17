@@ -1,6 +1,6 @@
 const saveButton = document.getElementById("save");
 
-saveButton.addEventListener("click", createUser)
+saveButton.addEventListener("click", create_user)
 
 function validatePassword() {
 
@@ -12,7 +12,7 @@ function validatePassword() {
     return false
 }
 
-function createUser()
+function create_user()
 {
     if(!validatePassword()) {
         console.log("You fucked up")
