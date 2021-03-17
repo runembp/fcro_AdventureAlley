@@ -1,7 +1,9 @@
 package com.adventurealley.aafcro.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "activities")
@@ -29,6 +31,14 @@ public class ActivityModel
     @Column(name = "equipment")
     private String equipment;
 
+    @ManyToMany
+    @JoinTable(
+            name = "activity_timeslots",
+            joinColumns = @JoinColumn(name = "activity_id"),
+            inverseJoinColumns = @JoinColumn(name = "time_slot_id")
+    )
+    Set<TimeSlotModel> timeSlotModelSet = new HashSet<>();
+
     public ActivityModel(){}
 
     public ActivityModel(String title, String description, Double price, Integer minHeight, Integer minAge, String equipment){
@@ -40,8 +50,14 @@ public class ActivityModel
         this.equipment = equipment;
     }
 
-    //TODO
-    //Relation skal implementeres
+   public Set<TimeSlotModel> getTimeSlotModelSet()
+   {
+       return timeSlotModelSet;
+   }
+
+   public void setTimeSlotModelSet(Set<TimeSlotModel> timeslots){
+        this.timeSlotModelSet = timeslots;
+   }
 
     public Long getActivity_id() {
         return activity_id;
