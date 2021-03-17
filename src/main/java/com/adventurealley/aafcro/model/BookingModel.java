@@ -2,16 +2,14 @@ package com.adventurealley.aafcro.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "bookings")
 public class BookingModel
 {
     @Id
-    @Column(name = "booking_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "booking_id")
     private Long id;
 
     @Column(name = "date", nullable = false)
@@ -20,16 +18,28 @@ public class BookingModel
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "activity_id", nullable = false)
-    private Long activityId;
+    @ManyToOne
+    @JoinColumn(name = "activity_id")
+    ActivityModel activity;
 
     public BookingModel() {
     }
 
-    public BookingModel(LocalDate date, Long userId, Long activityId) {
+    public BookingModel(LocalDate date, Long userId, ActivityModel activity)
+    {
         this.date = date;
         this.userId = userId;
-        this.activityId = activityId;
+        this.activity = activity;
+    }
+
+    public ActivityModel getActivity()
+    {
+        return activity;
+    }
+
+    public void setActivity(ActivityModel activity)
+    {
+        this.activity = activity;
     }
 
     public Long getId() {
@@ -50,13 +60,5 @@ public class BookingModel
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public Long getActivityId() {
-        return activityId;
-    }
-
-    public void setActivityId(Long activityId) {
-        this.activityId = activityId;
     }
 }

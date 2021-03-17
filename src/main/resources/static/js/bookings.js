@@ -1,11 +1,16 @@
 const button = document.getElementById("button");
 const dropdownAllActivities = document.getElementById("dropdownAllActivities");
 const createBookingButton = document.getElementById("createBooking");
+const dropdownTimeslots = document.getElementById("timeslot");
+const calendar = document.getElementById("calendar");
 
-button.addEventListener('click', x => getAllBookings())
 createBookingButton.addEventListener('click', x => createBooking())
 
-async function getAllBookings() {
+let list = getAllActivities().then(x => list = x);
+
+getTimeslots();
+
+async function getAllActivities() {
     const url = "http://localhost:8080/findAllActivities"
     const getObject = {
         method:"GET",
@@ -14,30 +19,64 @@ async function getAllBookings() {
         }
     }
 
-    const response = await fetch(url, getObject);
+    dropdownAllActivities.length = 0;
+
+    const response = await fetch(url);
     const data = await response.json();
 
     data.forEach(x => {
         let element = document.createElement("option")
-        element.value = x.index;
+        element.value = x.activity_Id;
         element.textContent = x.title;
         dropdownAllActivities.appendChild(element)
     })
+
+    return data;
 }
 
-async function createBooking()
+async function getTimeslots()
 {
-    const selectedValue = dropdownAllActivities.options.selectedIndex.text;
+    const url = await fetch("http://localhost:8080/findAllTimeslots")
+    const result = await url.json();
 
-    console.log(selectedValue)
+    dropdownTimeslots.length = 0;
 
+    result.forEach(x =>
+    {
+        let element = document.createElement("option")
+        element.value = x.index;
+        element.textContent = x.start + "-" + x.end;
+        dropdownTimeslots.appendChild(element);
+    })
+}
 
-    const url = "http://localhost:8080/createBooking"
-    const postObject = {
-        method:"POST",
-        headers: {
-            "Content-type":"application/json"
-        },
-        body:null
+function createBooking()
+{
+    const activity = list[dropdownAllActivities.selectedIndex];
+    const date = calendar.value;
+
+    const booking = {
+        "date": date,
+        "userId": 1,
+        "activity": activity
     }
+
+    const bookingStringified = JSON.stringify(booking);
+
+    const url = "http://localhost:8080/postBooking"
+    const postObject = {
+        headers: {
+                "Content-type": 'application/json'
+            },
+        method: 'POST',
+        body: bookingStringified
+    };
+
+    fetch(url,postObject).then(response => response.json())
+        .then(() => {
+            console.log("booking created")
+        })
+        .catch(() => {
+            console.log("failure")
+        })
 }

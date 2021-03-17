@@ -42,6 +42,10 @@ public class ActivityModel
     @JsonIgnore
     Set<TimeSlotModel> timeSlotModelSet = new HashSet<>();
 
+    @OneToMany
+    @JsonIgnore
+    private Set<BookingModel> bookings = new HashSet<>();
+
     public ActivityModel(){}
 
     public ActivityModel(String title, String description, Double price, Integer minHeight, Integer minAge, String equipment){
@@ -53,12 +57,22 @@ public class ActivityModel
         this.equipment = equipment;
     }
 
-   public Set<TimeSlotModel> getTimeSlotModelSet()
+    public Set<BookingModel> getBookings()
+    {
+        return bookings;
+    }
+
+    public void setBookings(Set<BookingModel> bookings)
+    {
+        this.bookings = bookings;
+    }
+
+    public Set<TimeSlotModel> getTimeSlotModelSet()
    {
        return timeSlotModelSet;
    }
 
-   public void setTimeSlotModelSet(Set<TimeSlotModel> timeslots){
+    public void setTimeSlotModelSet(Set<TimeSlotModel> timeslots){
         this.timeSlotModelSet = timeslots;
    }
 
