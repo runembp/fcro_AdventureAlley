@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "timeslots")
@@ -19,6 +21,9 @@ public class TimeSlotModel {
 
     @Column(name = "activity_end", nullable = false)
     private String end;
+
+    @ManyToMany(mappedBy = "timeSlotModelSet")
+    Set<ActivityModel> activityModelSet = new HashSet<>();
 
     public TimeSlotModel(){}
 
@@ -50,4 +55,14 @@ public class TimeSlotModel {
     public void setEnd(String end) {
         this.end = end;
     }
+
+   public Set<ActivityModel> getActivityModelSet()
+   {
+       return activityModelSet;
+   }
+
+   public void setActivityModelSet(Set<ActivityModel> activities)
+   {
+       this.activityModelSet = activities;
+   }
 }

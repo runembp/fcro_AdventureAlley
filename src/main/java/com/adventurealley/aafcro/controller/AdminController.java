@@ -8,7 +8,7 @@ public class AdminController {
 
     @GetMapping("/adminCreateActivity")
     public String createActivity(){
-        return "admin_create_activity";
+        return "admin/admin_create_activity";
     }
 
 }
