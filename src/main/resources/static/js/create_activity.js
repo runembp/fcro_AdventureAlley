@@ -3,7 +3,7 @@ const createActivityUrl = "http://localhost:8080/newActivity";
 
 const saveButton = document.getElementById("save");
 
-function createActivity() {
+function create_activity() {
     let activity = {
             "title": document.getElementById("title").value,
             "description": document.getElementById("description").value,
@@ -61,7 +61,7 @@ function addActivity(body1) {
 
 }
 
-saveButton.addEventListener("click", createActivity);
+saveButton.addEventListener("click", create_activity);
 
 
 

@@ -9,6 +9,6 @@ public class UserController
     @GetMapping("/createuser")
     public String getCreate()
     {
-        return "createuser";
+        return "create_user";
     }
 }

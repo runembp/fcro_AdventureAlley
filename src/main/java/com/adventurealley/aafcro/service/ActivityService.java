@@ -18,7 +18,8 @@ public class ActivityService
         return iActivityRepository.save(activityModel);
     }
 
-    public List<ActivityModel> getAllActivities(){
+    public List<ActivityModel> getAllActivities()
+    {
         return iActivityRepository.findAll();
     }
 
