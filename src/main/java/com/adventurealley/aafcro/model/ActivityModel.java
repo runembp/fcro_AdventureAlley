@@ -39,14 +39,6 @@ public class ActivityModel
     )
     Set<TimeSlotModel> timeSlotModelSet = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "activity_bookings",
-            joinColumns = @JoinColumn(name = "activity_id"),
-            inverseJoinColumns = @JoinColumn(name = "booking_id")
-    )
-    Set<BookingModel> activityBookingSet = new HashSet<>();
-
     public ActivityModel(){}
 
     public ActivityModel(String title, String description, Double price, Integer minHeight, Integer minAge, String equipment){
@@ -121,14 +113,6 @@ public class ActivityModel
 
     public void setEquipment(String equipment) {
         this.equipment = equipment;
-    }
-
-    public Set<BookingModel> getActivityBookingSet() {
-        return activityBookingSet;
-    }
-
-    public void setActivityBookingSet(Set<BookingModel> activityBookingSet) {
-        this.activityBookingSet = activityBookingSet;
     }
 
     @Override

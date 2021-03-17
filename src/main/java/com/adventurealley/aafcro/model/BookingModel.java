@@ -23,17 +23,6 @@ public class BookingModel
     @Column(name = "activity_id", nullable = false)
     private Long activityId;
 
-    @ManyToMany(mappedBy = "activityBookingSet")
-    Set<ActivityModel> activityBookingSet = new HashSet<>();
-
-    public Set<ActivityModel> getActivityBookingSet() {
-        return activityBookingSet;
-    }
-
-    public void setActivityBookingSet(Set<ActivityModel> activityBookingSet) {
-        this.activityBookingSet = activityBookingSet;
-    }
-
     public BookingModel() {
     }
 
