@@ -1,4 +1,4 @@
-package com.adventurealley.aafcro.controller;
+package com.adventurealley.aafcro.restcontroller;
 
 import com.adventurealley.aafcro.model.ActivityModel;
 import com.adventurealley.aafcro.service.ActivityService;
@@ -26,6 +26,4 @@ public class ActivityRestController {
     {
         return activityService.getAllActivities();
     }
-
-
 }
