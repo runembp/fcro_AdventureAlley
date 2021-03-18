@@ -40,7 +40,12 @@ public class ActivityModel
             joinColumns = @JoinColumn(name = "activity_id"),
             inverseJoinColumns = @JoinColumn(name = "time_slot_id")
     )
+    @JsonIgnore
     Set<TimeSlotModel> timeSlotModelSet = new HashSet<>();
+
+    @OneToMany
+    @JsonIgnore
+    private Set<BookingModel> bookings = new HashSet<>();
 
     public ActivityModel(){}
 
@@ -53,12 +58,22 @@ public class ActivityModel
         this.equipment = equipment;
     }
 
-   public Set<TimeSlotModel> getTimeSlotModelSet()
+    public Set<BookingModel> getBookings()
+    {
+        return bookings;
+    }
+
+    public void setBookings(Set<BookingModel> bookings)
+    {
+        this.bookings = bookings;
+    }
+
+    public Set<TimeSlotModel> getTimeSlotModelSet()
    {
        return timeSlotModelSet;
    }
 
-   public void setTimeSlotModelSet(Set<TimeSlotModel> timeslots){
+    public void setTimeSlotModelSet(Set<TimeSlotModel> timeslots){
         this.timeSlotModelSet = timeslots;
    }
 
@@ -94,20 +109,20 @@ public class ActivityModel
         this.price = price;
     }
 
-    public int getMin_height() {
+    public Integer getMinHeight() {
         return minHeight;
     }
 
-    public void setMin_height(int minHeight) {
-        this.minHeight= minHeight;
+    public void setMinHeight(Integer minHeight) {
+        this.minHeight = minHeight;
     }
 
-    public int getMin_age() {
+    public Integer getMinAge() {
         return minAge;
     }
 
-    public void setMin_age(int min_age) {
-        this.minAge = min_age;
+    public void setMinAge(Integer minAge) {
+        this.minAge = minAge;
     }
 
     public String getEquipment() {
@@ -117,7 +132,6 @@ public class ActivityModel
     public void setEquipment(String equipment) {
         this.equipment = equipment;
     }
-
 
     @Override
     public boolean equals(Object o) {
