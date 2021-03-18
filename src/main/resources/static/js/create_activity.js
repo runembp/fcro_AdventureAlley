@@ -1,5 +1,4 @@
 
-
 function submitForm(){
     if (!event.preventDefault()) {
         createActivity();
@@ -12,8 +11,8 @@ function createActivity() {
             "title": document.getElementById("title").value,
             "description": document.getElementById("description").value,
             "price": document.getElementById("price").value,
-            "min_height": document.getElementById("minHeight").value,
-            "min_age": document.getElementById("minAge").value,
+            "minHeight": document.getElementById("minHeight").value,
+            "minAge": document.getElementById("minAge").value,
             "equipment": document.getElementById("equipment").value,
         }
     console.log(activity);
@@ -23,6 +22,7 @@ function createActivity() {
 
 function addActivity(body1) {
     const createActivityUrl = "http://localhost:8080/newActivity";
+
     const requestObject = {
             headers:{
                 'Content-type': 'application/json',
