@@ -1,57 +1,87 @@
 package com.adventurealley.aafcro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "bookings")
-public class BookingModel
-{
+public class BookingModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id")
     private Long id;
 
-    @Column(name = "date", nullable = false)
-    LocalDate date;
+    @Column(name = "booking_date", nullable = false)
+    private LocalDate bookingDate;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
+    private Long dummy;
+    private Long dummyTimeSlot;
+
     @ManyToOne
     @JoinColumn(name = "activity_id")
-    ActivityModel activity;
+    @JsonIgnore
+    private ActivityModel activity;
+
+    @ManyToOne
+    @JoinColumn(name = "time_slot_id")
+    @JsonIgnore
+    private TimeSlotModel timeSlot;
 
     public BookingModel() {
     }
 
-    public BookingModel(LocalDate date, Long userId, ActivityModel activity)
-    {
-        this.date = date;
+    public BookingModel(LocalDate bookingDate, Long userId) {
+        this.bookingDate = bookingDate;
         this.userId = userId;
+    }
+
+    public Long getDummy() {
+        return dummy;
+    }
+
+    public void setDummy(Long activityId) {
+        this.dummy = activityId;
+    }
+
+    public Long getDummyTimeSlot() {
+        return dummyTimeSlot;
+    }
+
+    public TimeSlotModel getTimeSlot() {
+        return timeSlot;
+    }
+
+    public void setTimeSlot(TimeSlotModel timeSlot) {
+        this.timeSlot = timeSlot;
+    }
+
+    public void setDummyTimeSlot(Long dummeTimeSlot) {
+        this.dummyTimeSlot = dummeTimeSlot;
+    }
+
+    public void setActivity(ActivityModel activity) {
         this.activity = activity;
     }
 
-    public ActivityModel getActivity()
-    {
+    public ActivityModel getActivity() {
         return activity;
     }
 
-    public void setActivity(ActivityModel activity)
-    {
-        this.activity = activity;
+    public LocalDate getBookingDate() {
+        return bookingDate;
     }
 
-    public Long getId() {
+    public Long getBookingId() {
         return id;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setBookingDate(LocalDate date) {
+        this.bookingDate = date;
     }
 
     public Long getUserId() {
