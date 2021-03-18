@@ -3,9 +3,6 @@ package com.adventurealley.aafcro.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +24,9 @@ public class TimeSlotModel {
     @ManyToMany(mappedBy = "timeSlotModelSet")
     @JsonIgnore
     Set<ActivityModel> activityModelSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "timeSlot")
+    private Set<BookingModel> bookings = new HashSet<>();
 
     public TimeSlotModel(){}
 
@@ -59,7 +59,15 @@ public class TimeSlotModel {
         this.end = end;
     }
 
-   public Set<ActivityModel> getActivityModelSet()
+    public Set<BookingModel> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<BookingModel> bookings) {
+        this.bookings = bookings;
+    }
+
+    public Set<ActivityModel> getActivityModelSet()
    {
        return activityModelSet;
    }

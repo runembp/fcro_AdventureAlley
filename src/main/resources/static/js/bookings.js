@@ -7,22 +7,14 @@ const calendar = document.getElementById("calendar");
 createBookingButton.addEventListener('click', x => createBooking())
 
 let list = getAllActivities().then(x => list = x);
-
-getTimeslots();
+let timeslotList = getTimeslots().then(x => timeslotList = x);
 
 async function getAllActivities() {
     const url = "http://localhost:8080/findAllActivities"
-    const getObject = {
-        method:"GET",
-        headers:{
-            "Content-type":"application/json"
-        }
-    }
-
-    dropdownAllActivities.length = 0;
-
     const response = await fetch(url);
     const data = await response.json();
+
+    dropdownAllActivities.length = 0;
 
     data.forEach(x => {
         let element = document.createElement("option")
@@ -48,22 +40,26 @@ async function getTimeslots()
         element.textContent = x.start + "-" + x.end;
         dropdownTimeslots.appendChild(element);
     })
+
+    return result;
 }
 
 function createBooking()
 {
     const activity = list[dropdownAllActivities.selectedIndex];
+    const timeslot = timeslotList[dropdownTimeslots.selectedIndex];
     const date = calendar.value;
 
     const booking = {
-        "date": date,
         "userId": 1,
-        "activity": activity
+        "bookingDate": date,
+        "dummy":activity.activityId,
+        "dummyTimeSlot": timeslot.timeSlotId
     }
 
     const bookingStringified = JSON.stringify(booking);
-
     const url = "http://localhost:8080/postBooking"
+
     const postObject = {
         headers: {
                 "Content-type": 'application/json'

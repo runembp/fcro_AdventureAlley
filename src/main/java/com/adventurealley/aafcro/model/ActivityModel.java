@@ -13,7 +13,8 @@ public class ActivityModel
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long activity_id;
+    @Column(name = "activity_id")
+    private Long activityId;
 
     @Column(name= "title", nullable = false)
     private String title;
@@ -42,8 +43,7 @@ public class ActivityModel
     @JsonIgnore
     Set<TimeSlotModel> timeSlotModelSet = new HashSet<>();
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany(mappedBy = "activity")
     private Set<BookingModel> bookings = new HashSet<>();
 
     public ActivityModel(){}
@@ -57,31 +57,29 @@ public class ActivityModel
         this.equipment = equipment;
     }
 
-    public Set<BookingModel> getBookings()
-    {
-        return bookings;
-    }
-
-    public void setBookings(Set<BookingModel> bookings)
-    {
-        this.bookings = bookings;
-    }
-
     public Set<TimeSlotModel> getTimeSlotModelSet()
    {
        return timeSlotModelSet;
    }
 
+    public Set<BookingModel> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<BookingModel> bookings) {
+        this.bookings = bookings;
+    }
+
     public void setTimeSlotModelSet(Set<TimeSlotModel> timeslots){
         this.timeSlotModelSet = timeslots;
    }
 
-    public Long getActivity_id() {
-        return activity_id;
+    public Long getActivityId() {
+        return activityId;
     }
 
-    public void setActivity_id(Long activity_id) {
-        this.activity_id = activity_id;
+    public void setActivityId(Long activity_id) {
+        this.activityId = activity_id;
     }
 
     public String getTitle() {
