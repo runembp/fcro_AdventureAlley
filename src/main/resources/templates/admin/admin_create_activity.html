@@ -16,31 +16,27 @@
 </style>
 
 <body>
+
 <div class="center-screen">
-    <div class="container">
-        <h1>Ny aktivitet</h1>
+    <h1>Ny aktivitet</h1>
 
-        <div class="row">
-            <div class="col">
-                <input id="title" type="text" placeholder="Titel"/>
-                <br>
-                <input id="price" type="number" placeholder="Pris"/>
-                <br>
-                <input id="minHeight" type="number" max="250" placeholder="Højdekrav"/>
-                <br>
-                <input id="minAge" type="number" max="110" placeholder="Alderskrav"/>
-                <br>
-                <input id="equipment" type="text" placeholder="Udstyr"/>
-            </div>
-
-            <div class="col">
-                <input id="description" type="text" placeholder="Beskrivelse"/>
-            </div>
-        </div>
-
-            <input id="save" type="button" value="Gem"/>
-            <input id="addImage" type="image" value="Upload billede"/>
-    </div>
+    <form id="createForm" enctype="application/json" method="post"  action="/newActivity" onsubmit="submitForm()">
+        <input id="title" type="text" placeholder="Titel" required/>
+        <br>
+        <input id="price" type="number" placeholder="Pris" required/>
+        <br>
+        <input id="minHeight" type="number" max="250" placeholder="Højdekrav"/>
+        <br>
+        <input id="minAge" type="number" max="110" placeholder="Alderskrav"/>
+        <br>
+        <input id="equipment" type="text" placeholder="Udstyr"/>
+        <br>
+        <input id="description" type="text" placeholder="Beskrivelse" required/>
+        <br>
+        <input id="addImage" type="image" value="Upload billede"/>
+        <br>
+        <input id="save" type="submit" value="Gem"/>
+    </form>
 </div>
 
 <script type="text/javascript" th:src="@{/js/create_activity.js}"></script>

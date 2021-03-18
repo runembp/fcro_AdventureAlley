@@ -1,9 +1,13 @@
 
-const createActivityUrl = "http://localhost:8080/newActivity";
 
-const saveButton = document.getElementById("save");
+function submitForm(){
+    if (!event.preventDefault()) {
+        createActivity();
+    }
+}
 
-function create_activity() {
+function createActivity() {
+
     let activity = {
             "title": document.getElementById("title").value,
             "description": document.getElementById("description").value,
@@ -12,35 +16,14 @@ function create_activity() {
             "min_age": document.getElementById("minAge").value,
             "equipment": document.getElementById("equipment").value,
         }
-
     console.log(activity);
     let body1 = JSON.stringify(activity);
-
-    if(JSON.stringify(activity.title)=='""')
-    {
-        alert("Angiv titel");
-        return false;
-    }
-    if(JSON.stringify(activity.description)=='""')
-    {
-        alert("Angiv beskrivelse");
-        return false;
-    }
-    if(JSON.stringify(activity.price)=='""')
-    {
-        alert("Angiv pris");
-        return false;
-    }
-    else
-    {
-        addActivity(body1)
-    }
+    addActivity(body1)
 }
 
 function addActivity(body1) {
-
-    const requestObject =
-        {
+    const createActivityUrl = "http://localhost:8080/newActivity";
+    const requestObject = {
             headers:{
                 'Content-type': 'application/json',
             },
@@ -58,10 +41,8 @@ function addActivity(body1) {
         .catch((error) =>{
             console.log("Error: ", error);
         })
-
 }
 
-saveButton.addEventListener("click", create_activity);
 
 
 
