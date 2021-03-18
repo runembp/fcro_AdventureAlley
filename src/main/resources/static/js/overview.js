@@ -61,10 +61,10 @@ window.onload = async function createOverview() {
         col_right.setAttribute('class', 'col text-center');
         row.appendChild(col_right);
 
-        /*const img = document.createElement('img');
+        const img = document.createElement('img');
         img.setAttribute('class', 'h-100 w-50 p-4');
-        img.setAttribute('src', 'https://images.pexels.com/photos/861464/pexels-photo-861464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
-        col_right.appendChild(img);*/
+        img.setAttribute('src', activity.imageLink);
+        col_right.appendChild(img);
     }
 
     function insertActivityToRightColumn(activity) {
@@ -100,9 +100,9 @@ window.onload = async function createOverview() {
         p_height.textContent = "Minimum height: " + activity.minHeight;
         col_right.appendChild(p_height);
 
-        /*const img = document.createElement('img');
+        const img = document.createElement('img');
         img.setAttribute('class', 'h-100 w-50 p-4');
-        img.setAttribute('src', 'https://images.pexels.com/photos/861464/pexels-photo-861464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
-        col_left.appendChild(img);*/
+        img.setAttribute('src', activity.imageLink);
+        col_left.appendChild(img);
     }
 }

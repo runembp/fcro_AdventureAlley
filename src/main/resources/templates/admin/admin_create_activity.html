@@ -23,19 +23,20 @@
     <form id="createForm" enctype="application/json" method="post"  action="/newActivity" onsubmit="submitForm()">
         <input id="title" type="text" placeholder="Titel" required/>
         <br>
-        <input id="price" type="number" placeholder="Pris" required/>
+        <input id="price" type="number" placeholder="Pris" step=".01" required/>
         <br>
-        <input id="minHeight" type="number" max="250" placeholder="Højdekrav"/>
+        <input id="minHeight" type="number" max="250" placeholder="Højdekrav" required/>
         <br>
-        <input id="minAge" type="number" max="110" placeholder="Alderskrav"/>
+        <input id="minAge" type="number" max="110" placeholder="Alderskrav" required/>
         <br>
-        <input id="equipment" type="text" placeholder="Udstyr"/>
+        <input id="equipment" type="text" placeholder="Udstyr" required/>
         <br>
         <input id="description" type="text" placeholder="Beskrivelse" required/>
         <br>
-        <input id="addImage" type="image" value="Upload billede"/>
+        <input id="imageLink" type="text" placeholder="Link" required/>
         <br>
         <input id="save" type="submit" value="Gem"/>
+
     </form>
 </div>
 

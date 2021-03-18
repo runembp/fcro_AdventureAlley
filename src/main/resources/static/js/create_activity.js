@@ -12,9 +12,10 @@ function createActivity() {
             "title": document.getElementById("title").value,
             "description": document.getElementById("description").value,
             "price": document.getElementById("price").value,
-            "min_height": document.getElementById("minHeight").value,
-            "min_age": document.getElementById("minAge").value,
+            "minHeight": document.getElementById("minHeight").value,
+            "minAge": document.getElementById("minAge").value,
             "equipment": document.getElementById("equipment").value,
+            "imageLink": document.getElementById("imageLink").value,
         }
     console.log(activity);
     let body1 = JSON.stringify(activity);
