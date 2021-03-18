@@ -39,10 +39,14 @@ public class ApplicationDefaultData implements ApplicationRunner
             TimeSlotModel t4 = new TimeSlotModel("14:00", "16:00");
             timeSlotRepository.save(t4);
 
-            ActivityModel a1 = new ActivityModel("Paintball", "Dette er sjovt", 150.00, 0,  18, "Sikkerhedstøj");
+            ActivityModel a1 = new ActivityModel("GoKart", "Dette er sjovt", 399.99, 140,  16, "Hjelm");
             activityRepository.save(a1);
-            ActivityModel a2 = new ActivityModel("Sumobrydning", "Rune vinder sikkert", 100.00, 0, 12, "Sumodragt");
+            ActivityModel a2 = new ActivityModel("MiniGolf", "Rune vinder sikkert", 99.99, 0, 0, "Kølle og bold");
             activityRepository.save(a2);
+            ActivityModel a3 = new ActivityModel("Pantball", "Rune vinder sikkert", 349.99, 0, 16, "Paintball gevær");
+            activityRepository.save(a3);
+            ActivityModel a4 = new ActivityModel("Sumo Wrestling", "Rune vinder sikkert", 99.99, 140, 12, "Sumodragt");
+            activityRepository.save(a4);
 
             t1.getActivityModelSet().add(a1);
             t2.getActivityModelSet().add(a1);
