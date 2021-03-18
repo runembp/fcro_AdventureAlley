@@ -34,7 +34,7 @@ public class ApplicationDefaultData implements ApplicationRunner
     public void run(ApplicationArguments args)
     {
         try{
-
+/*
             TimeSlotModel t1 = new TimeSlotModel("08:00", "10:00");
             timeSlotRepository.save(t1);
             TimeSlotModel t2 = new TimeSlotModel("10:00", "12:00");
@@ -77,14 +77,14 @@ public class ApplicationDefaultData implements ApplicationRunner
             timeSlotRepository.save(t2);
             timeSlotRepository.save(t3);
             timeSlotRepository.save(t4);
-
+*/
             UserModel u1 = new UserModel("rbp@groupcare.com", "0012", "Rune", "Petersen", LocalDate.parse("1984-10-08"), 170);
             userRepository.save(u1);
-
+/*
             BookingModel b1 = new BookingModel(LocalDate.now(),1L,a1);
             bookingRepository.save(b1);
             a1.getBookings().add(b1);
-            activityRepository.save(a1);
+            activityRepository.save(a1);*/
         }
         catch (Exception e)
         {

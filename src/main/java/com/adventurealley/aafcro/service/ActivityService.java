@@ -18,7 +18,7 @@ public class ActivityService
     @Autowired
     private ITimeSlotRepository iTimeSlotRepository;
 
-    public ActivityModel CreateActivity(ActivityModel activityModel)
+    public ActivityModel  CreateActivity(ActivityModel activityModel)
     {
         List<TimeSlotModel> timeslots = iTimeSlotRepository.findAll();
         for(TimeSlotModel t : timeslots)
