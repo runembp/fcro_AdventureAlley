@@ -1,6 +1,8 @@
-const saveButton = document.getElementById("save");
-
-saveButton.addEventListener("click", validation)
+function formSubmit(){
+    if (!event.preventDefault()) {
+        validation();
+    }
+}
 
 function validatePassword() {
     if(document.getElementById("password1").value === document.getElementById("password2").value) {
@@ -26,6 +28,7 @@ async function emailValidation()
 
     if(users.includes(email))
     {
+        alert("Email findes allerede");
         return Promise.resolve(true);
     } else {
         return Promise.resolve(false)
@@ -55,23 +58,22 @@ function createUser() {
 
     const newUserStringified = JSON.stringify(newUser);
 
-    const postObject = {
-        headers:
-            {
-                "Content-type": 'application/json'
-            },
-        method: 'POST',
-        body: newUserStringified
-    };
+        const postObject = {
+            headers:
+                {
+                    "Content-type": 'application/json'
+                },
+            method: 'POST',
+            body: newUserStringified
+        };
 
-    fetch(url, postObject)
-        .then(response => response.json())
-        .then(() => {
-            console.log("success")
-            window.location.href = "/"
-        })
-        .catch(() => {
-            console.log("failure")
-        })
-
+        fetch(url, postObject)
+            .then(response => response.json())
+            .then(() => {
+                console.log("success")
+                window.location.href = "/"
+            })
+            .catch(() => {
+                console.log("failure")
+            })
 }
