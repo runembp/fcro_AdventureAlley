@@ -6,14 +6,7 @@ window.onload = async function createAdminOverview() {
 
     const activity_container = document.getElementById("activity_container")
 
-    const getObject = {
-        method:"GET",
-        headers: {
-            "Content-type":"application/json"
-        }
-    }
-
-    const response = await fetch(url, getObject);
+    const response = await fetch(url);
     const data = await response.json();
 
     let activityList = data;
@@ -45,6 +38,7 @@ window.onload = async function createAdminOverview() {
         if (updateVar === "1"){
             h1.setAttribute('contentEditable', "true");
         }
+        h1.setAttribute('id', 'title');
         h1.textContent = activity.title;
         col_left.appendChild(h1);
 
@@ -60,6 +54,24 @@ window.onload = async function createAdminOverview() {
         saveUpdateButton.innerHTML = "Save";
         col_left.appendChild(saveUpdateButton);
 
+        const updatedActivity = {
+            "activity_id":activity.activity_id,
+            "description":document.getElementById("description").innerText,
+            "equipment":document.getElementById("equipment").innerText,
+            "imageLink":activity.imageLink,
+            "minAge":document.getElementById("minAge").innerText,
+            "minHeight":document.getElementById("minHeight").innerText,
+            "price":document.getElementById("price").innerText,
+            "title":document.getElementById("title").innerText
+        }
+
+        document.querySelectorAll('#saveUpdateButton').forEach(saveUpdateButton => {
+            saveUpdateButton.addEventListener('click', x =>  {
+                changeUpdateStateToFalse();
+                updateDB(updatedActivity);
+            });
+        });
+
         const deleteButton = document.createElement('button');
         deleteButton.setAttribute('class', 'btn btn-warning ms-5');
         deleteButton.setAttribute('id', 'deleteButton');
@@ -71,6 +83,7 @@ window.onload = async function createAdminOverview() {
         if (updateVar === "1") {
             p.setAttribute('contentEditable', 'true');
         }
+        p.setAttribute('id', 'description');
         p.textContent = activity.description;
         col_left.appendChild(p);
 
@@ -79,6 +92,7 @@ window.onload = async function createAdminOverview() {
         if (updateVar === "1") {
             p_price.setAttribute('contentEditable', 'true');
         }
+        p_price.setAttribute('id', 'p_price');
         p_price.textContent = "Price: " + activity.price;
         col_left.appendChild(p_price);
 
@@ -87,6 +101,7 @@ window.onload = async function createAdminOverview() {
         if (updateVar === "1") {
             p_height.setAttribute('contentEditable', 'true');
         }
+        p_height.setAttribute('id', 'p_height');
         p_height.textContent = "Minimum height: " + activity.minHeight;
         col_left.appendChild(p_height);
 
@@ -118,6 +133,7 @@ window.onload = async function createAdminOverview() {
         if (updateVar === "1") {
             h1.setAttribute('contentEditable', 'true');
         }
+        h1.setAttribute('id', 'title');
         h1.textContent = activity.title;
         col_right.appendChild(h1);
 
@@ -133,6 +149,24 @@ window.onload = async function createAdminOverview() {
         saveUpdateButton.innerHTML = "Save";
         col_right.appendChild(saveUpdateButton);
 
+        const updatedActivity = {
+            "activity_id":activity.activity_id,
+            "description":document.getElementById("description").innerText,
+            "equipment":document.getElementById("equipment").innerText,
+            "imageLink":activity.imageLink,
+            "minAge":document.getElementById("minAge").innerText,
+            "minHeight":document.getElementById("minHeight").innerText,
+            "price":document.getElementById("price").innerText,
+            "title":document.getElementById("title").innerText
+        }
+
+        document.querySelectorAll('#saveUpdateButton').forEach(saveUpdateButton => {
+            saveUpdateButton.addEventListener('click', x =>  {
+                changeUpdateStateToFalse();
+                updateDB(updatedActivity);
+            });
+        });
+
         const deleteButton = document.createElement('button');
         deleteButton.setAttribute('class', 'btn btn-warning ms-5');
         deleteButton.setAttribute('id', 'deleteButton');
@@ -144,6 +178,7 @@ window.onload = async function createAdminOverview() {
         if (updateVar === "1") {
             p.setAttribute('contentEditable', 'true');
         }
+        p.setAttribute('id', 'description');
         p.textContent = activity.description;
         col_right.appendChild(p);
 
@@ -152,6 +187,7 @@ window.onload = async function createAdminOverview() {
         if (updateVar === "1") {
             p_price.setAttribute('contentEditable', 'true');
         }
+        p_price.setAttribute('id', 'p_price');
         p_price.textContent = "Price: " + activity.price;
         col_right.appendChild(p_price);
 
@@ -160,6 +196,7 @@ window.onload = async function createAdminOverview() {
         if (updateVar === "1") {
             p_height.setAttribute('contentEditable', 'true');
         }
+        p_height.setAttribute('id', 'p_height');
         p_height.textContent = "Minimum height: " + activity.minHeight;
         col_right.appendChild(p_height);
 
@@ -178,12 +215,30 @@ window.onload = async function createAdminOverview() {
         location.reload();
     }
 
-    document.querySelectorAll('#saveUpdateButton').forEach(saveUpdateButton => {
-        saveUpdateButton.addEventListener('click', changeUpdateStateToFalse);
-    });
+    /*document.querySelectorAll('#saveUpdateButton').forEach(saveUpdateButton => {
+        saveUpdateButton.addEventListener('click', x =>  {
+            changeUpdateStateToFalse();
+           // updateDB();
+        });
+    });*/
 
     function changeUpdateStateToFalse() {
         localStorage.setItem("updateState", "0");
-        location.reload();
+        //location.reload();
     }
+}
+
+function updateDB(activity) {
+    const url = "http://localhost:8080/updateActivity";
+
+    const activityStringified = JSON.stringify(activity);
+
+    let putObject = {
+        header: {"contentType":"application/json"},
+        method:"PUT",
+        body: activityStringified
+    }
+    console.log(activity);
+    console.log(putObject);
+    fetch(url, putObject);
 }

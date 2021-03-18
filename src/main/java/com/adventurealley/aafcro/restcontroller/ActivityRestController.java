@@ -14,6 +14,12 @@ public class ActivityRestController {
     @Autowired
     private ActivityService activityService;
 
+    @GetMapping("/findAllActivities")
+    public List<ActivityModel> findAllActivities()
+    {
+        return activityService.getAllActivities();
+    }
+
     @PostMapping(value = "/newActivity", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public ActivityModel postActivity(@RequestBody ActivityModel activityModel)
@@ -21,9 +27,8 @@ public class ActivityRestController {
         return activityService.CreateActivity(activityModel);
     }
 
-    @GetMapping("/findAllActivities")
-    public List<ActivityModel> findAllActivities()
-    {
-        return activityService.getAllActivities();
+    @PutMapping(value = "/updateActivity")
+    public ActivityModel putActivity(@RequestBody ActivityModel activity) {
+        return activityService.updateActivity(activity);
     }
 }

@@ -23,4 +23,6 @@ public class ActivityService
         return iActivityRepository.findAll();
     }
 
+    public ActivityModel updateActivity(ActivityModel activityModel) {return iActivityRepository.save(activityModel);}
+
 }
