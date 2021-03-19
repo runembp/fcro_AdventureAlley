@@ -1,3 +1,5 @@
+let activityList;
+
 window.onload = async function createOverview() {
     const url = "http://localhost:8080/findAllActivities";
 
@@ -13,7 +15,7 @@ window.onload = async function createOverview() {
     const response = await fetch(url, getObject);
     const data = await response.json();
 
-    let activityList = data;
+    activityList = data;
 
     for(let i = 0; i < activityList.length; i++)
     {
@@ -106,3 +108,5 @@ window.onload = async function createOverview() {
         col_left.appendChild(img);
     }
 }
+
+export default activityList;

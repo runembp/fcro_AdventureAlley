@@ -1,4 +1,4 @@
-
+require
 
 function submitForm(){
     if (!event.preventDefault()) {
@@ -42,6 +42,10 @@ function addActivity(body1) {
         .catch((error) =>{
             console.log("Error: ", error);
         })
+}
+
+function updateActivity() {
+
 }
 
 
