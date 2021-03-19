@@ -4,23 +4,35 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript" th:src="@{/js/bookings.js}" defer></script>
+    <script type="text/application" th:src="@{/js/my_booking.js}" defer></script>
 </head>
 <body>
 
-<h1>Bookings</h1>
+<h1>Dine bookings</h1>
 
-<select id="dropdownAllActivities"></select>
+<div id="dropdownMyBooking"></div>
+
+
+
+
 
 <br><br><br>
 
-<select id="timeslot"></select>
+<h1>Opret ny booking</h1>
+
+<span>Aktivitet: </span><select id="dropdownAllActivities"></select>
 
 <br><br><br>
 
-<input type="date" id="calendar" >
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<button id="createBooking">Create booking for selected Actitivy</button>
+<span>Tidsrum: </span><select id="timeslot"></select>
+
+<br><br><br>
+
+<span>Dato: </span><input type="date" id="calendar" >
+
+<br><br><br>
+<button id="createBooking">Godkend booking</button>
 
 </body>
 </html>

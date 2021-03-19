@@ -80,8 +80,8 @@ public class BookingModel {
         return id;
     }
 
-    public void setBookingDate(LocalDate date) {
-        this.bookingDate = date;
+    public void setBookingDate(LocalDate bookingDate) {
+        this.bookingDate = bookingDate;
     }
 
     public Long getUserId() {

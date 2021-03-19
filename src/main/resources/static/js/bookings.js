@@ -1,4 +1,4 @@
-const button = document.getElementById("button");
+
 const dropdownAllActivities = document.getElementById("dropdownAllActivities");
 const createBookingButton = document.getElementById("createBooking");
 const dropdownTimeslots = document.getElementById("timeslot");
