@@ -12,6 +12,6 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String getOverview(){ return "admin/admin_overview"; }
+    public String getOverview(){ return "overambitious_admin_overview_do_not_implement"; }
 
 }

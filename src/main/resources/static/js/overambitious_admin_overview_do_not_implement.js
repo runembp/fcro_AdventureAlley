@@ -16,6 +16,8 @@ window.onload = async function createAdminOverview() {
         if(i % 2 === 0)
         {
             insertActivityToLeftColumn(activityList[i])
+
+
         }
         else
         {
@@ -23,8 +25,8 @@ window.onload = async function createAdminOverview() {
         }
     }
 
-    function insertActivityToLeftColumn(activity)
-    {
+    function insertActivityToLeftColumn(activity) {
+
         const row = document.createElement('div');
         row.setAttribute('class', 'row');
         activity_container.appendChild(row);
@@ -53,24 +55,6 @@ window.onload = async function createAdminOverview() {
         saveUpdateButton.setAttribute('id', 'saveUpdateButton');
         saveUpdateButton.innerHTML = "Save";
         col_left.appendChild(saveUpdateButton);
-
-        const updatedActivity = {
-            "activity_id":activity.activity_id,
-            "description":document.getElementById("description").innerText,
-            "equipment":document.getElementById("equipment").innerText,
-            "imageLink":activity.imageLink,
-            "minAge":document.getElementById("minAge").innerText,
-            "minHeight":document.getElementById("minHeight").innerText,
-            "price":document.getElementById("price").innerText,
-            "title":document.getElementById("title").innerText
-        }
-
-        document.querySelectorAll('#saveUpdateButton').forEach(saveUpdateButton => {
-            saveUpdateButton.addEventListener('click', x =>  {
-                changeUpdateStateToFalse();
-                updateDB(updatedActivity);
-            });
-        });
 
         const deleteButton = document.createElement('button');
         deleteButton.setAttribute('class', 'btn btn-warning ms-5');
@@ -149,24 +133,6 @@ window.onload = async function createAdminOverview() {
         saveUpdateButton.innerHTML = "Save";
         col_right.appendChild(saveUpdateButton);
 
-        const updatedActivity = {
-            "activity_id":activity.activity_id,
-            "description":document.getElementById("description").innerText,
-            "equipment":document.getElementById("equipment").innerText,
-            "imageLink":activity.imageLink,
-            "minAge":document.getElementById("minAge").innerText,
-            "minHeight":document.getElementById("minHeight").innerText,
-            "price":document.getElementById("price").innerText,
-            "title":document.getElementById("title").innerText
-        }
-
-        document.querySelectorAll('#saveUpdateButton').forEach(saveUpdateButton => {
-            saveUpdateButton.addEventListener('click', x =>  {
-                changeUpdateStateToFalse();
-                updateDB(updatedActivity);
-            });
-        });
-
         const deleteButton = document.createElement('button');
         deleteButton.setAttribute('class', 'btn btn-warning ms-5');
         deleteButton.setAttribute('id', 'deleteButton');
@@ -215,16 +181,42 @@ window.onload = async function createAdminOverview() {
         location.reload();
     }
 
-    /*document.querySelectorAll('#saveUpdateButton').forEach(saveUpdateButton => {
+    let updatedActivity = {
+        "activity_id":"",
+        "description":"",
+        "equipment":"",
+        "imageLink":"",
+        "minAge":"",
+        "minHeight":"",
+        "price":"",
+        "title":""
+    }
+
+    console.log(updatedActivity);
+
+    /*const updatedActivity = {
+        "activity_id":activity.activity_id,
+        "description":document.getElementById("description").innerText,
+        "equipment":document.getElementById("equipment").innerText,
+        "imageLink":activity.imageLink,
+        "minAge":document.getElementById("minAge").innerText,
+        "minHeight":document.getElementById("minHeight").innerText,
+        "price":document.getElementById("price").innerText,
+        "title":document.getElementById("title").innerText
+    }*/
+
+    document.querySelectorAll('#saveUpdateButton').forEach(saveUpdateButton => {
         saveUpdateButton.addEventListener('click', x =>  {
+            console.log(x);
+            updateDB(updatedActivity);
             changeUpdateStateToFalse();
-           // updateDB();
         });
-    });*/
+    });
+
 
     function changeUpdateStateToFalse() {
         localStorage.setItem("updateState", "0");
-        //location.reload();
+        location.reload();
     }
 }
 
@@ -234,8 +226,8 @@ function updateDB(activity) {
     const activityStringified = JSON.stringify(activity);
 
     let putObject = {
-        header: {"contentType":"application/json"},
-        method:"PUT",
+        header: {"contentType": "application/json"},
+        method: "PUT",
         body: activityStringified
     }
     console.log(activity);
