@@ -1,5 +1,3 @@
-require
-
 function submitForm(){
     if (!event.preventDefault()) {
         createActivity();
@@ -45,9 +43,37 @@ function addActivity(body1) {
         })
 }
 
-function updateActivity() {
+let list = getAllActivities().then(x => list = x);
 
+const dropdownAllActivities = document.getElementById("dropdownAllActivities");
+
+async function getAllActivities() {
+    const url = "http://localhost:8080/findAllActivities"
+    const response = await fetch(url);
+    const data = await response.json();
+
+    dropdownAllActivities.length = 0;
+
+    data.forEach(x => {
+        let element = document.createElement("option")
+        element.value = x.activityId;
+        //element.setAttribute('class', 'updateActivityClass')
+        element.textContent = x.title;
+        dropdownAllActivities.appendChild(element)
+    })
+
+    return data;
 }
+
+
+document.querySelector('#dropdownAllActivities').addEventListener('click', e => {
+
+    console.log(e.target.children.indexOf());
+
+/*    if(e.target.children == 'option') {
+        console.log('hej')
+    }*/
+})
 
 
 

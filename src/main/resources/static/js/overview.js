@@ -108,5 +108,3 @@ window.onload = async function createOverview() {
         col_left.appendChild(img);
     }
 }
-
-export default activityList;
