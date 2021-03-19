@@ -24,6 +24,7 @@ function createActivity() {
 
 function addActivity(body1) {
     const createActivityUrl = "http://localhost:8080/newActivity";
+
     const requestObject = {
             headers:{
                 'Content-type': 'application/json',
