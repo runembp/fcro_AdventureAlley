@@ -3,13 +3,16 @@ package com.adventurealley.aafcro.restcontroller;
 import com.adventurealley.aafcro.model.ActivityModel;
 import com.adventurealley.aafcro.model.BookingModel;
 import com.adventurealley.aafcro.model.TimeSlotModel;
+import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IActivityRepository;
 import com.adventurealley.aafcro.repository.IBookingRepository;
 import com.adventurealley.aafcro.repository.ITimeSlotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -30,6 +33,7 @@ public class BookingRestController
         return bookingRepository.findAll();
     }
 
+
     @PostMapping(value = "/postBooking", consumes = "application/json")
     BookingModel postBooking(@RequestBody BookingModel booking)
     {
@@ -49,4 +53,7 @@ public class BookingRestController
 
         return bookingRepository.save(booking);
     }
+
+
+
 }

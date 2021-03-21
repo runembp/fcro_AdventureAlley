@@ -1,15 +1,15 @@
 package com.adventurealley.aafcro.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.*;
 
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 @Entity
 @Table(name = "activities")
-public class ActivityModel
+public class ActivityModel implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +40,13 @@ public class ActivityModel
             joinColumns = @JoinColumn(name = "activity_id"),
             inverseJoinColumns = @JoinColumn(name = "time_slot_id")
     )
-    @JsonIgnore
+
     Set<TimeSlotModel> timeSlotModelSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "activity")
-    private Set<BookingModel> bookings = new HashSet<>();
+    @OneToMany
+    @JoinColumn(name = "activity_id")
+    private Set<BookingModel> bookingsSet = new HashSet<>();
+
 
     public ActivityModel(){}
 
@@ -57,17 +59,19 @@ public class ActivityModel
         this.equipment = equipment;
     }
 
+    @JsonManagedReference
     public Set<TimeSlotModel> getTimeSlotModelSet()
    {
        return timeSlotModelSet;
    }
 
+   @JsonBackReference
     public Set<BookingModel> getBookings() {
-        return bookings;
+        return bookingsSet;
     }
 
     public void setBookings(Set<BookingModel> bookings) {
-        this.bookings = bookings;
+        this.bookingsSet = bookingsSet;
     }
 
     public void setTimeSlotModelSet(Set<TimeSlotModel> timeslots){

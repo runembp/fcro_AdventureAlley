@@ -1,13 +1,15 @@
 package com.adventurealley.aafcro.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "bookings")
-public class BookingModel {
+public class BookingModel implements  Serializable{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id")
@@ -16,28 +18,37 @@ public class BookingModel {
     @Column(name = "booking_date", nullable = false)
     private LocalDate bookingDate;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
-
     private Long dummy;
     private Long dummyTimeSlot;
 
     @ManyToOne
-    @JoinColumn(name = "activity_id")
-    @JsonIgnore
-    private ActivityModel activity;
+    @JsonBackReference
+    private UserModel users;
 
     @ManyToOne
-    @JoinColumn(name = "time_slot_id")
-    @JsonIgnore
+    @JsonBackReference
+    private ActivityModel activityModel;
+
+
+    @ManyToOne
+    @JsonBackReference
     private TimeSlotModel timeSlot;
+
 
     public BookingModel() {
     }
 
-    public BookingModel(LocalDate bookingDate, Long userId) {
-        this.bookingDate = bookingDate;
-        this.userId = userId;
+    public BookingModel(LocalDate now) {
+        this.bookingDate = now;
+
+    }
+
+    public UserModel getUsers() {
+        return users;
+    }
+
+    public void setUsers(UserModel users) {
+        this.users = users;
     }
 
     public Long getDummy() {
@@ -64,12 +75,13 @@ public class BookingModel {
         this.dummyTimeSlot = dummeTimeSlot;
     }
 
-    public void setActivity(ActivityModel activity) {
-        this.activity = activity;
+    public void setActivity(ActivityModel activityModel) {
+        this.activityModel = activityModel;
     }
 
+    @JsonManagedReference
     public ActivityModel getActivity() {
-        return activity;
+        return activityModel;
     }
 
     public LocalDate getBookingDate() {
@@ -84,11 +96,4 @@ public class BookingModel {
         this.bookingDate = bookingDate;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 }

@@ -1,13 +1,18 @@
 package com.adventurealley.aafcro.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.*;
 
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 @Entity
 @Table(name = "users")
-public class UserModel
+public class UserModel implements Serializable
 {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -33,6 +38,20 @@ public class UserModel
 
     public UserModel()
     {
+    }
+
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private Set<BookingModel> bookingSet = new HashSet<>();
+
+
+    public Set<BookingModel> getBookingSet() {
+        return bookingSet;
+    }
+
+    public void BookingSet(Set<BookingModel> bookingSet) {
+        this.bookingSet = bookingSet;
     }
 
     public UserModel(String email, String password, String firstName, String lastName, LocalDate dateOfBirth, int height) {
