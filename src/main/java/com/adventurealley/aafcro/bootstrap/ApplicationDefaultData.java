@@ -1,8 +1,7 @@
 package com.adventurealley.aafcro.bootstrap;
 
-import com.adventurealley.aafcro.model.ActivityModel;
-import com.adventurealley.aafcro.model.BookingModel;
-import com.adventurealley.aafcro.model.TimeSlotModel;
+import com.adventurealley.aafcro.authorization.AuthGroupModel;
+import com.adventurealley.aafcro.authorization.IAuthGroupRepository;
 import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IActivityRepository;
 import com.adventurealley.aafcro.repository.IBookingRepository;
@@ -29,6 +28,9 @@ public class ApplicationDefaultData implements ApplicationRunner
 
     @Autowired
     IBookingRepository bookingRepository;
+
+    @Autowired
+    IAuthGroupRepository authGroupRepository;
 
     @Override
     public void run(ApplicationArguments args)
@@ -78,8 +80,15 @@ public class ApplicationDefaultData implements ApplicationRunner
             timeSlotRepository.save(t3);
             timeSlotRepository.save(t4);
 */
-            UserModel u1 = new UserModel("rbp@groupcare.com", "0012", "Rune", "Petersen", LocalDate.parse("1984-10-08"), 170);
+            UserModel u1 = new UserModel("rbp@groupcare.com", "$2a$09$dKC/C1ybG8FF.LOeNLGSu.ZXPcqM3UAKeajg0YFjsarHTcY7wLmXK", "Rune", "Petersen", LocalDate.parse("1984-10-08"), 170);
             userRepository.save(u1);
+
+            AuthGroupModel ag1 = new AuthGroupModel("rbp@groupcare.com","USER");
+            authGroupRepository.save(ag1);
+
+            AuthGroupModel ag2 = new AuthGroupModel("rbp@groupcare.com","ADMIN");
+            authGroupRepository.save(ag2);
+
 /*
             BookingModel b1 = new BookingModel(LocalDate.now(),1L);
             BookingModel b2 = new BookingModel(LocalDate.now(),1L);

@@ -5,18 +5,18 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users")
+@Table(name = "USER")
 public class UserModel
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "USER_ID")
     private Long userID;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
     @Column(name = "first_name", nullable = false)
