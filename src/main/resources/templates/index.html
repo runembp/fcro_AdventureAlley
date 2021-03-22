@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Adventure Alley</title>
-    <link rel="stylesheet" href="./static/styles.css">
+    <link rel="stylesheet" th:href="@{css/styles.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="./static/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
 
 </head>
 
@@ -19,7 +19,7 @@
             </a>
         </div>
         <div class="col">
-            <a href="">
+            <a th:href="@{/loggedin/bookings}">
                 <button class="btn btn-primary float-end mt-4" type="button">Login</button>
             </a>
         </div>
