@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 @Entity
 @Table(name = "bookings")
 public class BookingModel implements  Serializable{
@@ -22,16 +23,17 @@ public class BookingModel implements  Serializable{
     private Long dummyTimeSlot;
 
     @ManyToOne
-    @JsonBackReference
+    //@JsonBackReference(value = "id")
     private UserModel users;
 
+
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "activity")
     private ActivityModel activityModel;
 
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "timeslot")
     private TimeSlotModel timeSlot;
 
 
@@ -79,7 +81,7 @@ public class BookingModel implements  Serializable{
         this.activityModel = activityModel;
     }
 
-    @JsonManagedReference
+
     public ActivityModel getActivity() {
         return activityModel;
     }

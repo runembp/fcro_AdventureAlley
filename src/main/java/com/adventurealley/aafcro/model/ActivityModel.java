@@ -1,6 +1,7 @@
 package com.adventurealley.aafcro.model;
 
 import com.fasterxml.jackson.annotation.*;
+import org.hibernate.sql.ordering.antlr.ColumnReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,6 +35,7 @@ public class ActivityModel implements Serializable
     @Column(name = "equipment")
     private String equipment;
 
+    //@JsonManagedReference(value = "activitiestimeslots")
     @ManyToMany
     @JoinTable(
             name = "activity_timeslots",
@@ -41,8 +43,9 @@ public class ActivityModel implements Serializable
             inverseJoinColumns = @JoinColumn(name = "time_slot_id")
     )
 
-    Set<TimeSlotModel> timeSlotModelSet = new HashSet<>();
+    List<TimeSlotModel> timeSlotModelSet = new ArrayList<>();
 
+    @JsonManagedReference(value = "activity")
     @OneToMany
     @JoinColumn(name = "activity_id")
     private Set<BookingModel> bookingsSet = new HashSet<>();
@@ -59,13 +62,12 @@ public class ActivityModel implements Serializable
         this.equipment = equipment;
     }
 
-    @JsonManagedReference
-    public Set<TimeSlotModel> getTimeSlotModelSet()
+    public List<TimeSlotModel> getTimeSlotModelSet()
    {
        return timeSlotModelSet;
    }
 
-   @JsonBackReference
+
     public Set<BookingModel> getBookings() {
         return bookingsSet;
     }
@@ -74,7 +76,7 @@ public class ActivityModel implements Serializable
         this.bookingsSet = bookingsSet;
     }
 
-    public void setTimeSlotModelSet(Set<TimeSlotModel> timeslots){
+    public void setTimeSlotModelSet(List<TimeSlotModel> timeslots){
         this.timeSlotModelSet = timeslots;
    }
 

@@ -152,7 +152,7 @@ public class ApplicationDefaultData implements ApplicationRunner
 
             t3.getActivityModelSet().add(a1);
             t3.getBookings().add(b1);
-            timeSlotRepository.save(t1);
+            timeSlotRepository.save(t3);
 
             rune.getBookingSet().add(b1);
             userRepository.save(rune);

@@ -4,12 +4,14 @@ const createBookingButton = document.getElementById("createBooking");
 const dropdownTimeslots = document.getElementById("timeslot");
 const calendar = document.getElementById("calendar");
 
+
 createBookingButton.addEventListener('click', x => createBooking())
 
 let list = getAllActivities().then(x => list = x);
 let timeslotList = getTimeslots().then(x => timeslotList = x);
 
 async function getAllActivities() {
+
     const url = "http://localhost:8080/findAllActivities"
     const response = await fetch(url);
     const data = await response.json();
@@ -44,31 +46,33 @@ async function getTimeslots()
     return result;
 }
 
-function createBooking()
+async function createBooking()
 {
     const activity = list[dropdownAllActivities.selectedIndex];
     const timeslot = timeslotList[dropdownTimeslots.selectedIndex];
     const date = calendar.value;
 
     const booking = {
-        "userId": 1,
         "bookingDate": date,
         "dummy":activity.activityId,
         "dummyTimeSlot": timeslot.timeSlotId
     }
 
     const bookingStringified = JSON.stringify(booking);
-    const url = "http://localhost:8080/postBooking"
+
+    const url = "http://localhost:8080/postBooking";
 
     const postObject = {
         headers: {
                 "Content-type": 'application/json'
             },
         method: 'POST',
+        accept: 'application/json',
         body: bookingStringified
     };
 
-    fetch(url,postObject).then(response => response.json())
+    fetch(url,postObject)
+        .then(response => response.json())
         .then(() => {
             console.log("booking created")
         })

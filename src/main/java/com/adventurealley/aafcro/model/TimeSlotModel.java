@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
@@ -23,9 +25,11 @@ public class TimeSlotModel implements Serializable {
     @Column(name = "activity_end", nullable = false)
     private String end;
 
-    @ManyToMany(mappedBy = "timeSlotModelSet")
-    Set<ActivityModel> activityModelSet = new HashSet<>();
 
+    @ManyToMany(mappedBy = "timeSlotModelSet")
+    List<ActivityModel> activityModelSet = new ArrayList<>();
+
+    @JsonManagedReference(value = "timeslot")
     @OneToMany
     @JoinColumn(name = "time_slot_id")
     private Set<BookingModel> bookings = new HashSet<>();
@@ -61,7 +65,7 @@ public class TimeSlotModel implements Serializable {
         this.end = end;
     }
 
-    @JsonBackReference
+
     public Set<BookingModel> getBookings() {
         return bookings;
     }
@@ -70,13 +74,13 @@ public class TimeSlotModel implements Serializable {
         this.bookings = bookings;
     }
 
-    @JsonBackReference
-    public Set<ActivityModel> getActivityModelSet()
+
+    public List<ActivityModel> getActivityModelSet()
    {
        return activityModelSet;
    }
 
-   public void setActivityModelSet(Set<ActivityModel> activities)
+   public void setActivityModelSet(List<ActivityModel> activities)
    {
        this.activityModelSet = activities;
    }

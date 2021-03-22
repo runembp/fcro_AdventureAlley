@@ -1,6 +1,7 @@
 package com.adventurealley.aafcro.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -41,8 +42,9 @@ public class UserModel implements Serializable
     }
 
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
+    //@JsonManagedReference(value = "user_id")
+    @OneToMany(mappedBy = "users")
+    //@JoinColumn(name = "user_id")
     private Set<BookingModel> bookingSet = new HashSet<>();
 
 

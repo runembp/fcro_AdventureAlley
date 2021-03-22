@@ -30,10 +30,10 @@ public class UserRestController
         return userRepository.findAll();
     }
 
-    //@GetMapping("/getUserByEmail")
-    /*public UserModel getUserByEmail(String email)
+    /*@GetMapping("/getUserByEmail/{email}")
+    public UserModel getUserByEmail(@PathVariable String email)
     {
-        return userRepository.findUserModelByEmail(email);
+        return userRepository.findUserByEmail(email);
     }*/
 
     @PostMapping(value = "/postUser", consumes = "application/json")
@@ -48,9 +48,6 @@ public class UserRestController
     public UserModel findAllBookingsForUser(@PathVariable String email)
     {
         return userRepository.findUserByEmail(email);
-
-
-        //return  bookingRepository.getBookingsByEmail(email);
 
     }
 }
