@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(value = "*")
 public class ActivityRestController {
 
     @Autowired
@@ -27,8 +28,13 @@ public class ActivityRestController {
         return activityService.CreateActivity(activityModel);
     }
 
-    @PutMapping(value = "/updateActivity")
-    public ActivityModel putActivity(@RequestBody ActivityModel activity) {
-        return activityService.updateActivity(activity);
+    @PutMapping(value = "/updateActivity", consumes = "application/json")
+    public ActivityModel putActivity(@RequestBody ActivityModel updatedActivity) {
+        return activityService.updateActivity(updatedActivity);
+    }
+
+    @DeleteMapping("/deleteActivity/{activityId}")
+    public void deleteActivity(@PathVariable Integer activityId) {
+        
     }
 }

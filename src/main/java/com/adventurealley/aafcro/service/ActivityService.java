@@ -39,4 +39,6 @@ public class ActivityService
 
     public ActivityModel updateActivity(ActivityModel activityModel) {return iActivityRepository.save(activityModel);}
 
+    //public ActivityModel deleteActivity(ActivityModel activityModel) {return IActivityRepository.deleteByID(activityModel);}
+
 }

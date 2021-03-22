@@ -1,6 +1,15 @@
+const title = document.getElementById("title-update");
+const description = document.getElementById("description-update");
+const price = document.getElementById("price-update");
+const minHeight = document.getElementById("minHeight-update");
+const minAge = document.getElementById("minAge-update");
+const equipment = document.getElementById("equipment-update");
+const imageLink = document.getElementById("imageLink-update");
+
 function submitForm(){
     if (!event.preventDefault()) {
         createActivity();
+        window.location.href="index.html";
     }
 }
 
@@ -17,6 +26,7 @@ function createActivity() {
         }
     console.log(activity);
     let body1 = JSON.stringify(activity);
+
     addActivity(body1)
 }
 
@@ -30,6 +40,9 @@ function addActivity(body1) {
             method: 'POST',
             body: body1
         };
+
+    console.log(body1);
+    console.log(requestObject);
 
     fetch(createActivityUrl, requestObject)
         .then(response => response.json())
@@ -55,9 +68,9 @@ async function getAllActivities() {
     dropdownAllActivities.length = 0;
 
     data.forEach(x => {
-        let element = document.createElement("option")
+        let element = document.createElement("option");
         element.value = x.activityId;
-        //element.setAttribute('class', 'updateActivityClass')
+        element.setAttribute('class', 'updateActivityClass');
         element.textContent = x.title;
         dropdownAllActivities.appendChild(element)
     })
@@ -65,15 +78,55 @@ async function getAllActivities() {
     return data;
 }
 
+dropdownAllActivities.addEventListener('change', x => {
+    title.value = list[dropdownAllActivities.selectedIndex].title;
+    description.value = list[dropdownAllActivities.selectedIndex].description;
+    price.value = list[dropdownAllActivities.selectedIndex].price;
+    minHeight.value = list[dropdownAllActivities.selectedIndex].minHeight;
+    minAge.value = list[dropdownAllActivities.selectedIndex].minAge;
+    equipment.value = list[dropdownAllActivities.selectedIndex].equipment;
+    imageLink.value = list[dropdownAllActivities.selectedIndex].imageLink;
+});
 
-document.querySelector('#dropdownAllActivities').addEventListener('click', e => {
+function updateSubmit() {
+    if(!event.preventDefault()) {
+        updateActivity();
+        location.reload();
+    }
+}
 
-    console.log(e.target.children.indexOf());
+function updateActivity() {
 
-/*    if(e.target.children == 'option') {
-        console.log('hej')
-    }*/
-})
+    let updatedActivity = {
+        "activityId": list[dropdownAllActivities.selectedIndex].activityId,
+        "description": document.getElementById("description-update").value,
+        "equipment": document.getElementById("equipment-update").value,
+        "imageLink": document.getElementById("imageLink-update").value,
+        "minAge": document.getElementById("minAge-update").value,
+        "minHeight": document.getElementById("minHeight-update").value,
+        "price": document.getElementById("price-update").value,
+        "title": document.getElementById("title-update").value
+    }
+
+    let updateActivityStringified = JSON.stringify(updatedActivity);
+
+    updateDB(updateActivityStringified);
+}
+
+function updateDB(updateActivityStringified) {
+    const putUrl = "http://localhost:8080/updateActivity";
+
+    const putObject = {
+        headers: {'Content-type': 'application/json'
+        },
+        method: 'PUT',
+        body: updateActivityStringified
+    }
+
+    console.log(putObject)
+
+    fetch(putUrl, putObject)
+}
 
 
 

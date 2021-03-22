@@ -56,7 +56,7 @@
 
 <div class="update-activity">
     <h1>Update Activity</h1>
-    <form id="update-activity" enctype="application/json" method="post" action="/updateActivity" onsubmit="">
+    <form id="update-activity" enctype="application/json" method="post" action="/updateActivity" onsubmit="updateSubmit()">
         <input id="title-update" type="text" placeholder="Titel" required/>
         <br>
         <input id="price-update" type="number" placeholder="Pris" step=".01" required/>
@@ -72,6 +72,7 @@
         <input id="imageLink-update" type="text" placeholder="Link" required/>
         <br>
         <input id="save-update" type="submit" value="Gem"/>
+        <input id="delete" type="button" value="Slet"/>
     </form>
 </div>
 </div>
