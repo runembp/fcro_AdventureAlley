@@ -3,6 +3,7 @@ package com.adventurealley.aafcro.authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,11 +12,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter
+public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer
 {
     @Autowired
     AuthUserDetailService userDetailService;
@@ -26,19 +30,23 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         http
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/*").permitAll()
                 .antMatchers("/index").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/css/*").permitAll()
-                .antMatchers("/js/*").permitAll()
+                .antMatchers("/createuser").permitAll()
+                .antMatchers("/postUser").permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/loggedin/**").hasRole("USER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET).permitAll()
+                .antMatchers(HttpMethod.POST).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic()
+                .formLogin().loginPage("/login").permitAll()
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/logout-success").permitAll();
     }
 
@@ -69,10 +77,13 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/h2-console/**")
-                .antMatchers("/resources/css/**")
-                .antMatchers("/resources/js/**");
+        web.ignoring()
+                .antMatchers("/h2-console/**");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/");
     }
 }

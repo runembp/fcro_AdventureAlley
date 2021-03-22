@@ -8,7 +8,7 @@
 
 <h1>Opret ny bruger</h1>
 
-<form id="form" enctype="application/json" action="/postUser" method="post" onsubmit="formSubmit()">
+<form id="form" th:action="@{/postUser}" method="post" onsubmit="formSubmit()">
     <input type="email" name="email" id="email" placeholder="email" required>
     <br>
     <input type="password" name="password" id="password1" placeholder="password" required>

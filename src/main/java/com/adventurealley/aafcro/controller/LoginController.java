@@ -18,31 +18,9 @@ public class LoginController
         return "logout";
     }
 
-
-//    @GetMapping("/login")
-//    public String getLogin()
-//    {
-//        return "login";
-//    }
-//
-//
-//    @PostMapping("/postlogin")
-//    public String postLogin(WebRequest data)
-//    {
-//
-//        String email = data.getParameter("email");
-//        var password = data.getParameter("password");
-//
-//        if(loginService.isUserAuthenticated(email,password))
-//        {
-//            return "redirect:/loggedin/"+email;
-//        }
-//
-//        return "redirect:/";
-//    }
-//    @GetMapping("/loggedin/{email}")
-//    public String getLoggedIn()
-//    {
-//        return "loggedin/index";
-//    }
+    @GetMapping("/login")
+    public String getLogin()
+    {
+        return "login";
+    }
 }

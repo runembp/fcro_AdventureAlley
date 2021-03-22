@@ -4,6 +4,7 @@ import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class UserRestController
     }
 
     @PostMapping(value = "/postUser", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     UserModel postUser(@RequestBody UserModel userModel)
     {
