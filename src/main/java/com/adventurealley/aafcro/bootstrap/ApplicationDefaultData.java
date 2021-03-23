@@ -2,7 +2,6 @@ package com.adventurealley.aafcro.bootstrap;
 
 import com.adventurealley.aafcro.model.ActivityModel;
 import com.adventurealley.aafcro.model.TimeSlotModel;
-import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IActivityRepository;
 import com.adventurealley.aafcro.repository.IBookingRepository;
 import com.adventurealley.aafcro.repository.ITimeSlotRepository;
@@ -12,7 +11,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 
 @Component
 public class ApplicationDefaultData implements ApplicationRunner
@@ -56,10 +54,10 @@ public class ApplicationDefaultData implements ApplicationRunner
             t2.getActivityModelSet().add(a1);
             t3.getActivityModelSet().add(a1);
             t4.getActivityModelSet().add(a1);
-            a1.getTimeSlotModelSet().add(t1);
-            a1.getTimeSlotModelSet().add(t2);
-            a1.getTimeSlotModelSet().add(t3);
-            a1.getTimeSlotModelSet().add(t4);
+            a1.getTimeslot().add(t1);
+            a1.getTimeslot().add(t2);
+            a1.getTimeslot().add(t3);
+            a1.getTimeslot().add(t4);
 
             timeSlotRepository.save(t1);
             timeSlotRepository.save(t2);
@@ -70,10 +68,10 @@ public class ApplicationDefaultData implements ApplicationRunner
             t2.getActivityModelSet().add(a2);
             t3.getActivityModelSet().add(a2);
             t4.getActivityModelSet().add(a2);
-            a2.getTimeSlotModelSet().add(t1);
-            a2.getTimeSlotModelSet().add(t2);
-            a2.getTimeSlotModelSet().add(t3);
-            a2.getTimeSlotModelSet().add(t4);
+            a2.getTimeslot().add(t1);
+            a2.getTimeslot().add(t2);
+            a2.getTimeslot().add(t3);
+            a2.getTimeslot().add(t4);
 
             timeSlotRepository.save(t1);
             timeSlotRepository.save(t2);
@@ -82,6 +80,11 @@ public class ApplicationDefaultData implements ApplicationRunner
 /*
             UserModel u1 = new UserModel("rbp@groupcare.com", "0012", "Rune", "Petersen", LocalDate.parse("1984-10-08"), 170);
             userRepository.save(u1);
+
+            BookingModel b1 = new BookingModel(LocalDate.now());
+            BookingModel b2 = new BookingModel(LocalDate.now());
+            b1.setUsers(u1);
+            b2.setUsers(u1);
             UserModel admin = new UserModel("admin@adventurealley.com", "admin", "Admin", "Adminsson", LocalDate.parse("2021-01-01"), 100);
             userRepository.save(admin);
 
@@ -89,6 +92,8 @@ public class ApplicationDefaultData implements ApplicationRunner
             BookingModel b2 = new BookingModel(LocalDate.now(),1L);
             b1.setActivity(a1);
             b2.setActivity(a2);
+            b1.setTimeSlot(t1);
+            b2.setTimeSlot(t4);
             bookingRepository.save(b1);
             bookingRepository.save(b2);
 
@@ -96,7 +101,11 @@ public class ApplicationDefaultData implements ApplicationRunner
             a2.getBookings().add(b2);
             activityRepository.save(a1);
             activityRepository.save(a2);
-        */
+
+            u1.getBookingSet().add(b1);
+            u1.getBookingSet().add(b2);
+
+            userRepository.save(u1);*/
         }
         catch (Exception e)
         {

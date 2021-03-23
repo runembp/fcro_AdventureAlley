@@ -1,15 +1,14 @@
 package com.adventurealley.aafcro.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.*;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.*;
 
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 @Entity
 @Table(name = "activities")
-public class ActivityModel
+public class ActivityModel implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,18 +36,17 @@ public class ActivityModel
     @Column(name = "image_link")
     private String imageLink;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "activity_timeslots",
             joinColumns = @JoinColumn(name = "activity_id"),
             inverseJoinColumns = @JoinColumn(name = "time_slot_id")
     )
-
-    Set<TimeSlotModel> timeSlotModelSet = new HashSet<>();
+    @JsonIgnore
+    Set<TimeSlotModel> timeslot = new HashSet<>();
 
     @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL)
-    private Set<BookingModel> bookings = new HashSet<>();
+    private Set<BookingModel> bookingsSet = new HashSet<>();
 
     public ActivityModel(){}
 
@@ -62,22 +60,6 @@ public class ActivityModel
         this.imageLink = imageLink;
     }
 
-    public Set<TimeSlotModel> getTimeSlotModelSet()
-   {
-       return timeSlotModelSet;
-   }
-
-    public Set<BookingModel> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(Set<BookingModel> bookings) {
-        this.bookings = bookings;
-    }
-
-    public void setTimeSlotModelSet(Set<TimeSlotModel> timeslots){
-        this.timeSlotModelSet = timeslots;
-   }
 
     public Long getActivityId() {
         return activityId;
@@ -141,6 +123,22 @@ public class ActivityModel
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    public Set<TimeSlotModel> getTimeslot() {
+        return timeslot;
+    }
+
+    public void setTimeslot(Set<TimeSlotModel> timeslot) {
+        this.timeslot = timeslot;
+    }
+
+    public Set<BookingModel> getBookingsSet() {
+        return bookingsSet;
+    }
+
+    public void setBookingsSet(Set<BookingModel> bookingsSet) {
+        this.bookingsSet = bookingsSet;
     }
 
     @Override

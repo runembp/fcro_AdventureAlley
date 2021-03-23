@@ -1,7 +1,8 @@
 package com.adventurealley.aafcro.restcontroller;
 
-import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.service.UserService;
+import com.adventurealley.aafcro.model.UserModel;
+import com.adventurealley.aafcro.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,10 @@ public class UserRestController
     @Autowired
     UserService userService;
 
-    @GetMapping(("/getAllUsers"))
+    @Autowired
+    IUserRepository userRepository;
+
+    @GetMapping("/getAllUsers")
     List<UserModel> getAllUsers()
     {
         return userService.findAll();
@@ -32,4 +36,5 @@ public class UserRestController
     {
         return userService.save(userModel);
     }
+
 }

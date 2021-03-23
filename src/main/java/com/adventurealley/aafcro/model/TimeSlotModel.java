@@ -1,14 +1,15 @@
 package com.adventurealley.aafcro.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "timeslots")
-public class TimeSlotModel {
+public class TimeSlotModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +22,12 @@ public class TimeSlotModel {
     @Column(name = "activity_end", nullable = false)
     private String end;
 
-    @ManyToMany(mappedBy = "timeSlotModelSet")
-    @JsonIgnore
-    Set<ActivityModel> activityModelSet = new HashSet<>();
+    @ManyToMany(mappedBy = "timeslot")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    Set<ActivityModel> activity = new HashSet<>();
 
     @OneToMany(mappedBy = "timeSlot")
+    @JsonBackReference(value = "timeslot")
     private Set<BookingModel> bookings = new HashSet<>();
 
     public TimeSlotModel(){}
@@ -69,11 +71,10 @@ public class TimeSlotModel {
 
     public Set<ActivityModel> getActivityModelSet()
    {
-       return activityModelSet;
+       return activity;
    }
-
    public void setActivityModelSet(Set<ActivityModel> activities)
    {
-       this.activityModelSet = activities;
+       this.activity = activities;
    }
 }
