@@ -1,7 +1,7 @@
 package com.adventurealley.aafcro.restcontroller;
 
 import com.adventurealley.aafcro.model.UserModel;
-import com.adventurealley.aafcro.repository.IUserRepository;
+import com.adventurealley.aafcro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,18 +12,24 @@ import java.util.List;
 public class UserRestController
 {
     @Autowired
-    IUserRepository userRepository;
+    UserService userService;
 
     @GetMapping(("/getAllUsers"))
     List<UserModel> getAllUsers()
     {
-        return userRepository.findAll();
+        return userService.findAll();
+    }
+
+    @GetMapping("/getUserByEmail/{userEmail}")
+    UserModel getUserByEmail(@PathVariable String userEmail)
+    {
+        return userService.getUserByEmail(userEmail);
     }
 
     @PostMapping(value = "/postUser", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     UserModel postUser(@RequestBody UserModel userModel)
     {
-        return userRepository.save(userModel);
+        return userService.save(userModel);
     }
 }
