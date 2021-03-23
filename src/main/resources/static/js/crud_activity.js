@@ -9,7 +9,7 @@ const imageLink = document.getElementById("imageLink-update");
 function submitForm(){
     if (!event.preventDefault()) {
         createActivity();
-        window.location.href="index.html";
+        location.reload();
     }
 }
 
