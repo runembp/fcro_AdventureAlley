@@ -22,26 +22,53 @@
         console.log(x)
     });
 
-    let data = [
-        {
-            "start": Date.now(),
-            "end": Date.now()+2000,
-            "id": "1f67def5-e1dd-57fc-2d39-eb7a5f8e789a",
-            "text": "Sumo Brydning 08:00-10:00"
-        },
-    ];
+    let bookingList =
+        [
+            {
+                "bookingDate":Date.now() - 500_000_000,
+                "activityTitle":"Paintball",
+                "timeslot":0
+            },
+            {
+                "bookingDate":Date.now() - 300_000_000,
+                "activityTitle":"Øksekast",
+                "timeslot":1
+            },
+            {
+                "bookingDate":Date.now() - 100_000_000,
+                "activityTitle":"Gokart",
+                "timeslot":2
+            },
+            {
+                "bookingDate":Date.now() + 100_000_000,
+                "activityTitle":"Paintball",
+                "timeslot":3
+            },
+        ]
+
+    function populateDataFromBookingList(bookingList)
+    {
+        const timeslotValues = ["08:00-10:00","10:00-12:00","12:00-14:00","14:00-16:00"]
+        let events = [];
+
+        bookingList.forEach(x => {
+            let booking =
+                {
+                    "start":x.bookingDate,
+                    "end":x.bookingDate,
+                    "id":"unused",
+                    "text": x.activityTitle + " - " + timeslotValues[x.timeslot]
+                };
+
+            events.push(booking)
+        })
+
+        return events;
+    }
 
     let dp = new DayPilot.Month("dp");
-
-    dp.viewType = "Week";
-
-    dp.events.list = data;
-
+    dp.events.list = populateDataFromBookingList(bookingList);
     dp.init();
-
-
-
-
 
 </script>
 </body>
