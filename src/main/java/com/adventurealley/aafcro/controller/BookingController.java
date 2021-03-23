@@ -11,4 +11,10 @@ public class BookingController
     {
         return "loggedin/bookings";
     }
+
+    @GetMapping("/loggedin/booking_calendar")
+    public String getBookingCalendar()
+    {
+        return "loggedin/booking_calendar";
+    }
 }

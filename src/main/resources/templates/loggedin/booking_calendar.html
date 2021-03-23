@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{/js/daypilot/daypilot-all.min.js}" type="text/javascript"></script>
+</head>
+<body>
+<div id="dp"></div>
+<script>
+
+    const email = "rbp@groupcare.com";
+
+    async function getUserData(userEmail)
+    {
+        const url = `http://localhost:8080/getUserByEmail/${userEmail}`
+        return await fetch(url).then(x => x.json());
+    }
+
+    let user = getUserData(email).then(x => {
+        user = x;
+        console.log(x)
+    });
+
+    let data = [
+        {
+            "start": Date.now(),
+            "end": Date.now()+2000,
+            "id": "1f67def5-e1dd-57fc-2d39-eb7a5f8e789a",
+            "text": "Sumo Brydning 08:00-10:00"
+        },
+    ];
+
+    let dp = new DayPilot.Month("dp");
+
+    dp.viewType = "Week";
+
+    dp.events.list = data;
+
+    dp.init();
+
+
+
+
+
+</script>
+</body>
+</html>
