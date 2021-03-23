@@ -6,7 +6,6 @@ import com.adventurealley.aafcro.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -15,6 +14,10 @@ public class ActivityRestController {
 
     @Autowired
     private ActivityService activityService;
+
+    @Autowired
+    private IActivityRepository activityRepository;
+
 
     @GetMapping("/findAllActivities")
     public List<ActivityModel> findAllActivities()
@@ -38,5 +41,12 @@ public class ActivityRestController {
     public void deleteActivity(@PathVariable Long activityId) {
 
         activityService.deleteActivityByID(activityId);
+    }
+
+
+    @GetMapping("/getActivityToBooking/{bookingId}")
+    public ActivityModel findActivityForBooking(@PathVariable Long bookingId)
+    {
+        return activityRepository.getActivityToBooking(bookingId);
     }
 }

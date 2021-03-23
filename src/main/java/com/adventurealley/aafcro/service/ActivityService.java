@@ -23,7 +23,7 @@ public class ActivityService
         List<TimeSlotModel> timeslots = iTimeSlotRepository.findAll();
         for(TimeSlotModel t : timeslots)
         {
-            activityModel.getTimeSlotModelSet().add(t);
+            activityModel.getTimeslot().add(t);
             iActivityRepository.save(activityModel);
 
             t.getActivityModelSet().add(activityModel);
