@@ -9,15 +9,13 @@ window.onload = async function createAdminOverview() {
     const response = await fetch(url);
     const data = await response.json();
 
-    let activityList = data;
+    const activityList = data;
 
     for(let i = 0; i < activityList.length; i++)
     {
         if(i % 2 === 0)
         {
             insertActivityToLeftColumn(activityList[i])
-
-
         }
         else
         {

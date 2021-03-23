@@ -15,7 +15,7 @@ function submitForm(){
 
 function createActivity() {
 
-    let activity = {
+    const activity = {
             "title": document.getElementById("title").value,
             "description": document.getElementById("description").value,
             "price": document.getElementById("price").value,
@@ -24,8 +24,7 @@ function createActivity() {
             "equipment": document.getElementById("equipment").value,
             "imageLink": document.getElementById("imageLink").value,
         }
-    console.log(activity);
-    let body1 = JSON.stringify(activity);
+    const body1 = JSON.stringify(activity);
 
     addActivity(body1)
 }
@@ -108,7 +107,7 @@ function updateActivity() {
         "title": document.getElementById("title-update").value
     }
 
-    let updateActivityStringified = JSON.stringify(updatedActivity);
+    const updateActivityStringified = JSON.stringify(updatedActivity);
 
     updateDB(updateActivityStringified);
 }
@@ -122,8 +121,6 @@ function updateDB(updateActivityStringified) {
         method: 'PUT',
         body: updateActivityStringified
     }
-
-    console.log(putObject)
 
     fetch(putUrl, putObject)
 }

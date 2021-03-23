@@ -14,9 +14,6 @@ import java.util.List;
 public class ActivityRestController {
 
     @Autowired
-    private IActivityRepository iActivityRepository;
-
-    @Autowired
     private ActivityService activityService;
 
     @GetMapping("/findAllActivities")

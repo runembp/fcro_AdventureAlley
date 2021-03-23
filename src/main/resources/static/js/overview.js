@@ -5,14 +5,7 @@ window.onload = async function createOverview() {
 
     const activity_container = document.getElementById("activity_container")
 
-    const getObject = {
-        method:"GET",
-        headers: {
-            "Content-type":"application/json"
-        }
-    }
-
-    const response = await fetch(url, getObject);
+    const response = await fetch(url);
     const data = await response.json();
 
     activityList = data;
