@@ -4,23 +4,32 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript" th:src="@{/js/bookings.js}" defer></script>
+    <script type="text/javascript" th:src="@{/js/user_info.js}" defer></script>
 </head>
 <body>
 
-<h1>Bookings</h1>
-
-<select id="dropdownAllActivities"></select>
-
-<br><br><br>
-
-<select id="timeslot"></select>
+<h1> Brugeroverblik</h1>
+<div id="userdata"></div>
+<h2 id="bookingHeader">Dine bookings</h2>
+<div id="dropdownMyBooking"></div>
 
 <br><br><br>
 
-<input type="date" id="calendar" >
+<h2>Opret ny booking</h2>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<button id="createBooking">Create booking for selected Actitivy</button>
+<span>Aktivitet: </span><select id="dropdownAllActivities"></select>
+
+<br><br><br>
+
+<span>Tidsrum: </span><select id="timeslot"></select>
+
+<br><br><br>
+
+<span>Dato: </span><input type="date" id="calendar" >
+
+<br><br><br>
+
+<button id="createBooking">Godkend Booking</button>
 
 </body>
 </html>
