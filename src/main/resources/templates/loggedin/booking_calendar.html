@@ -8,7 +8,7 @@
 <body>
 <div id="dp"></div>
 <script>
-    const userEmail = window.location.pathname.substring(40);
+    const userEmail = window.location.pathname.substring(27)
 
     populateDataFromBookingList();
 
@@ -17,9 +17,6 @@
         const url = `http://localhost:8080/getBookingsForUser/${userEmail}`
         return await fetch(url).then(x => x.json());
     }
-
-    const button = document.getElementById("postCalendar");
-    button.innerText = email;
 
     async function populateDataFromBookingList(bookingList)
     {
