@@ -20,7 +20,7 @@ async function getAllActivities() {
 
     data.forEach(x => {
         let element = document.createElement("option")
-        element.value = x.activity_Id;
+        element.value = x.activityId;
         element.textContent = x.title;
         dropdownAllActivities.appendChild(element)
     })
@@ -38,7 +38,7 @@ async function getTimeslots()
     result.forEach(x =>
     {
         let element = document.createElement("option")
-        element.value = x.index;
+        element.value = x.timeSlotId;
         element.textContent = x.start + "-" + x.end;
         dropdownTimeslots.appendChild(element);
     })
@@ -60,7 +60,7 @@ async function createBooking()
 
     const bookingStringified = JSON.stringify(booking);
 
-    const url = "http://localhost:8080/postBooking";
+    const url = `http://localhost:8080/postBooking/${email}`;
 
     const postObject = {
         headers: {

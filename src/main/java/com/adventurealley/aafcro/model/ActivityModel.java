@@ -35,21 +35,17 @@ public class ActivityModel implements Serializable
     @Column(name = "equipment")
     private String equipment;
 
-    //@JsonManagedReference(value = "activitiestimeslots")
     @ManyToMany
     @JoinTable(
             name = "activity_timeslots",
             joinColumns = @JoinColumn(name = "activity_id"),
             inverseJoinColumns = @JoinColumn(name = "time_slot_id")
     )
+    @JsonIgnore
+    Set<TimeSlotModel> timeslot = new HashSet<>();
 
-    List<TimeSlotModel> timeSlotModelSet = new ArrayList<>();
-
-    @JsonManagedReference(value = "activity")
-    @OneToMany
-    @JoinColumn(name = "activity_id")
+    @OneToMany(mappedBy = "activity")
     private Set<BookingModel> bookingsSet = new HashSet<>();
-
 
     public ActivityModel(){}
 
@@ -62,11 +58,10 @@ public class ActivityModel implements Serializable
         this.equipment = equipment;
     }
 
-    public List<TimeSlotModel> getTimeSlotModelSet()
+    public Set<TimeSlotModel> getTimeSlotModelSet()
    {
-       return timeSlotModelSet;
+       return timeslot;
    }
-
 
     public Set<BookingModel> getBookings() {
         return bookingsSet;
@@ -76,8 +71,8 @@ public class ActivityModel implements Serializable
         this.bookingsSet = bookingsSet;
     }
 
-    public void setTimeSlotModelSet(List<TimeSlotModel> timeslots){
-        this.timeSlotModelSet = timeslots;
+    public void setTimeSlotModelSet(Set<TimeSlotModel> timeslots){
+        this.timeslot = timeslots;
    }
 
     public Long getActivityId() {

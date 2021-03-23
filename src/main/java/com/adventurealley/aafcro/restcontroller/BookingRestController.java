@@ -10,14 +10,8 @@ import com.adventurealley.aafcro.repository.ITimeSlotRepository;
 import com.adventurealley.aafcro.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @RestController
 public class BookingRestController
@@ -40,32 +34,47 @@ public class BookingRestController
     @Autowired
     IUserRepository userRepository;
 
-    @PostMapping(value = "/postBooking", consumes = "application/json")
+    @PostMapping(value = "/postBooking/{email}", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    BookingModel postBooking(@RequestBody BookingModel booking)
+    BookingModel postBooking(@RequestBody BookingModel booking, @PathVariable String email)
     {
-        UserModel user = new UserModel("rbp@groupcare.com", "0012", "Rune", "Petersen", LocalDate.parse("1984-10-08"), 170);
-        userRepository.save(user);
+        UserModel user = userRepository.findUserByEmail(email); //Denne virker
 
-        //Brugeren skal trækkes fra js og insættes som i linje 65.
+        BookingModel newBooking = bookingRepository.save(booking);
+        bookingRepository.save(newBooking);
 
-        if(activityRepository.findById(booking.getDummy()).isEmpty())
-        {
-            return null;
-        }
+        TimeSlotModel timeSlotModel = timeSlotRepository.findById(booking.getDummyTimeSlot()).get();
+        timeSlotRepository.save(timeSlotModel);
 
         ActivityModel activityModel = activityRepository.findById(booking.getDummy()).get();
-        TimeSlotModel timeSlotModel = timeSlotRepository.findById(booking.getDummyTimeSlot()).get();
+        activityModel.getTimeSlotModelSet().add(timeSlotModel);
+        activityModel.getBookings().add(newBooking);
+        activityRepository.save(activityModel);
 
-        activityModel.getBookings().add(booking);
-        timeSlotModel.getBookings().add(booking);
+        newBooking.setUsers(user);
+        newBooking.setActivity(activityModel);
+        newBooking.setTimeSlot(timeSlotModel);
+        bookingRepository.save(newBooking);
 
-        booking.setActivity(activityModel);
-        booking.setTimeSlot(timeSlotModel);
-        booking.setUsers(user);
+        timeSlotModel.getActivityModelSet().add(activityModel);
+        timeSlotModel.getBookings().add(newBooking);
+        timeSlotRepository.save(timeSlotModel);
 
-        return bookingRepository.save(booking);
+        user.getBookingSet().add(newBooking);
+        userRepository.save(user);
+
+        return bookingRepository.save(newBooking);
     }
+
+    @GetMapping("/bookings/{email}")
+    public List<BookingModel> bookingsForUser(@PathVariable String email)
+    {
+        return bookingRepository.getBookingsToUser(email);
+    }
+
+
+
+
 
 
 

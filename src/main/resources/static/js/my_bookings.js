@@ -1,34 +1,39 @@
-const dropdownMyBookings = document.getElementById("dropdownMyBooking");
-const booking1 = document.getElementById("booking1");
+const dropdownMyBookings = document.querySelector("#dropdownMyBooking");
+const useremail = document.getElementById("useremail");
 
-let email = window.location.pathname.substring(19);
+const email = window.location.pathname.substring(19);
 
-booking1.innerHTML += email;
+const userUrl = `http://localhost:8080/bookings/${email}`;
 
-getBookingToUser()
+useremail.innerHTML += email;
 
+getBookingToUser();
 
 async function getBookingToUser(){
 
-    const userUrl = `http://localhost:8080/bookingsForCurrentUser/${email}`;
     const response = await fetch(userUrl);
-    const user = await response.json();
+    const bookings = await response.json();
 
-    for(let i = 0; i < user.bookingSet.length; i++)
-    {
-        let element = document.createElement("p");
-        element.value = user.bookingSet[i].booking_id;
-        element.textContent = user.bookingSet[i].activity.title + ' ' + user.bookingSet[i].bookingDate;
 
-        let timeslotModelSet = user.bookingSet[i].activity.timeSlotModelSet;
+    for(let i = 0; i < bookings.length; i++)
+{
+    let bookingId = bookings[i].bookingId;
 
-        timeslotModelSet.forEach(x => {
-            element.textContent += x.start + " ";
-            element.textContent += x.end;
-        });
+    //Bruges til at hente aktivitet til den pågælgende booking
+    const activityUrl = `http://localhost:8080/getActivityToBooking/${bookingId}`;
+    const response1 = await fetch(activityUrl)
+    const activity = await response1.json();
 
-        dropdownMyBookings.appendChild(element);
-    }
+    //Bruges til at hente timeslot for booking
+    const timeslotUrl = `http://localhost:8080/timeslotForBooking/${bookingId}`;
+    const repsonse2 = await fetch(timeslotUrl);
+    const timeslot = await  repsonse2.json();
+
+    let element = document.createElement("p");
+    element.innerText = activity.title + ' ' + bookings[i].bookingDate + ' '+ timeslot.start + ' ' + timeslot.end;
+
+    dropdownMyBookings.appendChild(element);
+    };
 
 }
 

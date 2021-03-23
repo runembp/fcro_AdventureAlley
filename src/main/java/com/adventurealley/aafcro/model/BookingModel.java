@@ -23,19 +23,20 @@ public class BookingModel implements  Serializable{
     private Long dummyTimeSlot;
 
     @ManyToOne
-    //@JsonBackReference(value = "id")
+    @JoinColumn(name = "user_id")
+    @JsonBackReference(value = "user_id")
     private UserModel users;
 
 
     @ManyToOne
+    @JoinColumn(name = "activity_id")
     @JsonBackReference(value = "activity")
-    private ActivityModel activityModel;
-
+    private ActivityModel activity;
 
     @ManyToOne
+    @JoinColumn(name = "time_slot_id")
     @JsonBackReference(value = "timeslot")
     private TimeSlotModel timeSlot;
-
 
     public BookingModel() {
     }
@@ -43,6 +44,14 @@ public class BookingModel implements  Serializable{
     public BookingModel(LocalDate now) {
         this.bookingDate = now;
 
+    }
+
+    public ActivityModel getActivity() {
+        return activity;
+    }
+
+    public void setActivity(ActivityModel activity) {
+        this.activity = activity;
     }
 
     public UserModel getUsers() {
@@ -75,15 +84,6 @@ public class BookingModel implements  Serializable{
 
     public void setDummyTimeSlot(Long dummeTimeSlot) {
         this.dummyTimeSlot = dummeTimeSlot;
-    }
-
-    public void setActivity(ActivityModel activityModel) {
-        this.activityModel = activityModel;
-    }
-
-
-    public ActivityModel getActivity() {
-        return activityModel;
     }
 
     public LocalDate getBookingDate() {
