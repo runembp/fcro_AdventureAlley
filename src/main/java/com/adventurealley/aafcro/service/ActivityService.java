@@ -37,4 +37,10 @@ public class ActivityService
         return iActivityRepository.findAll();
     }
 
+    public ActivityModel updateActivity(ActivityModel activityModel) {return iActivityRepository.save(activityModel);}
+
+    public void deleteActivityByID(Long activityId) {
+        iActivityRepository.deleteById(activityId);
+    }
+
 }

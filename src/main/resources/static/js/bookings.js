@@ -18,7 +18,7 @@ async function getAllActivities() {
 
     data.forEach(x => {
         let element = document.createElement("option")
-        element.value = x.activity_Id;
+        element.value = x.activityId;
         element.textContent = x.title;
         dropdownAllActivities.appendChild(element)
     })
