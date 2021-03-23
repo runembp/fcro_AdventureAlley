@@ -19,7 +19,7 @@ public class ActivityModel
     @Column(name= "title", nullable = false)
     private String title;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 2000)
     private String description;
 
     @Column(name = "price", nullable = false)
@@ -34,27 +34,32 @@ public class ActivityModel
     @Column(name = "equipment")
     private String equipment;
 
+    @Column(name = "image_link")
+    private String imageLink;
+
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "activity_timeslots",
             joinColumns = @JoinColumn(name = "activity_id"),
             inverseJoinColumns = @JoinColumn(name = "time_slot_id")
     )
-    @JsonIgnore
+
     Set<TimeSlotModel> timeSlotModelSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "activity")
+    @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL)
     private Set<BookingModel> bookings = new HashSet<>();
 
     public ActivityModel(){}
 
-    public ActivityModel(String title, String description, Double price, Integer minHeight, Integer minAge, String equipment){
+    public ActivityModel(String title, String description, Double price, Integer minHeight, Integer minAge, String equipment, String imageLink){
         this.title = title;
         this.description = description;
         this.price = price;
         this.minHeight = minHeight;
         this.minAge = minAge;
         this.equipment = equipment;
+        this.imageLink = imageLink;
     }
 
     public Set<TimeSlotModel> getTimeSlotModelSet()
@@ -128,6 +133,14 @@ public class ActivityModel
 
     public void setEquipment(String equipment) {
         this.equipment = equipment;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     @Override
