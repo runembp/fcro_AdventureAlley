@@ -20,7 +20,7 @@ public class ActivityModel implements Serializable
     @Column(name= "title", nullable = false)
     private String title;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 2000)
     private String description;
 
     @Column(name = "price", nullable = false)
@@ -35,6 +35,9 @@ public class ActivityModel implements Serializable
     @Column(name = "equipment")
     private String equipment;
 
+    @Column(name = "image_link")
+    private String imageLink;
+
     @ManyToMany
     @JoinTable(
             name = "activity_timeslots",
@@ -44,18 +47,19 @@ public class ActivityModel implements Serializable
     @JsonIgnore
     Set<TimeSlotModel> timeslot = new HashSet<>();
 
-    @OneToMany(mappedBy = "activity")
+    @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL)
     private Set<BookingModel> bookingsSet = new HashSet<>();
 
     public ActivityModel(){}
 
-    public ActivityModel(String title, String description, Double price, Integer minHeight, Integer minAge, String equipment){
+    public ActivityModel(String title, String description, Double price, Integer minHeight, Integer minAge, String equipment, String imageLink){
         this.title = title;
         this.description = description;
         this.price = price;
         this.minHeight = minHeight;
         this.minAge = minAge;
         this.equipment = equipment;
+        this.imageLink = imageLink;
     }
 
     public Set<TimeSlotModel> getTimeSlotModelSet()

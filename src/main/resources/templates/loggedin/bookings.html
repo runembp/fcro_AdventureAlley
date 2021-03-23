@@ -5,9 +5,23 @@
     <title>Title</title>
     <script type="text/javascript" th:src="@{/js/my_bookings.js}" defer></script>
     <script type="text/javascript" th:src="@{/js/bookings.js}" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+    <script type="text/javascript" th:src="@{/js/user_info.js}" defer></script>
 </head>
-<body>
+<body class="bg-dark text-danger">
 
+<!--#region Header Fragment  -->
+<div th:insert="fragments/general.html :: loggedin"></div>
+<!--#endregion -->
+
+<div>
+    <h1>Bookings</h1>
+<h1> Brugeroverblik</h1>
+<div id="userdata"></div>
+<h2 id="bookingHeader">Dine bookings</h2>
+
+<br><br><br>
 <h1 id="useremail">Dine bookings </h1>
 
 <div id="dropdownMyBooking"></div>
@@ -21,11 +35,11 @@
 
 <span>Aktivitet: </span><select id="dropdownAllActivities"></select>
 
-<br><br><br>
+    <br><br><br>
 
 <span>Tidsrum: </span><select id="timeslot"></select>
 
-<br><br><br>
+    <br><br><br>
 
 <span>Dato: </span><input type="date" id="calendar" >
 

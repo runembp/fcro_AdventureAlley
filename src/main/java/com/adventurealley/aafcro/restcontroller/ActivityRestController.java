@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(value = "*")
 public class ActivityRestController {
 
     @Autowired
@@ -17,6 +18,13 @@ public class ActivityRestController {
     @Autowired
     private IActivityRepository activityRepository;
 
+
+    @GetMapping("/findAllActivities")
+    public List<ActivityModel> findAllActivities()
+    {
+        return activityService.getAllActivities();
+    }
+
     @PostMapping(value = "/newActivity", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public ActivityModel postActivity(@RequestBody ActivityModel activityModel)
@@ -24,10 +32,15 @@ public class ActivityRestController {
         return activityService.CreateActivity(activityModel);
     }
 
-    @GetMapping("/findAllActivities")
-    public List<ActivityModel> findAllActivities()
-    {
-        return activityService.getAllActivities();
+    @PutMapping(value = "/updateActivity", consumes = "application/json")
+    public ActivityModel putActivity(@RequestBody ActivityModel updatedActivity) {
+        return activityService.updateActivity(updatedActivity);
+    }
+
+    @DeleteMapping("/deleteActivity/{activityId}")
+    public void deleteActivity(@PathVariable Long activityId) {
+
+        activityService.deleteActivityByID(activityId);
     }
 
 
