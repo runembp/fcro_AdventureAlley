@@ -4,17 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
 </head>
-<body>
+<body class="bg-dark text-danger">
 
-<form th:method="post" action="/postlogin">
+<!--#region Header Fragment  -->
+<div th:insert="fragments/general.html :: header"></div>
+<!--#endregion -->
 
-    <input type="email" placeholder="Email" name="email">
-    <input type="password" placeholder="Password" name="password">
-    <button th:type="submit">Login</button>
+<div class="center-screen">
+    <h1>Login</h1>
 
-</form>
-
+    <form th:method="post" action="/postlogin">
+        <input type="email" placeholder="Email" name="email">
+        <input type="password" placeholder="Password" name="password">
+        <button th:type="submit">Login</button>
+    </form>
+</div>
 
 </body>
 </html>

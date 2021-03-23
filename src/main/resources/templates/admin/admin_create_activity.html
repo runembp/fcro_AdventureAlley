@@ -3,19 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Create New Activity</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
 </head>
-<style>
-    .center-screen
-    {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-        min-height: 25vh;
-    }
-</style>
+<body class="bg-dark text-danger">
 
-<body>
+<!--#region Header Fragment  -->
+<div th:insert="fragments/general.html :: loggedin"></div>
+<!--#endregion -->
 
 <div class="center-screen">
     <h1>Ny aktivitet</h1>

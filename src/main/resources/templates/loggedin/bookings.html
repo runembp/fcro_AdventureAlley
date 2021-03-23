@@ -4,23 +4,30 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript" th:src="@{/js/bookings.js}" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
 </head>
-<body>
+<body class="bg-dark text-danger">
 
-<h1>Bookings</h1>
+<!--#region Header Fragment  -->
+<div th:insert="fragments/general.html :: loggedin"></div>
+<!--#endregion -->
 
-<select id="dropdownAllActivities"></select>
+<div>
+    <h1>Bookings</h1>
 
-<br><br><br>
+    <select id="dropdownAllActivities"></select>
 
-<select id="timeslot"></select>
+    <br><br><br>
 
-<br><br><br>
+    <select id="timeslot"></select>
 
-<input type="date" id="calendar" >
+    <br><br><br>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<button id="createBooking">Create booking for selected Actitivy</button>
+    <input type="date" id="calendar" >
 
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <button id="createBooking">Create booking for selected Actitivy</button>
+</div>
 </body>
 </html>
