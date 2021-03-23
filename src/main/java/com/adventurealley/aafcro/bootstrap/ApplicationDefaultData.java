@@ -13,6 +13,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 
 @Component
 public class ApplicationDefaultData implements ApplicationRunner
@@ -87,8 +89,6 @@ public class ApplicationDefaultData implements ApplicationRunner
             b2.setUsers(u1);
             UserModel admin = new UserModel("admin@adventurealley.com", "admin", "Admin", "Adminsson", LocalDate.parse("2021-01-01"), 100);
             userRepository.save(admin);
-            BookingModel b1 = new BookingModel(LocalDate.now(),1L);
-            BookingModel b2 = new BookingModel(LocalDate.now(),1L);
             b1.setActivity(a1);
             b2.setActivity(a2);
             b1.setTimeSlot(t1);
@@ -96,15 +96,13 @@ public class ApplicationDefaultData implements ApplicationRunner
             bookingRepository.save(b1);
             bookingRepository.save(b2);
 
-            a1.getBookings().add(b1);
-            a2.getBookings().add(b2);
             activityRepository.save(a1);
             activityRepository.save(a2);
 
             u1.getBookingSet().add(b1);
             u1.getBookingSet().add(b2);
 
-            userRepository.save(u1);*/
+            userRepository.save(u1);
         }
         catch (Exception e)
         {

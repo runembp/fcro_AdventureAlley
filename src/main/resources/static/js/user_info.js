@@ -1,5 +1,6 @@
-const userEmail = window.location.href.substring(31);
+const userEmail = window.location.href.substring(40);
 const userDataContainer = document.getElementById("userdata");
+const calendarButton = document.getElementById("calendarButton");
 
 async function getUserFromEmail(email)
 {
@@ -29,7 +30,4 @@ async function populateFields(user) {
     heightElement.textContent = "Højde: " + user.height;
     userDataContainer.appendChild(heightElement);
 }
-
-
-
 

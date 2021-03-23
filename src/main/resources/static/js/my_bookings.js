@@ -5,8 +5,6 @@ const email = window.location.pathname.substring(19);
 
 const userUrl = `http://localhost:8080/bookings/${email}`;
 
-useremail.innerHTML += email;
-
 getBookingToUser();
 
 async function getBookingToUser(){
@@ -34,7 +32,6 @@ async function getBookingToUser(){
 
     dropdownMyBookings.appendChild(element);
     };
-
 }
 
 

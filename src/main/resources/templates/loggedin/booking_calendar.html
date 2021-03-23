@@ -8,68 +8,44 @@
 <body>
 <div id="dp"></div>
 <script>
+    const userEmail = window.location.pathname.substring(40);
 
-    const email = "rbp@groupcare.com";
+    populateDataFromBookingList();
 
-    async function getUserData(userEmail)
+    async function getUserBookings()
     {
-        const url = `http://localhost:8080/getUserByEmail/${userEmail}`
+        const url = `http://localhost:8080/getBookingsForUser/${userEmail}`
         return await fetch(url).then(x => x.json());
     }
 
-    let user = getUserData(email).then(x => {
-        user = x;
-        console.log(x)
-    });
+    const button = document.getElementById("postCalendar");
+    button.innerText = email;
 
-    let bookingList =
-        [
-            {
-                "bookingDate":Date.now() - 500_000_000,
-                "activityTitle":"Paintball",
-                "timeslot":0
-            },
-            {
-                "bookingDate":Date.now() - 300_000_000,
-                "activityTitle":"Øksekast",
-                "timeslot":1
-            },
-            {
-                "bookingDate":Date.now() - 100_000_000,
-                "activityTitle":"Gokart",
-                "timeslot":2
-            },
-            {
-                "bookingDate":Date.now() + 100_000_000,
-                "activityTitle":"Paintball",
-                "timeslot":3
-            },
-        ]
-
-    function populateDataFromBookingList(bookingList)
+    async function populateDataFromBookingList(bookingList)
     {
+        let list = await getUserBookings();
+
         const timeslotValues = ["08:00-10:00","10:00-12:00","12:00-14:00","14:00-16:00"]
         let events = [];
 
-        bookingList.forEach(x => {
+        list.forEach(x =>
+        {
+            let splitList = x.split(",");
+
             let booking =
                 {
-                    "start":x.bookingDate,
-                    "end":x.bookingDate,
-                    "id":"unused",
-                    "text": x.activityTitle + " - " + timeslotValues[x.timeslot]
+                    "start":new Date(Date.parse(splitList[2])),
+                    "end":new Date(Date.parse(splitList[2])),
+                    "text": splitList[0] + timeslotValues[splitList[1]-1]
                 };
 
             events.push(booking)
         })
 
-        return events;
+        let dp = new DayPilot.Month("dp");
+        dp.events.list = events;
+        dp.init();
     }
-
-    let dp = new DayPilot.Month("dp");
-    dp.events.list = populateDataFromBookingList(bookingList);
-    dp.init();
-
 </script>
 </body>
 </html>
