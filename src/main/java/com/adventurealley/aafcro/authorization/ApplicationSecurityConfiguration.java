@@ -1,9 +1,9 @@
 package com.adventurealley.aafcro.authorization;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,25 +28,21 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
     protected void configure(HttpSecurity http) throws Exception
     {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/index").permitAll()
-                .antMatchers("/createuser").permitAll()
-                .antMatchers("/postUser").permitAll()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/loggedin/**").hasRole("USER")
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET).permitAll()
-                .antMatchers(HttpMethod.POST).permitAll()
+                .antMatchers("/**/*.js").permitAll()
+                .antMatchers("/**.js").permitAll()
+                .antMatchers("/resources/**").permitAll()
+                .antMatchers("/*.js").permitAll()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .and()
-                .logout()
-                .invalidateHttpSession(true)
+                .logout().invalidateHttpSession(true)
                 .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("logout"))
                 .logoutSuccessUrl("/logout-success").permitAll();
     }
 
@@ -78,7 +74,8 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/h2-console/**");
+                .antMatchers("/h2-console/**")
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/icon/**").anyRequest();
     }
 
     @Override
