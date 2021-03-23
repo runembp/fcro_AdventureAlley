@@ -11,7 +11,4 @@ public class AdminController {
         return "/admin/admin_crud_activity";
     }
 
-    @GetMapping("/admin")
-    public String getOverview(){ return "/admin/overambitious_admin_overview_do_not_implement"; }
-
 }
