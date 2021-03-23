@@ -10,34 +10,12 @@
 </head>
 
 <body>
-<div class="container-fluid bg-dark border-bottom border-3 border-danger">
-    <div class="row">
-        <div class="col"></div>
-        <div class="col">
-            <a class="text-decoration-none link-danger" href="">
-                <h1 class="text-center mt-3">Adventure Alley</h1>
-            </a>
-        </div>
-        <div class="col">
-            <a href="">
-                <button class="btn btn-primary float-end mt-4" type="button">Login</button>
-            </a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <a class="link-danger text-decoration-none" href="">
-                <h4 class="text-center">Booking</h4>
-            </a>
-        </div>
-    </div>
-</div>
+
+<!--#region Header Fragment  -->
+<div th:insert="fragments/general.html :: header"></div>
+<!--#endregion -->
 
 <div class="container-fluid bg-dark" id="activity_container"></div>
-
-<br><br><br>
-
-<input type="button" onclick="location.href='/createuser';" value="Create User" />
 
 </body>
 </html>
