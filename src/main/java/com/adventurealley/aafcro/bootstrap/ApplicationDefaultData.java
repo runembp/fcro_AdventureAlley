@@ -1,9 +1,7 @@
 package com.adventurealley.aafcro.bootstrap;
 
 import com.adventurealley.aafcro.model.ActivityModel;
-import com.adventurealley.aafcro.model.BookingModel;
 import com.adventurealley.aafcro.model.TimeSlotModel;
-import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IActivityRepository;
 import com.adventurealley.aafcro.repository.IBookingRepository;
 import com.adventurealley.aafcro.repository.ITimeSlotRepository;
@@ -13,10 +11,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import java.time.LocalDate;
 
 @Component
 public class ApplicationDefaultData implements ApplicationRunner
@@ -60,10 +54,10 @@ public class ApplicationDefaultData implements ApplicationRunner
             t2.getActivityModelSet().add(a1);
             t3.getActivityModelSet().add(a1);
             t4.getActivityModelSet().add(a1);
-            a1.getTimeSlotModelSet().add(t1);
-            a1.getTimeSlotModelSet().add(t2);
-            a1.getTimeSlotModelSet().add(t3);
-            a1.getTimeSlotModelSet().add(t4);
+            a1.getTimeslot().add(t1);
+            a1.getTimeslot().add(t2);
+            a1.getTimeslot().add(t3);
+            a1.getTimeslot().add(t4);
 
             timeSlotRepository.save(t1);
             timeSlotRepository.save(t2);
@@ -74,10 +68,10 @@ public class ApplicationDefaultData implements ApplicationRunner
             t2.getActivityModelSet().add(a2);
             t3.getActivityModelSet().add(a2);
             t4.getActivityModelSet().add(a2);
-            a2.getTimeSlotModelSet().add(t1);
-            a2.getTimeSlotModelSet().add(t2);
-            a2.getTimeSlotModelSet().add(t3);
-            a2.getTimeSlotModelSet().add(t4);
+            a2.getTimeslot().add(t1);
+            a2.getTimeslot().add(t2);
+            a2.getTimeslot().add(t3);
+            a2.getTimeslot().add(t4);
 
             timeSlotRepository.save(t1);
             timeSlotRepository.save(t2);

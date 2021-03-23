@@ -47,8 +47,8 @@ public class BookingRestController
         timeSlotRepository.save(timeSlotModel);
 
         ActivityModel activityModel = activityRepository.findById(booking.getDummy()).get();
-        activityModel.getTimeSlotModelSet().add(timeSlotModel);
-        activityModel.getBookings().add(newBooking);
+        activityModel.getTimeslot().add(timeSlotModel);
+        activityModel.getBookingsSet().add(newBooking);
         activityRepository.save(activityModel);
 
         newBooking.setUsers(user);

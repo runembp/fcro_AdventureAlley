@@ -1,8 +1,6 @@
 package com.adventurealley.aafcro.model;
 
 import com.fasterxml.jackson.annotation.*;
-import org.hibernate.sql.ordering.antlr.ColumnReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -62,22 +60,6 @@ public class ActivityModel implements Serializable
         this.imageLink = imageLink;
     }
 
-    public Set<TimeSlotModel> getTimeSlotModelSet()
-   {
-       return timeslot;
-   }
-
-    public Set<BookingModel> getBookings() {
-        return bookingsSet;
-    }
-
-    public void setBookings(Set<BookingModel> bookings) {
-        this.bookingsSet = bookingsSet;
-    }
-
-    public void setTimeSlotModelSet(Set<TimeSlotModel> timeslots){
-        this.timeslot = timeslots;
-   }
 
     public Long getActivityId() {
         return activityId;
@@ -133,6 +115,30 @@ public class ActivityModel implements Serializable
 
     public void setEquipment(String equipment) {
         this.equipment = equipment;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    public Set<TimeSlotModel> getTimeslot() {
+        return timeslot;
+    }
+
+    public void setTimeslot(Set<TimeSlotModel> timeslot) {
+        this.timeslot = timeslot;
+    }
+
+    public Set<BookingModel> getBookingsSet() {
+        return bookingsSet;
+    }
+
+    public void setBookingsSet(Set<BookingModel> bookingsSet) {
+        this.bookingsSet = bookingsSet;
     }
 
     @Override
