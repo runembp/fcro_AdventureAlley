@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 @Controller
@@ -31,7 +32,7 @@ public class LoginController
     {
 
         String email = data.getParameter("email");
-        var password = data.getParameter("password");
+        String password = data.getParameter("password");
 
         if(loginService.isUserAuthenticated(email,password) && email.equals("admin@adventurealley.com"))
         {
@@ -47,8 +48,8 @@ public class LoginController
     }
 
     @GetMapping("/loggedin/{email}")
-    public String getLoggedIn()
+    public String getLoggedIn(@PathVariable String email)
     {
-        return "loggedin/bookings";
+        return "redirect:/loggedin/bookings/"+email;
     }
 }

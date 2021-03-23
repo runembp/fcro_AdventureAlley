@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class BookingController
 {
-    @GetMapping("/loggedin/bookings")
     @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/loggedin/bookings/{email}")
     public String getBookings()
     {
         return "loggedin/bookings";

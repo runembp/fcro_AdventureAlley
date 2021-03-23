@@ -1,12 +1,19 @@
 package com.adventurealley.aafcro.model;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.*;
+
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 @Entity
-@Table(name = "USER")
-public class UserModel
+@Table(name = "users")
+public class UserModel implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +38,19 @@ public class UserModel
     @Column(name = "height", nullable = false)
     private int height;
 
+    @OneToMany(mappedBy = "users")
+    private Set<BookingModel> bookingSet = new HashSet<>();
+
     public UserModel()
     {
+    }
+
+    public Set<BookingModel> getBookingSet() {
+        return bookingSet;
+    }
+
+    public void setBookingSet(Set<BookingModel> bookingSet) {
+        this.bookingSet = bookingSet;
     }
 
     public UserModel(String email, String password, String firstName, String lastName, LocalDate dateOfBirth, int height) {
