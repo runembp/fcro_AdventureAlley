@@ -1,8 +1,5 @@
 package com.adventurealley.aafcro.bootstrap;
 
-import com.adventurealley.aafcro.model.ActivityModel;
-import com.adventurealley.aafcro.model.BookingModel;
-import com.adventurealley.aafcro.model.TimeSlotModel;
 import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IActivityRepository;
 import com.adventurealley.aafcro.repository.IBookingRepository;
@@ -80,6 +77,8 @@ public class ApplicationDefaultData implements ApplicationRunner
 */
             UserModel u1 = new UserModel("rbp@groupcare.com", "0012", "Rune", "Petersen", LocalDate.parse("1984-10-08"), 170);
             userRepository.save(u1);
+            UserModel admin = new UserModel("admin@adventurealley.com", "admin", "Admin", "Adminsson", LocalDate.parse("2021-01-01"), 100);
+            userRepository.save(admin);
 /*
             BookingModel b1 = new BookingModel(LocalDate.now(),1L);
             BookingModel b2 = new BookingModel(LocalDate.now(),1L);

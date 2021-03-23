@@ -26,6 +26,11 @@ public class LoginController
         String email = data.getParameter("email");
         var password = data.getParameter("password");
 
+        if(loginService.isUserAuthenticated(email,password) && email.equals("admin@adventurealley.com"))
+        {
+            return "redirect:/admin/adminCreateActivity";
+        }
+
         if(loginService.isUserAuthenticated(email,password))
         {
             return "redirect:/loggedin/"+email;
