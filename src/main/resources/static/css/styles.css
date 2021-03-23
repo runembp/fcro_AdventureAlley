@@ -1,0 +1,21 @@
+a, a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+}
+
+.center-screen
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    min-height: 25vh;
+}
+
+.update-activity
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    min-height: 25vh;
+}

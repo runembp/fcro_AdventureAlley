@@ -3,6 +3,7 @@ package com.adventurealley.aafcro.bootstrap;
 import com.adventurealley.aafcro.authorization.AuthGroupModel;
 import com.adventurealley.aafcro.authorization.IAuthGroupRepository;
 import com.adventurealley.aafcro.model.ActivityModel;
+import com.adventurealley.aafcro.model.BookingModel;
 import com.adventurealley.aafcro.model.TimeSlotModel;
 import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IActivityRepository;
@@ -109,7 +110,6 @@ public class ApplicationDefaultData implements ApplicationRunner
             a2.getBookings().add(b2);
             activityRepository.save(a1);
             activityRepository.save(a2);
-        */
         }
         catch (Exception e)
         {
