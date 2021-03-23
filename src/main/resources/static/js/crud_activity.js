@@ -128,6 +128,20 @@ function updateDB(updateActivityStringified) {
     fetch(putUrl, putObject)
 }
 
+function deleteDB() {
+    const deleteURL = "/deleteActivity/" + list[dropdownAllActivities.selectedIndex].activityId
+
+    const deleteObject = {
+        method: 'DELETE'
+    }
+
+    fetch(deleteURL, deleteObject)
+
+    location.reload()
+}
+
+document.getElementById("delete-activity").addEventListener('click', deleteDB);
+
 
 
 
