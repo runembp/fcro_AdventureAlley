@@ -1,6 +1,7 @@
 package com.adventurealley.aafcro.restcontroller;
 
 import com.adventurealley.aafcro.model.ActivityModel;
+import com.adventurealley.aafcro.repository.IActivityRepository;
 import com.adventurealley.aafcro.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,9 @@ import java.util.List;
 @RestController
 @CrossOrigin(value = "*")
 public class ActivityRestController {
+
+    @Autowired
+    private IActivityRepository iActivityRepository;
 
     @Autowired
     private ActivityService activityService;
@@ -34,7 +38,8 @@ public class ActivityRestController {
     }
 
     @DeleteMapping("/deleteActivity/{activityId}")
-    public void deleteActivity(@PathVariable Integer activityId) {
-        
+    public void deleteActivity(@PathVariable Long activityId) {
+
+        activityService.deleteActivityByID(activityId);
     }
 }

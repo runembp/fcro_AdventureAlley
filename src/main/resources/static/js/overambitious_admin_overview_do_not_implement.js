@@ -226,7 +226,7 @@ function updateDB(activity) {
     const activityStringified = JSON.stringify(activity);
 
     let putObject = {
-        header: {"contentType": "application/json"},
+        headers: {"contentType": "application/json"},
         method: "PUT",
         body: activityStringified
     }

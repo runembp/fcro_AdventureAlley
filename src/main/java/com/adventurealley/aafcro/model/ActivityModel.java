@@ -47,7 +47,7 @@ public class ActivityModel
 
     Set<TimeSlotModel> timeSlotModelSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "activity")
+    @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL)
     private Set<BookingModel> bookings = new HashSet<>();
 
     public ActivityModel(){}
