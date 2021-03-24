@@ -37,4 +37,9 @@ public class BookingService
     {
         bookingRepository.deleteById(bookingId);
     }
+
+    public List<String> findALlBookingsForUsers()
+    {
+        return bookingRepository.findAllByActivityAndUsers();
+    }
 }

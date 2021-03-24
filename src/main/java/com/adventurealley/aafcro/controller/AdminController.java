@@ -11,4 +11,10 @@ public class AdminController
     {
         return "/admin/admin_crud_activity";
     }
+
+    @GetMapping("/admin/overview")
+    public String getAdminOverview()
+    {
+        return "/admin/admin_booking_overview";
+    }
 }

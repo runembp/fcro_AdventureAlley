@@ -116,4 +116,10 @@ public class BookingRestController
             System.out.println("Error..... " + e.getMessage());
         }
     }
+
+    @GetMapping("/findAllBookingsForUsers")
+    public List<String> findAllByActivityAndUsers()
+    {
+        return bookingService.findALlBookingsForUsers();
+    }
 }
