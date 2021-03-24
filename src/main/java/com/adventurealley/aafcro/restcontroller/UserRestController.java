@@ -1,6 +1,8 @@
 package com.adventurealley.aafcro.restcontroller;
 
+import com.adventurealley.aafcro.model.AuthGroupModel;
 import com.adventurealley.aafcro.model.UserModel;
+import com.adventurealley.aafcro.repository.IAuthGroupRepository;
 import com.adventurealley.aafcro.repository.IUserRepository;
 import com.adventurealley.aafcro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class UserRestController
 {
     @Autowired
     UserService userService;
+
+    @Autowired
+    IAuthGroupRepository authGroupRepository;
 
     @Autowired
     IUserRepository userRepository;
@@ -41,6 +46,8 @@ public class UserRestController
         String hashedPassword = BCrypt.hashpw(userModel.getPassword(),salt);
 
         userModel.setPassword(hashedPassword);
+
+        authGroupRepository.save(new AuthGroupModel(userModel.getEmail(), "USER"));
         return userService.save(userModel);
     }
 
