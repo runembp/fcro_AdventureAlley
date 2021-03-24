@@ -46,7 +46,7 @@ public class BookingRestController
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserModel user = userService.findUserByEmail(authentication.getName());
 
-        List<BookingModel> userBookingList = bookingRepository.getBookingsToUser(authentication.getName());
+        List<BookingModel> userBookingList = bookingService.getBookingsToUser(authentication.getName());
 
         try
         {
@@ -62,8 +62,6 @@ public class BookingRestController
         {
             return e;
         }
-
-        UserModel user = userRepository.findUserByEmail(authentication.getName());
 
         BookingModel newBooking = bookingService.save(booking);
         bookingService.save(newBooking);
