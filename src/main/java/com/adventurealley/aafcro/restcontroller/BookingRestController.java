@@ -4,10 +4,10 @@ import com.adventurealley.aafcro.model.ActivityModel;
 import com.adventurealley.aafcro.model.BookingModel;
 import com.adventurealley.aafcro.model.TimeSlotModel;
 import com.adventurealley.aafcro.model.UserModel;
-import com.adventurealley.aafcro.repository.IActivityRepository;
-import com.adventurealley.aafcro.repository.IBookingRepository;
-import com.adventurealley.aafcro.repository.ITimeSlotRepository;
-import com.adventurealley.aafcro.repository.IUserRepository;
+import com.adventurealley.aafcro.service.ActivityService;
+import com.adventurealley.aafcro.service.BookingService;
+import com.adventurealley.aafcro.service.TimeslotService;
+import com.adventurealley.aafcro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -22,28 +22,29 @@ import java.util.List;
 public class BookingRestController
 {
     @Autowired
-    IBookingRepository bookingRepository;
+    BookingService bookingService;
 
     @Autowired
-    IActivityRepository activityRepository;
+    ActivityService activityService;
 
     @Autowired
-    ITimeSlotRepository timeSlotRepository;
+    TimeslotService timeslotService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/findAllBookings")
     public List<BookingModel> findAllBookings()
     {
-        return bookingRepository.findAll();
+        return bookingService.findAll();
     }
-
-    @Autowired
-    IUserRepository userRepository;
 
     @PostMapping("/postBooking")
     @ResponseStatus(HttpStatus.CREATED)
     Serializable postBooking(@RequestBody BookingModel booking)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserModel user = userService.findUserByEmail(authentication.getName());
 
         List<BookingModel> userBookingList = bookingRepository.getBookingsToUser(authentication.getName());
 
@@ -64,53 +65,55 @@ public class BookingRestController
 
         UserModel user = userRepository.findUserByEmail(authentication.getName());
 
-        BookingModel newBooking = bookingRepository.save(booking);
-        bookingRepository.save(newBooking);
+        BookingModel newBooking = bookingService.save(booking);
+        bookingService.save(newBooking);
 
-        TimeSlotModel timeSlotModel = timeSlotRepository.findById(booking.getDummyTimeSlot()).get();
-        timeSlotRepository.save(timeSlotModel);
+        TimeSlotModel timeSlotModel = timeslotService.findById(booking.getDummyTimeSlot());
+        timeslotService.save(timeSlotModel);
 
-        ActivityModel activityModel = activityRepository.findById(booking.getDummy()).get();
+        ActivityModel activityModel = activityService.findById(booking.getDummy());
         activityModel.getTimeslot().add(timeSlotModel);
         activityModel.getBookingsSet().add(newBooking);
-        activityRepository.save(activityModel);
+        activityService.save(activityModel);
 
         newBooking.setUsers(user);
         newBooking.setActivity(activityModel);
         newBooking.setTimeSlot(timeSlotModel);
-        bookingRepository.save(newBooking);
+        bookingService.save(newBooking);
 
         timeSlotModel.getActivityModelSet().add(activityModel);
         timeSlotModel.getBookings().add(newBooking);
-        timeSlotRepository.save(timeSlotModel);
+        timeslotService.save(timeSlotModel);
 
         user.getBookingSet().add(newBooking);
-        userRepository.save(user);
+        userService.save(user);
 
-        return bookingRepository.save(newBooking);
+        return bookingService.save(newBooking);
     }
 
     @GetMapping("/bookingsForCurrentUser")
     public List<BookingModel> bookingsForUser()
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return bookingRepository.getBookingsToUser(authentication.getName());
+        return bookingService.getBookingsToUser(authentication.getName());
     }
 
     @GetMapping("/getBookingsForCurrentUserCalendar")
     public List<String> getBookingsForUser()
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return bookingRepository.getBookingsForUser(authentication.getName());
+        return bookingService.getBookingsForUserCalendar(authentication.getName());
     }
 
     @ResponseStatus(code=HttpStatus.NO_CONTENT)
     @DeleteMapping("/deleteBooking/{bookingId}")
     public void deleteBooking(@PathVariable Long bookingId)
     {
-        try{
-            bookingRepository.deleteById(bookingId);
-        }catch (EmptyResultDataAccessException e)
+        try
+        {
+            bookingService.deleteById(bookingId);
+        }
+        catch (EmptyResultDataAccessException e)
         {
             System.out.println("Error..... " + e.getMessage());
         }

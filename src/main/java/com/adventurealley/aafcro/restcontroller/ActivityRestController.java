@@ -1,23 +1,19 @@
 package com.adventurealley.aafcro.restcontroller;
 
 import com.adventurealley.aafcro.model.ActivityModel;
-import com.adventurealley.aafcro.repository.IActivityRepository;
 import com.adventurealley.aafcro.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @CrossOrigin(value = "*")
-public class ActivityRestController {
-
+public class ActivityRestController
+{
     @Autowired
     private ActivityService activityService;
-
-    @Autowired
-    private IActivityRepository activityRepository;
-
 
     @GetMapping("/findAllActivities")
     public List<ActivityModel> findAllActivities()
@@ -43,10 +39,9 @@ public class ActivityRestController {
         activityService.deleteActivityByID(activityId);
     }
 
-
     @GetMapping("/getActivityToBooking/{bookingId}")
     public ActivityModel findActivityForBooking(@PathVariable Long bookingId)
     {
-        return activityRepository.getActivityToBooking(bookingId);
+        return activityService.getActivityToBooking(bookingId);
     }
 }
