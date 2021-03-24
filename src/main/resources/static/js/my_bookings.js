@@ -9,9 +9,7 @@ async function getBookingToUser()
 
     for(let i = 0; i < bookings.length; i++)
     {
-        let row = bookingOverviewTable.insertRow();
-
-        let bookingId = bookings[i].bookingId;
+        const bookingId = bookings[i].bookingId;
 
         const activityUrl = `http://localhost:8080/getActivityToBooking/${bookingId}`;
         const response1 = await fetch(activityUrl)
@@ -21,8 +19,10 @@ async function getBookingToUser()
         const response2 = await fetch(timeslotUrl);
         const timeslot = await response2.json();
 
-        let element = document.createElement("p");
+        const element = document.createElement("p");
         element.innerText = activity.title + ' ' + bookings[i].bookingDate + ' '+ timeslot.start + ' ' + timeslot.end;
+
+        const row = bookingOverviewTable.insertRow();
 
         const date = row.insertCell(0);
         date.innerHTML = bookings[i].bookingDate;
@@ -37,7 +37,7 @@ async function getBookingToUser()
         activityEnd.innerHTML = timeslot.end;
 
         const cancel = row.insertCell(4);
-        let cancelButton = document.createElement("button");
+        const cancelButton = document.createElement("button");
         cancelButton.innerHTML = "Aflys Booking";
         cancelButton.onclick = function ()
         {
