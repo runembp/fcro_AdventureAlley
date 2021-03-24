@@ -7,7 +7,6 @@ const userUrl = `http://localhost:8080/bookings/${email}`;
 
 getBookingToUser();
 
-
 async function getBookingToUser() {
 
     const bookingOverviewTable = document.getElementById("bookingOverview");
@@ -46,8 +45,21 @@ async function getBookingToUser() {
         const cancel = row.insertCell(4);
         let cancelButton = document.createElement("button");
         cancelButton.innerHTML = "Aflys Booking";
+        cancelButton.onclick = function (){
+            if(confirm("Vil du slette denne booking?") == true){
+                deleteBooking(bookingId);}
+            }
         cancel.appendChild(cancelButton);
     }
+}
+function deleteBooking(bookingId){
+    const deleteUrl = `/deleteBooking/${bookingId}`;
+
+    const deleteObj = {
+        method: 'DELETE'
+    }
+    fetch(deleteUrl, deleteObj)
+    location.reload()
 }
 
 
