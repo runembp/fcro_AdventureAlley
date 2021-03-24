@@ -30,7 +30,6 @@ public class LoginController
     @PostMapping("/postlogin")
     public String postLogin(WebRequest data)
     {
-
         String email = data.getParameter("email");
         String password = data.getParameter("password");
 

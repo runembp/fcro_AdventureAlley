@@ -72,10 +72,9 @@ public class BookingRestController
         return bookingRepository.getBookingsToUser(email);
     }
 
-
-
-
-
-
-
+    @GetMapping("/getBookingsForUser/{userEmail}")
+    public List<String> getBookingsForUser(@PathVariable String userEmail)
+    {
+        return bookingRepository.getBookingsForUser(userEmail);
+    }
 }
