@@ -1,7 +1,9 @@
 package com.adventurealley.aafcro.bootstrap;
 
 import com.adventurealley.aafcro.model.ActivityModel;
+import com.adventurealley.aafcro.model.BookingModel;
 import com.adventurealley.aafcro.model.TimeSlotModel;
+import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IActivityRepository;
 import com.adventurealley.aafcro.repository.IBookingRepository;
 import com.adventurealley.aafcro.repository.ITimeSlotRepository;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 
 @Component
@@ -31,7 +35,6 @@ public class ApplicationDefaultData implements ApplicationRunner
     public void run(ApplicationArguments args)
     {
         try{
-
             TimeSlotModel t1 = new TimeSlotModel("08:00", "10:00");
             timeSlotRepository.save(t1);
             TimeSlotModel t2 = new TimeSlotModel("10:00", "12:00");
@@ -77,7 +80,6 @@ public class ApplicationDefaultData implements ApplicationRunner
             timeSlotRepository.save(t2);
             timeSlotRepository.save(t3);
             timeSlotRepository.save(t4);
-/*
             UserModel u1 = new UserModel("rbp@groupcare.com", "0012", "Rune", "Petersen", LocalDate.parse("1984-10-08"), 170);
             userRepository.save(u1);
 
@@ -87,9 +89,6 @@ public class ApplicationDefaultData implements ApplicationRunner
             b2.setUsers(u1);
             UserModel admin = new UserModel("admin@adventurealley.com", "admin", "Admin", "Adminsson", LocalDate.parse("2021-01-01"), 100);
             userRepository.save(admin);
-
-            BookingModel b1 = new BookingModel(LocalDate.now(),1L);
-            BookingModel b2 = new BookingModel(LocalDate.now(),1L);
             b1.setActivity(a1);
             b2.setActivity(a2);
             b1.setTimeSlot(t1);
@@ -97,15 +96,13 @@ public class ApplicationDefaultData implements ApplicationRunner
             bookingRepository.save(b1);
             bookingRepository.save(b2);
 
-            a1.getBookings().add(b1);
-            a2.getBookings().add(b2);
             activityRepository.save(a1);
             activityRepository.save(a2);
 
             u1.getBookingSet().add(b1);
             u1.getBookingSet().add(b2);
 
-            userRepository.save(u1);*/
+            userRepository.save(u1);
         }
         catch (Exception e)
         {
