@@ -66,11 +66,13 @@ async function createBooking()
 
     fetch(url,postObject)
         .then(response => response.json())
-        .then(() => {
-            console.log("booking created")
-            location.reload();
-        })
-        .catch(() => {
-            console.log("failure")
+        .then(x => {
+            if(x.localizedMessage === "ERROR")
+            {
+                alert("Der findes allerede en booking på den valgte dato i det valgte tidsrum")
+            } else
+            {
+                location.reload()
+            }
         })
 }
