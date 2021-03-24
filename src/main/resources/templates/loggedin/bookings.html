@@ -23,7 +23,7 @@
 <h1 id="useremail">Dine bookings </h1>
 
 <form th:action="@{/loggedin/postCalendar}" method="post">
-    <input id="postCalendar" name="postCalendar" hidden>
+    <input id="postCalendarOverview" name="postCalendar" hidden>
     <button type="submit" id="calendarButton" class="btn-danger">Åben kalender oversigt</button>
 </form>
 
@@ -48,6 +48,9 @@
 <button id="createBooking">Godkend Booking</button>
 
 <script>
+    const postCalendarOverviewDiv = document.getElementById("postCalendarOverview");
+    postCalendarOverviewDiv.value = window.location.href.substring(40);
+
     const postCalendarDiv = document.getElementById("postCalendar");
     postCalendarDiv.value = window.location.href.substring(40);
 </script>
