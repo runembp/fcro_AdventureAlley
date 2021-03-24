@@ -15,4 +15,6 @@ public interface IBookingRepository extends JpaRepository<BookingModel, Long>
             "INNER JOIN USERS u on b.USER_ID = u.USER_ID\n" +
             "WHERE u.EMAIL = ?1",nativeQuery = true)
     List<String> getBookingsForUser(String email);
+
+
 }

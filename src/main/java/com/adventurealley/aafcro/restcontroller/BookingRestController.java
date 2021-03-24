@@ -9,6 +9,7 @@ import com.adventurealley.aafcro.repository.IBookingRepository;
 import com.adventurealley.aafcro.repository.ITimeSlotRepository;
 import com.adventurealley.aafcro.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -77,4 +78,19 @@ public class BookingRestController
     {
         return bookingRepository.getBookingsForUser(userEmail);
     }
+
+    @ResponseStatus(code=HttpStatus.NO_CONTENT)
+    @DeleteMapping("/deleteBooking/{bookingId}")
+    public void deleteBooking(@PathVariable Long bookingId)
+    {
+        try{
+            bookingRepository.deleteById(bookingId);
+        }catch (EmptyResultDataAccessException e)
+        {
+            System.out.println("Error..... " + e.getMessage());
+        }
+    }
+
+
+
 }

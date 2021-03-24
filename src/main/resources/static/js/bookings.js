@@ -74,7 +74,8 @@ async function createBooking()
     fetch(url,postObject)
         .then(response => response.json())
         .then(() => {
-            console.log("booking created")
+            console.log("booking created");
+            location.reload();
         })
         .catch(() => {
             console.log("failure")
