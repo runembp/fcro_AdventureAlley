@@ -2,8 +2,8 @@ package com.adventurealley.aafcro.restcontroller;
 
 import com.adventurealley.aafcro.model.AuthGroupModel;
 import com.adventurealley.aafcro.model.UserModel;
-import com.adventurealley.aafcro.repository.IAuthGroupRepository;
-import com.adventurealley.aafcro.repository.IUserRepository;
+import com.adventurealley.aafcro.service.AuthGroupService;
+import com.adventurealley.aafcro.service.TimeslotService;
 import com.adventurealley.aafcro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,10 +21,10 @@ public class UserRestController
     UserService userService;
 
     @Autowired
-    IAuthGroupRepository authGroupRepository;
+    TimeslotService timeslotService;
 
     @Autowired
-    IUserRepository userRepository;
+    AuthGroupService authGroupService;
 
     @GetMapping("/getAllUsers")
     List<UserModel> getAllUsers()
@@ -47,7 +47,7 @@ public class UserRestController
 
         userModel.setPassword(hashedPassword);
 
-        authGroupRepository.save(new AuthGroupModel(userModel.getEmail(), "USER"));
+        authGroupService.save(new AuthGroupModel(userModel.getEmail(), "USER"));
         return userService.save(userModel);
     }
 
@@ -55,6 +55,6 @@ public class UserRestController
     UserModel getCurrentUserInfo()
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return userRepository.findUserByEmail(authentication.getName());
+        return userService.findUserByEmail(authentication.getName());
     }
 }
