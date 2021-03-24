@@ -11,7 +11,10 @@ import com.adventurealley.aafcro.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -35,11 +38,12 @@ public class BookingRestController
     @Autowired
     IUserRepository userRepository;
 
-    @PostMapping(value = "/postBooking/{email}", consumes = "application/json")
+    @PostMapping("/postBooking")
     @ResponseStatus(HttpStatus.CREATED)
-    BookingModel postBooking(@RequestBody BookingModel booking, @PathVariable String email)
+    BookingModel postBooking(@RequestBody BookingModel booking)
     {
-        UserModel user = userRepository.findUserByEmail(email); //Denne virker
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserModel user = userRepository.findUserByEmail(authentication.getName());
 
         BookingModel newBooking = bookingRepository.save(booking);
         bookingRepository.save(newBooking);
@@ -67,16 +71,18 @@ public class BookingRestController
         return bookingRepository.save(newBooking);
     }
 
-    @GetMapping("/bookings/{email}")
-    public List<BookingModel> bookingsForUser(@PathVariable String email)
+    @GetMapping("/bookingsForCurrentUser")
+    public List<BookingModel> bookingsForUser()
     {
-        return bookingRepository.getBookingsToUser(email);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return bookingRepository.getBookingsToUser(authentication.getName());
     }
 
-    @GetMapping("/getBookingsForUser/{userEmail}")
-    public List<String> getBookingsForUser(@PathVariable String userEmail)
+    @GetMapping("/getBookingsForCurrentUserCalendar")
+    public List<String> getBookingsForUser()
     {
-        return bookingRepository.getBookingsForUser(userEmail);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return bookingRepository.getBookingsForUser(authentication.getName());
     }
 
     @ResponseStatus(code=HttpStatus.NO_CONTENT)
@@ -90,7 +96,4 @@ public class BookingRestController
             System.out.println("Error..... " + e.getMessage());
         }
     }
-
-
-
 }

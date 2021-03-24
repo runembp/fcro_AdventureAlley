@@ -12,7 +12,7 @@
 <body class="bg-dark text-danger">
 
 <!--#region Header Fragment  -->
-<div th:insert="fragments/general.html :: loggedin"></div>
+<div th:insert="fragments/general.html"></div>
 <!--#endregion -->
 
 <h1> Brugeroverblik</h1>
@@ -36,7 +36,7 @@
     </tr>
 </table>
 
-<br><br><br>
+<br>
 
 <h1>Opret ny booking</h1>
 
@@ -53,14 +53,5 @@
 <br><br><br>
 
 <button id="createBooking">Godkend Booking</button>
-
-<script>
-    const postCalendarOverviewDiv = document.getElementById("postCalendarOverview");
-    postCalendarOverviewDiv.value = window.location.href.substring(40);
-
-    const postCalendarDiv = document.getElementById("postCalendar");
-    postCalendarDiv.value = window.location.href.substring(40);
-</script>
-
 </body>
 </html>

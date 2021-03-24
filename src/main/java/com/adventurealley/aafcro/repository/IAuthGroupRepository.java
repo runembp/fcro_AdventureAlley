@@ -1,5 +1,6 @@
-package com.adventurealley.aafcro.authorization;
+package com.adventurealley.aafcro.repository;
 
+import com.adventurealley.aafcro.model.AuthGroupModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

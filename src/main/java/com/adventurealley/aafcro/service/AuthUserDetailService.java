@@ -1,5 +1,8 @@
-package com.adventurealley.aafcro.authorization;
+package com.adventurealley.aafcro.service;
 
+import com.adventurealley.aafcro.repository.IAuthGroupRepository;
+import com.adventurealley.aafcro.authorization.UserModelPrincipal;
+import com.adventurealley.aafcro.model.AuthGroupModel;
 import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IUserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

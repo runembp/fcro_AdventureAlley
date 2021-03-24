@@ -1,5 +1,6 @@
 package com.adventurealley.aafcro.authorization;
 
+import com.adventurealley.aafcro.model.AuthGroupModel;
 import com.adventurealley.aafcro.model.UserModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,14 +1,13 @@
-const userEmail = window.location.href.substring(40);
 const userDataContainer = document.getElementById("userdata");
 const calendarButton = document.getElementById("calendarButton");
 
-async function getUserFromEmail(email)
+async function getUserFromEmail()
 {
-    const url = `http://localhost:8080/getUserByEmail/${email}`
+    const url = `http://localhost:8080/getCurrentUserInfo`
     return await fetch(url).then(x => x.json());
 }
 
-getUserFromEmail(userEmail).then(x => {
+getUserFromEmail().then(x => {
     populateFields(x)
 });
 

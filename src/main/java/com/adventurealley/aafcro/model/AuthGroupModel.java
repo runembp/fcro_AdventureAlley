@@ -1,4 +1,4 @@
-package com.adventurealley.aafcro.authorization;
+package com.adventurealley.aafcro.model;
 
 import javax.persistence.*;
 
