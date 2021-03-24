@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @RestController
@@ -40,10 +41,27 @@ public class BookingRestController
 
     @PostMapping("/postBooking")
     @ResponseStatus(HttpStatus.CREATED)
-    BookingModel postBooking(@RequestBody BookingModel booking)
+    Serializable postBooking(@RequestBody BookingModel booking)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserModel user = userService.findUserByEmail(authentication.getName());
+
+        List<BookingModel> userBookingList = bookingService.getBookingsToUser(authentication.getName());
+
+        try
+        {
+            for(var x : userBookingList)
+            {
+                if(x.getBookingDate().equals(booking.getBookingDate()) && x.getTimeSlot().getTimeSlotId().equals(booking.getDummyTimeSlot()))
+                {
+                    throw new Exception("ERROR");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            return e;
+        }
 
         BookingModel newBooking = bookingService.save(booking);
         bookingService.save(newBooking);
