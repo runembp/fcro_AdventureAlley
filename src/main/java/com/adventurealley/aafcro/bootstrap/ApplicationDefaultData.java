@@ -1,5 +1,7 @@
 package com.adventurealley.aafcro.bootstrap;
 
+import com.adventurealley.aafcro.model.AuthGroupModel;
+import com.adventurealley.aafcro.repository.IAuthGroupRepository;
 import com.adventurealley.aafcro.model.ActivityModel;
 import com.adventurealley.aafcro.model.BookingModel;
 import com.adventurealley.aafcro.model.TimeSlotModel;
@@ -31,10 +33,14 @@ public class ApplicationDefaultData implements ApplicationRunner
     @Autowired
     IBookingRepository bookingRepository;
 
+    @Autowired
+    IAuthGroupRepository authGroupRepository;
+
     @Override
     public void run(ApplicationArguments args)
     {
-        try{
+        try
+        {
             TimeSlotModel t1 = new TimeSlotModel("08:00", "10:00");
             timeSlotRepository.save(t1);
             TimeSlotModel t2 = new TimeSlotModel("10:00", "12:00");
@@ -44,7 +50,7 @@ public class ApplicationDefaultData implements ApplicationRunner
             TimeSlotModel t4 = new TimeSlotModel("14:00", "16:00");
             timeSlotRepository.save(t4);
 
-            ActivityModel a1 = new ActivityModel("GoKart", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.", 399.99, 140,  16, "Hjelm", "https://images.pexels.com/photos/861464/pexels-photo-861464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+            ActivityModel a1 = new ActivityModel("GoKart", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.", 399.99, 140, 16, "Hjelm", "https://images.pexels.com/photos/861464/pexels-photo-861464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
             activityRepository.save(a1);
             ActivityModel a2 = new ActivityModel("MiniGolf", "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.", 99.99, 0, 0, "Kølle og bold", "https://images.pexels.com/photos/6370072/pexels-photo-6370072.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
             activityRepository.save(a2);
@@ -80,15 +86,27 @@ public class ApplicationDefaultData implements ApplicationRunner
             timeSlotRepository.save(t2);
             timeSlotRepository.save(t3);
             timeSlotRepository.save(t4);
-            UserModel u1 = new UserModel("rbp@groupcare.com", "0012", "Rune", "Petersen", LocalDate.parse("1984-10-08"), 170);
+
+            UserModel u1 = new UserModel("rbp@groupcare.com", "$2a$09$dKC/C1ybG8FF.LOeNLGSu.ZXPcqM3UAKeajg0YFjsarHTcY7wLmXK", "Rune", "Petersen", LocalDate.parse("1984-10-08"), 170);
             userRepository.save(u1);
+
+            AuthGroupModel ag1 = new AuthGroupModel("rbp@groupcare.com", "USER");
+            authGroupRepository.save(ag1);
+
+            AuthGroupModel ag2 = new AuthGroupModel("rbp@groupcare.com", "ADMIN");
+            authGroupRepository.save(ag2);
 
             BookingModel b1 = new BookingModel(LocalDate.now());
             BookingModel b2 = new BookingModel(LocalDate.now());
             b1.setUsers(u1);
             b2.setUsers(u1);
-            UserModel admin = new UserModel("admin@adventurealley.com", "admin", "Admin", "Adminsson", LocalDate.parse("2021-01-01"), 100);
+
+            UserModel admin = new UserModel("admin@adventurealley.com", "$2y$09$dv/EinBB0VEK6aqiz6Qw3OWsCLidYiyHHvhEsBBed7Gv24peCmeaG", "Admin", "Adminsson", LocalDate.parse("2021-01-01"), 100);
             userRepository.save(admin);
+
+            AuthGroupModel ag3 = new AuthGroupModel("admin@adventurealley.com","ADMIN");
+            authGroupRepository.save(ag3);
+
             b1.setActivity(a1);
             b2.setActivity(a2);
             b1.setTimeSlot(t1);
@@ -104,7 +122,7 @@ public class ApplicationDefaultData implements ApplicationRunner
 
             userRepository.save(u1);
         }
-        catch (Exception e)
+        catch(Exception e)
         {
             e.printStackTrace();
         }

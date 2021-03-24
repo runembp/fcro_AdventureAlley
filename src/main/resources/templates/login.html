@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,18 +10,21 @@
 <body class="bg-dark text-danger">
 
 <!--#region Header Fragment  -->
-<div th:insert="fragments/general.html :: header"></div>
+<div th:insert="fragments/general.html"></div>
 <!--#endregion -->
 
 <div class="center-screen">
     <h1>Login</h1>
 
-    <form th:method="post" action="/postlogin">
-        <input type="email" placeholder="Email" name="email">
-        <input type="password" placeholder="Password" name="password">
-        <button th:type="submit">Login</button>
-    </form>
-</div>
+<form th:action="@{/login}" method="post">
+    <div th:if="${param.error}"><h3>Invalid Username or Password</h3></div>
+    <input type="email" placeholder="Email" name="username" id="username">
+    <input type="password" placeholder="Password" name="password" id="password">
+    <button type="submit">Login</button>
+</form>
+
+<br><br><br>
+<a th:href="@{/createuser}"><button>Lav ny bruger</button></a>
 
 </body>
 </html>

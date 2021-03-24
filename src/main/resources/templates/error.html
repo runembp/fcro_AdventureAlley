@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body class="bg-dark text-danger">
+
+<!--#region Header Fragment  -->
+<div th:insert="fragments/general.html"></div>
+<!--#endregion -->
+
+<h1>Der skete en fejl</h1>
+<br>
+
+<h3 th:text="${error}"></h3>
+<h3 th:text="'Status kode: ' + ${status}"></h3>
+
+<br>
+
+<h3>Klik <a th:href="@{/}">her</a> for at vende tilbage til forsiden.</h3>
+
+</body>
+</html>

@@ -1,9 +1,7 @@
-
 const dropdownAllActivities = document.getElementById("dropdownAllActivities");
 const createBookingButton = document.getElementById("createBooking");
 const dropdownTimeslots = document.getElementById("timeslot");
 const calendar = document.getElementById("calendar");
-
 
 createBookingButton.addEventListener('click', x => createBooking())
 
@@ -15,8 +13,6 @@ async function getAllActivities() {
     const url = "http://localhost:8080/findAllActivities"
     const response = await fetch(url);
     const data = await response.json();
-
-    dropdownAllActivities.length = 0;
 
     data.forEach(x => {
         let element = document.createElement("option")
@@ -32,8 +28,6 @@ async function getTimeslots()
 {
     const url = await fetch("http://localhost:8080/findAllTimeslots")
     const result = await url.json();
-
-    dropdownTimeslots.length = 0;
 
     result.forEach(x =>
     {
@@ -60,21 +54,20 @@ async function createBooking()
 
     const bookingStringified = JSON.stringify(booking);
 
-    const url = `http://localhost:8080/postBooking/${email}`;
+    const url = "http://localhost:8080/postBooking";
 
     const postObject = {
         headers: {
                 "Content-type": 'application/json'
             },
         method: 'POST',
-        accept: 'application/json',
         body: bookingStringified
     };
 
     fetch(url,postObject)
         .then(response => response.json())
         .then(() => {
-            console.log("booking created");
+            console.log("booking created")
             location.reload();
         })
         .catch(() => {

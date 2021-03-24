@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,73 +7,47 @@
 </head>
 <body>
 
-<!--#region Standard Header Fragment  -->
+<!--#region Header Fragment  -->
 <div th:fragment="header" class="container-fluid bg-dark border-bottom border-3 border-danger">
     <div class="row">
         <div class="col"></div>
         <div class="col">
-            <a class="text-decoration-none link-danger" href="">
-                <h1 class="text-center mt-3">Adventure Alley</h1>
-            </a>
-        </div>
-        <div class="col">
-            <a th:href="@{/login}">
-                <button class="btn btn-primary float-end mt-4" type="button">Login</button>
-            </a>
-            <a th:href="@{/createuser}">
-                <button class="btn btn-primary float-end mt-4" type="button">Opret bruger</button>
-            </a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <a class="link-danger text-decoration-none" th:href="@{login}">
-                <h4 class="text-center">Booking</h4>
-            </a>
-        </div>
-    </div>
-</div>
-<!--#endregion -->
-
-<!--#region Logged-in Fragment  -->
-<div th:fragment="loggedin" class="container-fluid bg-dark border-bottom border-3 border-danger">
-    <div class="row">
-        <div class="col"></div>
-        <div class="col">
             <a class="text-decoration-none link-danger" th:href="@{/}">
                 <h1 class="text-center mt-3">Adventure Alley</h1>
             </a>
         </div>
         <div class="col">
-            <a th:href="@{/}">
-                <button class="btn btn-primary float-end mt-4" type="button">Logud</button>
-            </a>
-            <form th:action="@{/loggedin/postCalendar}" method="post">
-                <input id="postCalendar" name="postCalendar" hidden>
-                <button type="submit" class="btn btn-primary float-end mt-4">Kalender</button>
-            </form>
-        </div>
-    </div>
-</div>
-<!--#endregion -->
-
-<!--#region Logged-in Calendar Fragment  -->
-<div th:fragment="calendar" class="container-fluid bg-dark border-bottom border-3 border-danger">
-    <div class="row">
-        <div class="col"></div>
-        <div class="col">
-            <a class="text-decoration-none link-danger" th:href="@{/}">
-                <h1 class="text-center mt-3">Adventure Alley</h1>
-            </a>
-        </div>
-        <div class="col">
-            <a th:href="@{/}">
-                <button class="btn btn-primary float-end mt-4" type="button">Logud</button>
-            </a>
-            <form th:action="@{/loggedin/postBookingsCalendar}" method="post">
-                <input id="postBookings" name="postBookings" hidden>
-                <button type="submit" class="btn btn-primary float-end mt-4">Bookings</button>
-            </form>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">
+                    <button class="btn btn-primary float-end mt-4" type="button">Login</button>
+                </a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <a th:href="@{/logout}">
+                    <button class="btn btn-primary float-end mt-4" type="button">Logud</button>
+                </a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/createuser}">
+                    <button class="btn btn-primary float-end mt-4" type="button">Opret bruger</button>
+                </a>
+            </div>
+            <div sec:authorize="hasRole('USER')">
+                <a th:href="@{/loggedin/booking_calendar}">
+                    <button class="btn btn-primary float-end mt-4">Kalender</button>
+                </a>
+                <a th:href="@{/loggedin}">
+                    <button class="btn btn-primary float-end mt-4">Bookings</button>
+                </a>
+            </div>
+            <div sec:authorize="hasRole('ADMIN')">
+                <a href="">
+                    <button class="btn btn-primary float-end mt-4" type="button">Vagtplan</button>
+                </a>
+                <a th:href="@{/adminCRUD}">
+                    <button class="btn btn-primary float-end mt-4" type="button">Admin</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>

@@ -15,16 +15,15 @@ import java.util.*;
 @Table(name = "users")
 public class UserModel implements Serializable
 {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "USER_ID")
     private Long userID;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
     @Column(name = "first_name", nullable = false)
@@ -39,12 +38,12 @@ public class UserModel implements Serializable
     @Column(name = "height", nullable = false)
     private int height;
 
+    @OneToMany(mappedBy = "users")
+    private Set<BookingModel> bookingSet = new HashSet<>();
+
     public UserModel()
     {
     }
-
-    @OneToMany(mappedBy = "users")
-    private Set<BookingModel> bookingSet = new HashSet<>();
 
     public Set<BookingModel> getBookingSet() {
         return bookingSet;
@@ -127,5 +126,4 @@ public class UserModel implements Serializable
     public int hashCode() {
         return Objects.hash(email, password, firstName, lastName, dateOfBirth, height);
     }
-
 }

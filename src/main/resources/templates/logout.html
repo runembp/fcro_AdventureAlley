@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>You have been logged out</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+</head>
+<body class="bg-dark text-danger">
+
+<!--#region Header Fragment  -->
+<div th:insert="fragments/general.html"></div>
+<!--#endregion -->
+
+<div class="center-screen">
+    <h1>Du er nu logget ud.</h1>
+
+    <h3>Klik <a th:href="@{/}">her</a> for at vende tilbage til forsiden.</h3>
+</div>
+</body>
+</html>
