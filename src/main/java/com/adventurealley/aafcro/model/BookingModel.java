@@ -6,15 +6,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
+//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 @Entity
 @Table(name = "bookings")
-public class BookingModel implements  Serializable{
+public class BookingModel implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "booking_id")
-    private Long id;
+    private Long bookingID;
 
     @Column(name = "booking_date", nullable = false)
     private LocalDate bookingDate;
@@ -90,8 +90,12 @@ public class BookingModel implements  Serializable{
         return bookingDate;
     }
 
-    public Long getBookingId() {
-        return id;
+    public Long getBookingID() {
+        return bookingID;
+    }
+
+    public void setBookingID(Long bookingID) {
+        this.bookingID = bookingID;
     }
 
     public void setBookingDate(LocalDate bookingDate) {

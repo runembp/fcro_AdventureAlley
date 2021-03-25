@@ -1,9 +1,11 @@
 getBookingToUser();
 
+const bookingOverviewTable = document.getElementById("bookingOverview");
+
 async function getBookingToUser()
 {
-    const bookingOverviewTable = document.getElementById("bookingOverview");
     const userUrl = "http://localhost:8080/bookingsForCurrentUser/";
+
     const response = await fetch(userUrl);
     const bookings = await response.json();
 
@@ -11,7 +13,7 @@ async function getBookingToUser()
     {
         let row = bookingOverviewTable.insertRow();
 
-        let bookingId = bookings[i].bookingId;
+        let bookingId = bookings[i].bookingID;
 
         const activityUrl = `http://localhost:8080/getActivityToBooking/${bookingId}`;
         const response1 = await fetch(activityUrl)
@@ -21,22 +23,23 @@ async function getBookingToUser()
         const response2 = await fetch(timeslotUrl);
         const timeslot = await response2.json();
 
-        let element = document.createElement("p");
-        element.innerText = activity.title + ' ' + bookings[i].bookingDate + ' '+ timeslot.start + ' ' + timeslot.end;
-
         const date = row.insertCell(0);
         date.innerHTML = bookings[i].bookingDate;
 
         const activityTitle = row.insertCell(1);
         activityTitle.innerHTML = activity.title;
 
-        const activityStart = row.insertCell(2);
-        activityStart.innerHTML = timeslot.start;
+        const activityStartEnd = row.insertCell(2);
+        let editTime = document.createElement("select");
+        editTime.disabled = true;
 
-        const activityEnd = row.insertCell(3);
-        activityEnd.innerHTML = timeslot.end;
+        let defaultOption = document.createElement("option");
+        defaultOption.text = timeslot.start + '-' + timeslot.end;
 
-        const cancel = row.insertCell(4);
+        editTime.add(defaultOption);
+        activityStartEnd.appendChild(editTime);
+
+        const cancel = row.insertCell(3);
         let cancelButton = document.createElement("button");
         cancelButton.innerHTML = "Aflys Booking";
         cancelButton.onclick = function ()
@@ -47,6 +50,55 @@ async function getBookingToUser()
             }
         }
         cancel.appendChild(cancelButton);
+
+        const edit = row.insertCell(4);
+        let editButton = document.createElement("button");
+        editButton.id = bookingId;
+        editButton.value = "Rediger tidsrum";
+        editButton.innerHTML = "Rediger Tidsrum";
+        editButton.onclick = async function ()
+        {
+            let ele = document.getElementById(bookingId);
+
+            if(ele.value === "Rediger tidsrum"){
+
+                editTime.disabled = false;
+                ele.value = "Gem";
+                ele.innerHTML = "Gem";
+
+                const url = await fetch("http://localhost:8080/findAllTimeslots")
+                const result = await url.json();
+
+                editTime.length = 0;
+
+                result.forEach(x =>
+                {
+                    let element = document.createElement("option")
+                    element.value = x.timeSlotId;
+                    element.textContent = x.start + "-" + x.end;
+                    editTime.add(element);
+                })
+                return result;
+            }
+            else{
+                editTime.disabled = true;
+                ele.value = "Rediger tidsrum";
+                ele.innerHTML = "Rediger Tidsrum";
+
+                let updatedBooking = {
+                    "bookingID": bookingId,
+                    "bookingDate": bookings[i].bookingDate,
+                    "dummy": activity.activityId,
+                    "dummyTimeSlot": editTime.selectedIndex +1
+                }
+
+                const updatedTimeSlot = JSON.stringify(updatedBooking);
+
+                updateTimeslotForBooking(updatedTimeSlot);
+                defaultOption = timeslot.start + '-' +timeslot.end;
+            }
+        }
+        edit.appendChild(editButton);
     }
 }
 
@@ -62,6 +114,19 @@ function deleteBooking(bookingId){
 }
 
 
+function updateTimeslotForBooking(updatedBooking){
+
+    const updateUrl = "/updateTimeslotForBooking"
+
+    const updateObj = {
+        headers: {'Content-type': 'application/json'
+        },
+        method: 'PUT',
+        body: updatedBooking
+    }
+
+    fetch(updateUrl, updateObj)
+}
 
 
 

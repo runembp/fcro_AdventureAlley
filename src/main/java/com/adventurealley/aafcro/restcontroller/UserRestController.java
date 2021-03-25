@@ -1,6 +1,8 @@
 package com.adventurealley.aafcro.restcontroller;
 
 import com.adventurealley.aafcro.model.AuthGroupModel;
+import com.adventurealley.aafcro.model.BookingModel;
+import com.adventurealley.aafcro.model.TimeSlotModel;
 import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IAuthGroupRepository;
 import com.adventurealley.aafcro.repository.IUserRepository;
@@ -57,4 +59,6 @@ public class UserRestController
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userRepository.findUserByEmail(authentication.getName());
     }
+
+
 }

@@ -10,6 +10,7 @@ import com.adventurealley.aafcro.repository.ITimeSlotRepository;
 import com.adventurealley.aafcro.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -96,4 +97,39 @@ public class BookingRestController
             System.out.println("Error..... " + e.getMessage());
         }
     }
+
+    @PutMapping(value = "/updateTimeslotForBooking", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public BookingModel updateBooking(@RequestBody BookingModel updatedBooking)
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserModel user = userRepository.findUserByEmail(authentication.getName());
+
+        TimeSlotModel timeSlotModel = timeSlotRepository.findById(updatedBooking.getDummyTimeSlot()).get();
+        timeSlotRepository.save(timeSlotModel);
+
+        ActivityModel activityModel = activityRepository.findById(updatedBooking.getDummy()).get();
+
+        updatedBooking.setUsers(user);
+        updatedBooking.setActivity(activityModel);
+        updatedBooking.setTimeSlot(timeSlotModel);
+        bookingRepository.save(updatedBooking);
+
+        updatedBooking.setTimeSlot(timeSlotModel);
+        timeSlotModel.getBookings().add(updatedBooking);
+        timeSlotRepository.save(timeSlotModel);
+
+        timeSlotModel.getActivityModelSet().add(activityModel);
+        timeSlotModel.getBookings().add(updatedBooking);
+        timeSlotRepository.save(timeSlotModel);
+
+        user.getBookingSet().add(updatedBooking);
+        userRepository.save(user);
+
+        return bookingRepository.save(updatedBooking);
+    }
+
+
+
+
 }
