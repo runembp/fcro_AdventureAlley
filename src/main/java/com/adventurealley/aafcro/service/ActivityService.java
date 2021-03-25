@@ -37,10 +37,27 @@ public class ActivityService
         return iActivityRepository.findAll();
     }
 
-    public ActivityModel updateActivity(ActivityModel activityModel) {return iActivityRepository.save(activityModel);}
+    public ActivityModel updateActivity(ActivityModel activityModel)
+    {
+        return iActivityRepository.save(activityModel);
+    }
 
     public void deleteActivityByID(Long activityId) {
         iActivityRepository.deleteById(activityId);
     }
 
+    public ActivityModel getActivityToBooking(Long bookingId)
+    {
+        return iActivityRepository.getActivityToBooking(bookingId);
+    }
+
+    public ActivityModel findById(Long id)
+    {
+        return iActivityRepository.findById(id).get();
+    }
+
+    public ActivityModel save(ActivityModel activityModel)
+    {
+        return iActivityRepository.save(activityModel);
+    }
 }
