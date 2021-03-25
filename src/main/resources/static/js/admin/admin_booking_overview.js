@@ -9,11 +9,11 @@ async function getAllBookings()
 let bookingList = getAllBookings().then(x =>
 {
     bookingList = x;
-    console.log(x);
+
+    for(let i = 0; i < bookingList.length;i++)
+    {
+        console.log(bookingList[i]);
+    }
+
 });
-
-bookingList.forEach(x =>
-{
-
-})
 

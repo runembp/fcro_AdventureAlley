@@ -117,9 +117,9 @@ public class BookingRestController
         }
     }
 
-    @GetMapping("/findAllBookingsForUsers")
-    public List<String> findAllByActivityAndUsers()
+    @GetMapping("/findAllBookingsForAllUsers")
+    public List<Object[]> findAllBookingsForAllUsers()
     {
-        return bookingService.findALlBookingsForUsers();
+        return bookingService.findAllBookingsForAllUsers();
     }
 }

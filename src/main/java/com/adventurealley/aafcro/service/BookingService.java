@@ -38,8 +38,8 @@ public class BookingService
         bookingRepository.deleteById(bookingId);
     }
 
-    public List<String> findALlBookingsForUsers()
+    public List<Object[]> findAllBookingsForAllUsers()
     {
-        return bookingRepository.findAllByActivityAndUsers();
+        return bookingRepository.findAllBookingsForAllUsers();
     }
 }
