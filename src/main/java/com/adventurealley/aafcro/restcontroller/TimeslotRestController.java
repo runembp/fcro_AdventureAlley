@@ -1,11 +1,12 @@
 package com.adventurealley.aafcro.restcontroller;
 
+import com.adventurealley.aafcro.model.BookingModel;
 import com.adventurealley.aafcro.model.TimeSlotModel;
 import com.adventurealley.aafcro.service.TimeslotService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

@@ -1,6 +1,8 @@
 package com.adventurealley.aafcro.restcontroller;
 
 import com.adventurealley.aafcro.model.AuthGroupModel;
+import com.adventurealley.aafcro.model.BookingModel;
+import com.adventurealley.aafcro.model.TimeSlotModel;
 import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.service.AuthGroupService;
 import com.adventurealley.aafcro.service.TimeslotService;
