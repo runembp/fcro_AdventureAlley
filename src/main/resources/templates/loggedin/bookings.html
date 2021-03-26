@@ -22,18 +22,17 @@
 
 <h1 id="useremail">Dine bookings </h1>
 
-<form th:action="@{/loggedin/postCalendar}" method="post">
+<form th:action="@{/loggedin/booking_calendar}">
     <input id="postCalendarOverview" name="postCalendar" hidden>
     <button type="submit" id="calendarButton" class="btn-danger">Åben kalender oversigt</button>
 </form>
 
-<table id="bookingOverview">
-    <th>
+<table id="bookingOverview" width="50%">
+    <tr>
         <th>Dato</th>
         <th>Aktivitet</th>
-        <th>Start</th>
-        <th>Slut</th>
-    </th>
+        <th>Tidsrum</th>
+    </tr>
 </table>
 
 <br>

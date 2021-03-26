@@ -109,8 +109,12 @@ public class ApplicationDefaultData implements ApplicationRunner
 
             b1.setActivity(a1);
             b2.setActivity(a2);
+            b1.setDummy(a1.getActivityId());
+            b2.setDummy(a2.getActivityId());
             b1.setTimeSlot(t1);
+            b1.setDummyTimeSlot(t1.getTimeSlotId());
             b2.setTimeSlot(t4);
+            b2.setDummyTimeSlot(t4.getTimeSlotId());
             bookingRepository.save(b1);
             bookingRepository.save(b2);
 
