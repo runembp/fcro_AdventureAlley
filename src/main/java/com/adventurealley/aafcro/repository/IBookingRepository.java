@@ -1,5 +1,6 @@
 package com.adventurealley.aafcro.repository;
 
+import com.adventurealley.aafcro.model.ActivityBookingDTO;
 import com.adventurealley.aafcro.model.BookingModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,27 +9,6 @@ import java.util.List;
 
 public interface IBookingRepository extends JpaRepository<BookingModel, Long>
 {
-    class ActivityBooking {
-        public final String title;
-        public final String bookingDate;
-        public final String equipment;
-        public final String minAge;
-        public final String minHeight;
-        public final String firstName;
-        public final String lastName;
-
-        public ActivityBooking(String title, String bookingDate, String equipment, String minAge, String minHeight, String firstName, String lastName)
-        {
-            this.title = title;
-            this.bookingDate = bookingDate;
-            this.equipment = equipment;
-            this.minAge = minAge;
-            this.minHeight = minHeight;
-            this.firstName = firstName;
-            this.lastName = lastName;
-        }
-    }
-
     @Query("select b from BookingModel b join UserModel u on b.users.userID = u.userID where u.email = ?1")
     List<BookingModel> getBookingsToUser(String email);
 
@@ -42,4 +22,8 @@ public interface IBookingRepository extends JpaRepository<BookingModel, Long>
             "INNER JOIN ACTIVITIES a on b.ACTIVITY_ID = a.ACTIVITY_ID\n" +
             "INNER JOIN users u on b.USER_ID = u.USER_ID;", nativeQuery = true)
     List<Object[]> findAllBookingsForAllUsers();
+
+    @Query("SELECT new com.adventurealley.aafcro.model.ActivityBookingDTO(a.title, b.bookingDate) \n FROM BookingModel b \n" +
+            "INNER JOIN ActivityModel a on b.activity.activityId = a.activityId")
+    List<ActivityBookingDTO> findActivityBookings();
 }

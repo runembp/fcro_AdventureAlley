@@ -1,5 +1,6 @@
 package com.adventurealley.aafcro.service;
 
+import com.adventurealley.aafcro.model.ActivityBookingDTO;
 import com.adventurealley.aafcro.model.BookingModel;
 import com.adventurealley.aafcro.repository.IBookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,9 @@ public class BookingService
         bookingRepository.deleteById(bookingId);
     }
 
-    public List<Object[]> findAllBookingsForAllUsers()
+    public List<ActivityBookingDTO> findAllBookingsForAllUsers()
     {
-        return bookingRepository.findAllBookingsForAllUsers();
+        return bookingRepository.findActivityBookings();
+//        return bookingRepository.findAllBookingsForAllUsers();
     }
 }

@@ -1,9 +1,6 @@
 package com.adventurealley.aafcro.restcontroller;
 
-import com.adventurealley.aafcro.model.ActivityModel;
-import com.adventurealley.aafcro.model.BookingModel;
-import com.adventurealley.aafcro.model.TimeSlotModel;
-import com.adventurealley.aafcro.model.UserModel;
+import com.adventurealley.aafcro.model.*;
 import com.adventurealley.aafcro.service.ActivityService;
 import com.adventurealley.aafcro.service.BookingService;
 import com.adventurealley.aafcro.service.TimeslotService;
@@ -118,7 +115,7 @@ public class BookingRestController
     }
 
     @GetMapping("/findAllBookingsForAllUsers")
-    public List<Object[]> findAllBookingsForAllUsers()
+    public List<ActivityBookingDTO> findAllBookingsForAllUsers()
     {
         return bookingService.findAllBookingsForAllUsers();
     }

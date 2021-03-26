@@ -6,13 +6,25 @@ async function getAllBookings()
     return await fetch(url).then(x => x.json());
 }
 
-function populateBookingTable(bookingList)
+async function populateBookingTable()
 {
-    const row = bookingTable.insertRow;
+    const bookingsList = await getAllBookings();
+    const row = bookingTable.insertRow();
+    console.log(bookingsList);
 
+    bookingsList.forEach((booking, index) =>
+    {
+        console.log(index)
+
+        booking.forEach(property =>
+        {
+            // property
+        })
+    })
+
+    const title = row.insertCell(0);
+    const date = row.insertCell(1);
+    date.innerHTML = "Booking date";
 }
-const title = row.insertCell(0);
-title.innerHTML = "Booking title";
 
-const date = row.insertCell(1);
-date.innerHTML = "Booking date";
+populateBookingTable();
