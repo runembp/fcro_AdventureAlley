@@ -7,13 +7,11 @@ import com.adventurealley.aafcro.service.TimeslotService;
 import com.adventurealley.aafcro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Serializable;
 import java.util.List;
 
 @RestController
@@ -39,52 +37,9 @@ public class BookingRestController
 
     @PostMapping("/postBooking")
     @ResponseStatus(HttpStatus.CREATED)
-    Serializable postBooking(@RequestBody BookingModel booking)
+    Exception postBooking(@RequestBody BookingModel booking)
     {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserModel user = userService.findUserByEmail(authentication.getName());
-
-        List<BookingModel> userBookingList = bookingService.getBookingsToUser(authentication.getName());
-
-        try
-        {
-            for(var x : userBookingList)
-            {
-                if(x.getBookingDate().equals(booking.getBookingDate()) && x.getTimeSlot().getTimeSlotId().equals(booking.getDummyTimeSlot()))
-                {
-                    throw new Exception("ERROR");
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            return e;
-        }
-
-        BookingModel newBooking = bookingService.save(booking);
-        bookingService.save(newBooking);
-
-        TimeSlotModel timeSlotModel = timeslotService.findById(booking.getDummyTimeSlot());
-        timeslotService.save(timeSlotModel);
-
-        ActivityModel activityModel = activityService.findById(booking.getDummy());
-        activityModel.getTimeslot().add(timeSlotModel);
-        activityModel.getBookingsSet().add(newBooking);
-        activityService.save(activityModel);
-
-        newBooking.setUsers(user);
-        newBooking.setActivity(activityModel);
-        newBooking.setTimeSlot(timeSlotModel);
-        bookingService.save(newBooking);
-
-        timeSlotModel.getActivityModelSet().add(activityModel);
-        timeSlotModel.getBookings().add(newBooking);
-        timeslotService.save(timeSlotModel);
-
-        user.getBookingSet().add(newBooking);
-        userService.save(user);
-
-        return bookingService.save(newBooking);
+         return bookingService.createBooking(booking);
     }
 
     @GetMapping("/bookingsForCurrentUser")
@@ -97,8 +52,7 @@ public class BookingRestController
     @GetMapping("/getBookingsForCurrentUserCalendar")
     public List<String> getBookingsForUser()
     {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return bookingService.getBookingsForUserCalendar(authentication.getName());
+        return bookingService.getBookingsForUserCalendar();
     }
 
     @ResponseStatus(code=HttpStatus.NO_CONTENT)
@@ -117,33 +71,9 @@ public class BookingRestController
 
     @PutMapping(value = "/updateTimeslotForBooking", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public BookingModel updateBooking(@RequestBody BookingModel updatedBooking)
+    public void updateBooking(@RequestBody BookingModel updatedBooking)
     {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserModel user = userService.findUserByEmail(authentication.getName());
-
-        TimeSlotModel timeSlotModel = timeslotService.findById(updatedBooking.getDummyTimeSlot());
-        timeslotService.save(timeSlotModel);
-
-        ActivityModel activityModel = activityService.findById(updatedBooking.getDummy());
-
-        updatedBooking.setUsers(user);
-        updatedBooking.setActivity(activityModel);
-        updatedBooking.setTimeSlot(timeSlotModel);
-        bookingService.save(updatedBooking);
-
-        updatedBooking.setTimeSlot(timeSlotModel);
-        timeSlotModel.getBookings().add(updatedBooking);
-        timeslotService.save(timeSlotModel);
-
-        timeSlotModel.getActivityModelSet().add(activityModel);
-        timeSlotModel.getBookings().add(updatedBooking);
-        timeslotService.save(timeSlotModel);
-
-        user.getBookingSet().add(updatedBooking);
-        userService.save(user);
-
-        return bookingService.save(updatedBooking);
+         bookingService.updateBooking(updatedBooking);
     }
 
     @GetMapping("/findAllBookingsForAllUsers")

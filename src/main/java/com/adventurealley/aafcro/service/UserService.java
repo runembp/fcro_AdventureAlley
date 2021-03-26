@@ -1,8 +1,12 @@
 package com.adventurealley.aafcro.service;
 
+import com.adventurealley.aafcro.model.AuthGroupModel;
 import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +16,9 @@ public class UserService
 {
     @Autowired
     IUserRepository userRepository;
+
+    @Autowired
+    AuthGroupService authGroupService;
 
     public UserModel getUserByEmail(String userEmail)
     {
@@ -28,8 +35,18 @@ public class UserService
         return userRepository.save(userModel);
     }
 
-    public UserModel findUserByEmail(String email)
+    public UserModel findUserByEmail()
     {
-        return userRepository.findUserByEmail(email);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return userRepository.findUserByEmail(authentication.getName());
+    }
+
+    public void postUser(UserModel userModel) {
+        String salt = BCrypt.gensalt(9);
+        String hashedPassword = BCrypt.hashpw(userModel.getPassword(),salt);
+
+        userModel.setPassword(hashedPassword);
+
+        authGroupService.save(new AuthGroupModel(userModel.getEmail(), "USER"));
     }
 }
