@@ -23,7 +23,10 @@ public interface IBookingRepository extends JpaRepository<BookingModel, Long>
             "INNER JOIN users u on b.USER_ID = u.USER_ID;", nativeQuery = true)
     List<Object[]> findAllBookingsForAllUsers();
 
-    @Query("SELECT new com.adventurealley.aafcro.model.ActivityBookingDTO(a.title, b.bookingDate) \n FROM BookingModel b \n" +
-            "INNER JOIN ActivityModel a on b.activity.activityId = a.activityId")
+    @Query("SELECT new com.adventurealley.aafcro.model.ActivityBookingDTO(a.title, a.equipment,a.minAge,a.minHeight, " +
+            "b.timeSlot.timeSlotId, b.bookingDate, " +
+            "u.firstName, u.lastName, u.dateOfBirth, u.height) FROM BookingModel b " +
+            "INNER JOIN ActivityModel a on b.activity.activityId = a.activityId " +
+            "INNER JOIN UserModel u on b.users.userID = u.userID")
     List<ActivityBookingDTO> findActivityBookings();
 }

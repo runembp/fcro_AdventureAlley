@@ -4,32 +4,83 @@ import java.time.LocalDate;
 
 public class ActivityBookingDTO
 {
-    private String activityTitle;
-    private LocalDate date;
+    //Activity
+    private String title;
+    private String equipment;
+    private int minAge;
+    private int minHeight;
 
-    public ActivityBookingDTO(String activityTitle, LocalDate date)
+    //Booking
+    private Long timeslotId;
+    private LocalDate bookingDate;
+
+    //User
+    private String userFirstName;
+    private String userLastname;
+    private LocalDate userBirthDate;
+    private int height;
+
+    public ActivityBookingDTO(String title, String equipment, int minAge, int minHeight, Long timeslotId, LocalDate bookingDate, String userFirstName, String userLastname, LocalDate userBirthDate, int height)
     {
-        this.activityTitle = activityTitle;
-        this.date = date;
+        this.title = title;
+        this.equipment = equipment;
+        this.minAge = minAge;
+        this.minHeight = minHeight;
+        this.timeslotId = timeslotId;
+        this.bookingDate = bookingDate;
+        this.userFirstName = userFirstName;
+        this.userLastname = userLastname;
+        this.userBirthDate = userBirthDate;
+        this.height = height;
     }
 
-    public String getActivityTitle()
+    public String getTitle()
     {
-        return activityTitle;
+        return title;
     }
 
-    public void setActivityTitle(String activityTitle)
+    public String getEquipment()
     {
-        this.activityTitle = activityTitle;
+        return equipment;
     }
 
-    public LocalDate getDate()
+    public int getMinAge()
     {
-        return date;
+        return minAge;
     }
 
-    public void setDate(LocalDate date)
+    public int getMinHeight()
     {
-        this.date = date;
+        return minHeight;
+    }
+
+    public Long getTimeslotId()
+    {
+        return timeslotId;
+    }
+
+    public LocalDate getBookingDate()
+    {
+        return bookingDate;
+    }
+
+    public String getUserFirstName()
+    {
+        return userFirstName;
+    }
+
+    public String getUserLastname()
+    {
+        return userLastname;
+    }
+
+    public LocalDate getUserBirthDate()
+    {
+        return userBirthDate;
+    }
+
+    public int getHeight()
+    {
+        return height;
     }
 }

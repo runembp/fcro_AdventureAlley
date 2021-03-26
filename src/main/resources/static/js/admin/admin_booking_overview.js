@@ -1,4 +1,4 @@
-const bookingTable = document.getElementById("bookingTable")
+populateBookingTable();
 
 async function getAllBookings()
 {
@@ -8,23 +8,42 @@ async function getAllBookings()
 
 async function populateBookingTable()
 {
+    const bookingTable = document.getElementById("bookingTable")
     const bookingsList = await getAllBookings();
     const row = bookingTable.insertRow();
-    console.log(bookingsList);
+    const timeslotValues = ["08:00-10:00","10:00-12:00","12:00-14:00","14:00-16:00"]
 
-    bookingsList.forEach((booking, index) =>
+    console.log(bookingsList)
+
+    console.log(bookingsList[1])
+
+    console.log(bookingsList.length)
+
+    for(const booking of bookingsList)
     {
-        console.log(index)
+        const bookingDate = row.insertCell(0)
+        bookingDate.innerText = booking.bookingDate;
 
-        booking.forEach(property =>
-        {
-            // property
-        })
-    })
+        const timeslotId = row.insertCell(1)
+        timeslotId.innerText = timeslotValues[booking.timeslotId - 1];
 
-    const title = row.insertCell(0);
-    const date = row.insertCell(1);
-    date.innerHTML = "Booking date";
+        const title = row.insertCell(2)
+        title.innerText = booking.title;
+
+        const equipment = row.insertCell(3)
+        equipment.innerText = booking.equipment;
+
+        const minAge = row.insertCell(4)
+        minAge.innerText = booking.minAge;
+
+        const minHeight = row.insertCell(5)
+        minHeight.innerText = booking.minHeight;
+
+        const userName = row.insertCell(6)
+        userName.innerText = booking.userFirstName + " " + booking.userLastname;
+
+        const height = row.insertCell(7)
+        height.innerText = booking.height;
+    }
 }
 
-populateBookingTable();
