@@ -18,7 +18,7 @@ public class ActivityService
     @Autowired
     private ITimeSlotRepository iTimeSlotRepository;
 
-    public ActivityModel  CreateActivity(ActivityModel activityModel)
+    public void  CreateActivity(ActivityModel activityModel)
     {
         List<TimeSlotModel> timeslots = iTimeSlotRepository.findAll();
         for(TimeSlotModel t : timeslots)
@@ -29,7 +29,6 @@ public class ActivityService
             t.getActivityModelSet().add(activityModel);
             iTimeSlotRepository.save(t);
         }
-     return activityModel;
     }
 
     public List<ActivityModel> getAllActivities()
@@ -37,9 +36,9 @@ public class ActivityService
         return iActivityRepository.findAll();
     }
 
-    public ActivityModel updateActivity(ActivityModel activityModel)
+    public void updateActivity(ActivityModel activityModel)
     {
-        return iActivityRepository.save(activityModel);
+        iActivityRepository.save(activityModel);
     }
 
     public void deleteActivityByID(Long activityId) {

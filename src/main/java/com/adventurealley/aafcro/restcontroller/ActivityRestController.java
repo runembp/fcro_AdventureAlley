@@ -23,19 +23,20 @@ public class ActivityRestController
 
     @PostMapping(value = "/newActivity", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public ActivityModel postActivity(@RequestBody ActivityModel activityModel)
+    public void postActivity(@RequestBody ActivityModel activityModel)
     {
-        return activityService.CreateActivity(activityModel);
+        activityService.CreateActivity(activityModel);
     }
 
     @PutMapping(value = "/updateActivity", consumes = "application/json")
-    public ActivityModel putActivity(@RequestBody ActivityModel updatedActivity) {
-        return activityService.updateActivity(updatedActivity);
+    public void putActivity(@RequestBody ActivityModel updatedActivity)
+    {
+        activityService.updateActivity(updatedActivity);
     }
 
     @DeleteMapping("/deleteActivity/{activityId}")
-    public void deleteActivity(@PathVariable Long activityId) {
-
+    public void deleteActivity(@PathVariable Long activityId)
+    {
         activityService.deleteActivityByID(activityId);
     }
 
