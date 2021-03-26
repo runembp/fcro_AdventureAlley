@@ -52,7 +52,7 @@ async function getBookingToUser()
         cancel.appendChild(cancelButton);
 
         const edit = row.insertCell(4);
-        let editButton = document.createElement("button");
+        const editButton = document.createElement("button");
         editButton.id = bookingId;
         editButton.value = "Rediger tidsrum";
         editButton.innerHTML = "Rediger Tidsrum";
