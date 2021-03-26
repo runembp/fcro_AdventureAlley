@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
     <link src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <script type="text/javascript" th:src="@{/js/admin/admin_booking_overview.js}"></script>
+    <script type="text/javascript" th:src="@{/js/admin/admin_booking_overview.js}" defer></script>
 </head>
 <body class="bg-dark text-danger">
 
@@ -16,7 +16,10 @@
 
 <h1>Bookings:</h1>
 
-<div id="bookingContainer"></div>
+<table id="bookingTable">
+    <th>Dato</th>
+    <th>Titel</th>
+</table>
 
 </body>
 </html>
