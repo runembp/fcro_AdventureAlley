@@ -48,5 +48,6 @@ public class UserService
         userModel.setPassword(hashedPassword);
 
         authGroupService.save(new AuthGroupModel(userModel.getEmail(), "USER"));
+        userRepository.save(userModel);
     }
 }

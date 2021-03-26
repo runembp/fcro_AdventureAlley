@@ -87,14 +87,11 @@ public class ApplicationDefaultData implements ApplicationRunner
             timeSlotRepository.save(t3);
             timeSlotRepository.save(t4);
 
-            UserModel u1 = new UserModel("rbp@groupcare.com", "$2a$09$dKC/C1ybG8FF.LOeNLGSu.ZXPcqM3UAKeajg0YFjsarHTcY7wLmXK", "Rune", "Petersen", LocalDate.parse("1984-10-08"), 170);
+            UserModel u1 = new UserModel("guest@adventurealley.com", "$2y$09$MXZZYB7l8uGxns1Tp53jseiXcSbFGjEqalyVQEeGmiWNLxmKk3/Nq", "Gæst", "Gæstesen", LocalDate.parse("1984-10-08"), 170);
             userRepository.save(u1);
 
-            AuthGroupModel ag1 = new AuthGroupModel("rbp@groupcare.com", "USER");
+            AuthGroupModel ag1 = new AuthGroupModel("guest@adventurealley.com", "USER");
             authGroupRepository.save(ag1);
-
-            AuthGroupModel ag2 = new AuthGroupModel("rbp@groupcare.com", "ADMIN");
-            authGroupRepository.save(ag2);
 
             BookingModel b1 = new BookingModel(LocalDate.now());
             BookingModel b2 = new BookingModel(LocalDate.now());

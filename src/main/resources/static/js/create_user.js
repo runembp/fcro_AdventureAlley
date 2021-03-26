@@ -70,12 +70,6 @@ function createUser() {
         fetch(url, postObject)
             .then(response => response.json())
             .then(() => {
-                console.log("success")
                 window.location.href = "/"
             })
-            .catch(() => {
-                console.log("failure")
-            })
 }
-
-let list = "hello"
