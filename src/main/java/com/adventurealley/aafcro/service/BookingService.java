@@ -57,7 +57,6 @@ public class BookingService
     public List<ActivityBookingDTO> findAllBookingsForAllUsers()
     {
         return bookingRepository.findActivityBookings();
-//        return bookingRepository.findAllBookingsForAllUsers();
     }
 
     public Exception createBooking(BookingModel booking) {
