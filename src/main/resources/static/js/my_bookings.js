@@ -33,7 +33,7 @@ async function getBookingToUser()
         const editTime = document.createElement("select");
         editTime.disabled = true;
 
-        let defaultOption = document.createElement("option");
+        const defaultOption = document.createElement("option");
         defaultOption.text = timeslot.start + '-' + timeslot.end;
 
         editTime.add(defaultOption);
@@ -95,7 +95,7 @@ async function getBookingToUser()
                 const updatedTimeSlot = JSON.stringify(updatedBooking);
 
                 updateTimeslotForBooking(updatedTimeSlot);
-                defaultOption = timeslot.start + '-' +timeslot.end;
+                defaultOption.text = timeslot.start + '-' +timeslot.end;
             }
         }
         edit.appendChild(editButton);
