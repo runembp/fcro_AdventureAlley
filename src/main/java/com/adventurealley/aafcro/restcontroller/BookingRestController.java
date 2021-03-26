@@ -123,33 +123,29 @@ public class BookingRestController
     public BookingModel updateBooking(@RequestBody BookingModel updatedBooking)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserModel user = userRepository.findUserByEmail(authentication.getName());
+        UserModel user = userService.findUserByEmail(authentication.getName());
 
-        TimeSlotModel timeSlotModel = timeSlotRepository.findById(updatedBooking.getDummyTimeSlot()).get();
-        timeSlotRepository.save(timeSlotModel);
+        TimeSlotModel timeSlotModel = timeslotService.findById(updatedBooking.getDummyTimeSlot());
+        timeslotService.save(timeSlotModel);
 
-        ActivityModel activityModel = activityRepository.findById(updatedBooking.getDummy()).get();
+        ActivityModel activityModel = activityService.findById(updatedBooking.getDummy());
 
         updatedBooking.setUsers(user);
         updatedBooking.setActivity(activityModel);
         updatedBooking.setTimeSlot(timeSlotModel);
-        bookingRepository.save(updatedBooking);
+        bookingService.save(updatedBooking);
 
         updatedBooking.setTimeSlot(timeSlotModel);
         timeSlotModel.getBookings().add(updatedBooking);
-        timeSlotRepository.save(timeSlotModel);
+        timeslotService.save(timeSlotModel);
 
         timeSlotModel.getActivityModelSet().add(activityModel);
         timeSlotModel.getBookings().add(updatedBooking);
-        timeSlotRepository.save(timeSlotModel);
+        timeslotService.save(timeSlotModel);
 
         user.getBookingSet().add(updatedBooking);
-        userRepository.save(user);
+        userService.save(user);
 
-        return bookingRepository.save(updatedBooking);
+        return bookingService.save(updatedBooking);
     }
-
-
-
-
 }

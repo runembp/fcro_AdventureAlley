@@ -59,6 +59,4 @@ public class UserRestController
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userService.findUserByEmail(authentication.getName());
     }
-
-
 }

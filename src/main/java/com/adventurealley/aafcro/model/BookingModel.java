@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
+
 @Entity
 @Table(name = "bookings")
 public class BookingModel implements Serializable{

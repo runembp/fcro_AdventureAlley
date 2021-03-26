@@ -13,7 +13,7 @@ async function getBookingToUser()
     {
         let row = bookingOverviewTable.insertRow();
 
-        let bookingId = bookings[i].bookingID;
+        const bookingId = bookings[i].bookingID;
 
         const activityUrl = `http://localhost:8080/getActivityToBooking/${bookingId}`;
         const response1 = await fetch(activityUrl)
@@ -30,7 +30,7 @@ async function getBookingToUser()
         activityTitle.innerHTML = activity.title;
 
         const activityStartEnd = row.insertCell(2);
-        let editTime = document.createElement("select");
+        const editTime = document.createElement("select");
         editTime.disabled = true;
 
         let defaultOption = document.createElement("option");
@@ -40,7 +40,7 @@ async function getBookingToUser()
         activityStartEnd.appendChild(editTime);
 
         const cancel = row.insertCell(3);
-        let cancelButton = document.createElement("button");
+        const cancelButton = document.createElement("button");
         cancelButton.innerHTML = "Aflys Booking";
         cancelButton.onclick = function ()
         {
@@ -85,7 +85,7 @@ async function getBookingToUser()
                 ele.value = "Rediger tidsrum";
                 ele.innerHTML = "Rediger Tidsrum";
 
-                let updatedBooking = {
+                const updatedBooking = {
                     "bookingID": bookingId,
                     "bookingDate": bookings[i].bookingDate,
                     "dummy": activity.activityId,

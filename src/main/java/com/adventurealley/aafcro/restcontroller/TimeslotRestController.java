@@ -27,6 +27,4 @@ public class TimeslotRestController
     {
        return timeslotService.timeslotForBooking(bookingId);
     }
-
-
 }
