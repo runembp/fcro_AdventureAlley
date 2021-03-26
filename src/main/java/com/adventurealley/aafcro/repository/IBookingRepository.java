@@ -18,11 +18,6 @@ public interface IBookingRepository extends JpaRepository<BookingModel, Long>
             "WHERE u.EMAIL = ?1", nativeQuery = true)
     List<String> getBookingsForUser(String email);
 
-    @Query(value = "SELECT TITLE, BOOKING_DATE, TIME_SLOT_ID, EQUIPMENT, MIN_AGE, MIN_HEIGHT, FIRST_NAME, LAST_NAME, HEIGHT FROM BOOKINGS b \n" +
-            "INNER JOIN ACTIVITIES a on b.ACTIVITY_ID = a.ACTIVITY_ID\n" +
-            "INNER JOIN users u on b.USER_ID = u.USER_ID;", nativeQuery = true)
-    List<Object[]> findAllBookingsForAllUsers();
-
     @Query("SELECT new com.adventurealley.aafcro.model.ActivityBookingDTO(a.title, a.equipment,a.minAge,a.minHeight, " +
             "b.timeSlot.timeSlotId, b.bookingDate, " +
             "u.firstName, u.lastName, u.dateOfBirth, u.height) FROM BookingModel b " +
