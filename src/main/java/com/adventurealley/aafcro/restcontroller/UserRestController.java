@@ -1,17 +1,11 @@
 package com.adventurealley.aafcro.restcontroller;
 
-import com.adventurealley.aafcro.model.AuthGroupModel;
-import com.adventurealley.aafcro.model.BookingModel;
-import com.adventurealley.aafcro.model.TimeSlotModel;
 import com.adventurealley.aafcro.model.UserModel;
 import com.adventurealley.aafcro.service.AuthGroupService;
 import com.adventurealley.aafcro.service.TimeslotService;
 import com.adventurealley.aafcro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,21 +36,14 @@ public class UserRestController
 
     @PostMapping(value = "/postUser", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    UserModel postUser(@RequestBody UserModel userModel)
+    void postUser(@RequestBody UserModel userModel)
     {
-        String salt = BCrypt.gensalt(9);
-        String hashedPassword = BCrypt.hashpw(userModel.getPassword(),salt);
-
-        userModel.setPassword(hashedPassword);
-
-        authGroupService.save(new AuthGroupModel(userModel.getEmail(), "USER"));
-        return userService.save(userModel);
+        userService.postUser(userModel);
     }
 
     @GetMapping("/getCurrentUserInfo")
     UserModel getCurrentUserInfo()
     {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return userService.findUserByEmail(authentication.getName());
+        return userService.findUserByEmail();
     }
 }

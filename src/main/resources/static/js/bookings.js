@@ -40,7 +40,7 @@ async function getTimeslots()
     return result;
 }
 
-async function createBooking()
+function createBooking()
 {
     const activity = list[dropdownAllActivities.selectedIndex];
     const timeslot = timeslotList[dropdownTimeslots.selectedIndex];
